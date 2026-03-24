@@ -824,7 +824,7 @@
                   Restore when Elementary adopts the tool.
                   <option>Susan Winstead</option>
                 -->
-                <option>Michele Krolikowski</option>
+                <option>Michelle Krolikowski</option>
                 <option>Jennifer Yauck</option>
                 <!--
                   ARCHIVED — New Literacy Coach (TBD) removed until position is filled.
@@ -927,9 +927,9 @@
         <!-- Classroom context: unified 2-col grid, all fields aligned -->
         <div style="display:grid; grid-template-columns:1fr 1fr; gap:18px; align-items:start;">
 
-          <!-- Col 1 Row 1: Instructional Format -->
+          <!-- Col 1 Row 1: Instructional Format (Primary + Secondary) -->
           <div class="field">
-            <label>Instructional format</label>
+            <label>Primary instructional format <span style="font-weight:400;text-transform:none;font-size:11px;">(majority of visit)</span></label>
             <select id="f-format" onchange="handleFormatChange(this.value)">
               <option value="">Select...</option>
               <option>Whole group instruction</option>
@@ -943,7 +943,25 @@
               <option value="__other_format__">Other (describe below)</option>
             </select>
             <div id="other-format-wrap" style="display:none; margin-top:8px;">
-              <input type="text" id="f-format-other" placeholder="Describe instructional format..." style="font-family:'DM Sans',sans-serif; font-size:14px; color:var(--text); background:var(--cream); border:1.5px solid var(--border); border-radius:var(--radius); padding:10px 13px; width:100%;">
+              <input type="text" id="f-format-other" placeholder="Describe primary format..." style="font-family:'DM Sans',sans-serif; font-size:14px; color:var(--text); background:var(--cream); border:1.5px solid var(--border); border-radius:var(--radius); padding:10px 13px; width:100%;">
+            </div>
+            <div style="margin-top:10px;">
+              <label style="font-size:11.5px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--text-muted);">Transition to secondary instructional format <span style="font-weight:400;text-transform:none;font-size:11px;">(if observed)</span></label>
+              <select id="f-format-secondary" onchange="handleFormatSecondaryChange(this.value)" style="margin-top:5px;">
+                <option value="">No transition observed</option>
+                <option>Whole group instruction</option>
+                <option>Independent work</option>
+                <option>Stations / centers</option>
+                <option>Partner work</option>
+                <option>Small group — teacher-led</option>
+                <option>Small group — student-led</option>
+                <option>Lecture</option>
+                <option>Seminar / Workshop</option>
+                <option value="__other_format_secondary__">Other (describe below)</option>
+              </select>
+              <div id="other-format-secondary-wrap" style="display:none; margin-top:8px;">
+                <input type="text" id="f-format-secondary-other" placeholder="Describe transition format..." style="font-family:'DM Sans',sans-serif; font-size:14px; color:var(--text); background:var(--cream); border:1.5px solid var(--border); border-radius:var(--radius); padding:10px 13px; width:100%;">
+              </div>
             </div>
             <!-- Class configuration sits below format in col 1 -->
             <div style="margin-top:14px;">
@@ -962,15 +980,7 @@
               <label>Co-teacher / support teacher</label>
               <input type="text" id="f-coteacher" placeholder="Last name (if applicable)">
             </div>
-            <!-- Standard / learning target sits below config in col 1 -->
-            <div style="margin-top:14px;">
-              <label style="font-size:11.5px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--text-muted);">Standard / learning target</label>
-              <div id="standards-list" style="margin:6px 0;"></div>
-              <div style="display:flex; gap:8px; margin-top:5px;">
-                <input type="text" id="f-standard-input" placeholder="e.g. ELAGSE9-10RL1 — press Add..." style="font-family:'DM Sans',sans-serif; font-size:14px; color:var(--text); background:var(--cream); border:1.5px solid var(--border); border-radius:var(--radius); padding:10px 13px; flex:1;">
-                <button onclick="addStandard()" style="font-family:'DM Sans',sans-serif; font-size:13px; font-weight:600; padding:9px 18px; background:var(--navy); color:white; border:none; border-radius:8px; cursor:pointer; white-space:nowrap;">Add</button>
-              </div>
-            </div>
+
           </div>
 
           <!-- Col 2: Reading/Writing Focus + Literary/Skill Focus stacked -->
@@ -1012,6 +1022,15 @@
               <div id="other-literary-wrap" style="display:none; margin-top:6px;">
                 <input type="text" id="f-literary-other" placeholder="Describe literary or skill focus..." style="font-family:'DM Sans',sans-serif; font-size:14px; color:var(--text); background:var(--cream); border:1.5px solid var(--border); border-radius:var(--radius); padding:10px 13px; width:100%;">
               </div>
+            </div>
+          </div>
+          <!-- Standard / learning target — full width below both columns -->
+          <div class="field" style="grid-column: 1 / -1; margin-top:4px;">
+            <label>Standard / learning target</label>
+            <div id="standards-list" style="margin:6px 0;"></div>
+            <div style="display:flex; gap:8px; margin-top:5px;">
+              <input type="text" id="f-standard-input" placeholder="e.g. ELAGSE9-10RL1, ELAGSE8-9W1 — type and press Add..." style="font-family:'DM Sans',sans-serif; font-size:14px; color:var(--text); background:var(--cream); border:1.5px solid var(--border); border-radius:var(--radius); padding:10px 13px; flex:1;">
+              <button onclick="addStandard()" style="font-family:'DM Sans',sans-serif; font-size:13px; font-weight:600; padding:9px 18px; background:var(--navy); color:white; border:none; border-radius:8px; cursor:pointer; white-space:nowrap;">Add</button>
             </div>
           </div>
         </div>
@@ -1062,6 +1081,7 @@
           <button class="tag" onclick="toggleTag(this)">Author's craft discussed</button>
           <button class="tag" onclick="toggleTag(this)">Culturally relevant text</button>
           <button class="tag" onclick="toggleTag(this)">Student ownership of thinking</button>
+          <button class="tag" onclick="toggleTag(this)">Literature circles</button>
         </div>
           <button class="tag" onclick="toggleTag(this)">Multimodal text in use</button>
           <button class="tag" onclick="toggleTag(this)">Technology for creation or collaboration</button>
@@ -1258,6 +1278,10 @@ function handleFormatChange(val) {
   document.getElementById('other-format-wrap').style.display = val === '__other_format__' ? 'block' : 'none';
 }
 
+function handleFormatSecondaryChange(val) {
+  document.getElementById('other-format-secondary-wrap').style.display = val === '__other_format_secondary__' ? 'block' : 'none';
+}
+
 function handleReadingChange(val) {
   document.getElementById('other-reading-wrap').style.display = val === '__other_reading__' ? 'block' : 'none';
 }
@@ -1294,15 +1318,15 @@ document.getElementById('f-config').addEventListener('change', function() {
 // Negative/evaluative language replaced with growth-oriented, observational phrasing throughout
 const OBS_CATS = [
   { id:'grouping',     label:'Instructional clarity',          opts:['Instructional focus is clear and purposeful','Focus of instruction is present; purpose emerging','Instructional focus not yet observable','Not applicable'] },
-  { id:'engagement',   label:'Student engagement',             opts:['Most/all students actively engaged','Partial engagement observed','Engagement opportunities to grow','Not observable'] },
+  { id:'engagement',   label:'Student engagement',             opts:['Most/all students actively engaged','Partial engagement observed','Engagement opportunities to grow','Not observed'] },
   { id:'questioning',  label:'Questioning techniques',         opts:['Higher-order / text-anchored questions','Questions developing toward higher-order','Questioning not observed during visit','Not applicable'] },
   { id:'waittime',     label:'Wait Time &amp; Student Response',  opts:['Intentional wait time observed; students given time to think','Some wait time present; responses mostly immediate','Little to no wait time observed','Not applicable'] },
-  { id:'text',         label:'Differentiation &amp; access',   opts:['Differentiation evident &amp; purposeful','Some differentiation observed','Text use not observed during visit','Not applicable'] },
-  { id:'evidence',     label:'Evidence &amp; student talk',    opts:['Students cite evidence; build on peers','Some evidence use or discussion','Discussion developing; teacher-led observed','Not observable'] },
+  { id:'text',         label:'Differentiation &amp; access',   opts:['Differentiation evident &amp; purposeful','Some differentiation observed','Differentiation not observed during visit','Not applicable'] },
+  { id:'evidence',     label:'Evidence &amp; student talk',    opts:['Students cite evidence; build on peers','Some evidence use or discussion','Discussion developing; teacher-led observed','Not observed'] },
   { id:'writing',      label:'Writing &amp; response',         opts:['Writing anchored to text / argument','Some writing present, connection emerging','Writing not observed during visit','Not applicable'] },
   { id:'environment',  label:'Learning environment',           opts:['Welcoming, organized, print-rich','Functional, still developing','Environment still developing','Not applicable'] },
-  { id:'relationship', label:'Teacher–student relationship', opts:['Warm, respectful rapport evident','Cordial, still building','Relationship still developing','Not observable'] },
-  { id:'technology',   label:'Technology &amp; Multimodal Engagement', opts:['Technology used purposefully for creation, collaboration, or multimodal text response','Technology present; moving toward purposeful use','Technology use not observed or passive only','Not applicable'] },
+  { id:'relationship', label:'Teacher–student relationship', opts:['Warm, respectful rapport evident','Cordial, still building','Relationship still developing','Not observed'] },
+  { id:'technology',   label:'Technology &amp; Multimodal Engagement', opts:['Technology used purposefully for creation, collaboration, or multimodal text response','Technology used purposefully','Technology present; moving toward purposeful use','Technology use not observed or passive use only','Not applicable'] },
 ];
 
 const RATING_MAP = ['Evident','Developing','Emerging','N/A'];
@@ -1310,15 +1334,22 @@ const SEL_CLASS  = ['sel-strong','sel-developing','sel-notyet','sel-na'];
 
 // Build obs grid
 const grid = document.getElementById('obs-grid');
+// Style map for up to 5 options — index maps to visual class
+const SEL_CLASS_EXT = ['sel-strong','sel-strong','sel-developing','sel-notyet','sel-na'];
+const RATING_MAP_EXT = ['Evident','Purposeful','Developing','Emerging','N/A'];
+
 OBS_CATS.forEach(cat => {
   const card = document.createElement('div');
   card.className = 'obs-card';
+  const useExtended = cat.opts.length > 4;
+  const rMap  = useExtended ? RATING_MAP_EXT : RATING_MAP;
+  const sMap  = useExtended ? SEL_CLASS_EXT  : SEL_CLASS;
   card.innerHTML = `
     <div class="obs-card-head"><div class="obs-card-title">${cat.label}</div></div>
     <div class="obs-card-body">
       ${cat.opts.map((opt,i)=>`
-        <label class="radio-opt" data-cat="${cat.id}" data-idx="${i}" onclick="selectRadio(this,'${cat.id}',${i})">
-          <input type="radio" name="${cat.id}" value="${RATING_MAP[i]}">
+        <label class="radio-opt" data-cat="${cat.id}" data-idx="${i}" onclick="selectRadio(this,'${cat.id}',${i},'${sMap[i]}')">
+          <input type="radio" name="${cat.id}" value="${rMap[i]}">
           <div class="radio-dot"></div>
           <span class="radio-text">${opt}</span>
         </label>`).join('')}
@@ -1326,9 +1357,10 @@ OBS_CATS.forEach(cat => {
   grid.appendChild(card);
 });
 
-function selectRadio(el, cat, idx) {
-  document.querySelectorAll(`[data-cat="${cat}"]`).forEach(opt => opt.classList.remove(...SEL_CLASS));
-  el.classList.add(SEL_CLASS[idx]);
+function selectRadio(el, cat, idx, selClass) {
+  const allClasses = [...SEL_CLASS, ...SEL_CLASS_EXT];
+  document.querySelectorAll(`[data-cat="${cat}"]`).forEach(opt => opt.classList.remove(...allClasses));
+  el.classList.add(selClass || SEL_CLASS[idx]);
   el.querySelector('input').checked = true;
 }
 
@@ -1407,6 +1439,7 @@ function submitForm() {
     subject: document.getElementById('f-subject').value,
     time:    document.getElementById('f-time').value,
     format:  document.getElementById('f-format').value === '__other_format__' ? document.getElementById('f-format-other').value.trim() || 'Other' : document.getElementById('f-format').value,
+    formatSecondary: document.getElementById('f-format-secondary').value === '__other_format_secondary__' ? document.getElementById('f-format-secondary-other').value.trim() || 'Other' : document.getElementById('f-format-secondary').value,
     config:  document.getElementById('f-config').value,
     coteacher: document.getElementById('f-coteacher').value.trim(),
     reading: (()=>{ const vals=[...document.querySelectorAll('input[name="f-reading"]:checked')].map(c=>c.value==='__other_reading__'?document.getElementById('f-reading-other').value.trim()||'Other':c.value); return vals; })(),
@@ -1443,14 +1476,16 @@ function renderSummary(v) {
   const configLabel = v.config ? v.config + (v.coteacher ? ` (${v.coteacher})` : '') : '—';
   document.getElementById('sum-meta').innerHTML = [
     ['Observer',v.observer],['School',v.school],['Date',fmtDate(v.date)],
-    ['Time',v.time||'—'],['Grade',v.grade||'—'],['Subject',v.subject||'ELA'],['Format',v.format||'—'],
+    ['Time',v.time||'—'],['Grade',v.grade||'—'],['Subject',v.subject||'ELA'],
+    ['Primary format',v.format||'—'],
+    v.formatSecondary && ['Secondary format (transition)',v.formatSecondary],
     v.reading && v.reading.length && ['Reading &amp; Writing focus', Array.isArray(v.reading)?v.reading.join(', '):v.reading],
     ['Configuration', configLabel],['Reading focus',v.reading||'—'],
     v.literary && v.literary.length && ['Literary / skill focus', Array.isArray(v.literary)?v.literary.join(', '):v.literary],
     v.standard && v.standard.length && ['Standard / target', Array.isArray(v.standard)?v.standard.join(', '):v.standard],
   ].filter(Boolean).map(([l,val])=>`<div class="summary-meta-item"><span>${l}</span><strong>${val}</strong></div>`).join('');
 
-  const rbClass = r => r==='Evident'?'rb-strong':r==='Developing'?'rb-developing':r==='Emerging'?'rb-notyet':r==='N/A'?'rb-na':'rb-none';
+  const rbClass = r => r==='Evident'?'rb-strong':r==='Purposeful'?'rb-strong':r==='Developing'?'rb-developing':r==='Emerging'?'rb-notyet':r==='N/A'?'rb-na':'rb-none';
   document.getElementById('sum-ratings').innerHTML = OBS_CATS.map(c=>`
     <div class="rating-row">
       <span class="rating-cat">${c.label}</span>
@@ -1556,6 +1591,13 @@ function editVisit(id) {
   // Classroom context
   document.getElementById('f-format').value  = v.format  || '';
   handleFormatChange(v.format || '');
+  document.getElementById('f-format-secondary').value = v.formatSecondary || '';
+  handleFormatSecondaryChange(v.formatSecondary || '');
+  if (v.formatSecondary && !document.getElementById('f-format-secondary').value) {
+    document.getElementById('f-format-secondary').value = '__other_format_secondary__';
+    document.getElementById('f-format-secondary-other').value = v.formatSecondary;
+    document.getElementById('other-format-secondary-wrap').style.display = 'block';
+  }
   if (v.format && !document.getElementById('f-format').value) {
     document.getElementById('f-format').value = '__other_format__';
     document.getElementById('f-format-other').value = v.format;
@@ -1671,6 +1713,7 @@ function updateVisit() {
     subject:  document.getElementById('f-subject').value,
     time:     document.getElementById('f-time').value,
     format:   document.getElementById('f-format').value === '__other_format__' ? document.getElementById('f-format-other').value.trim() || 'Other' : document.getElementById('f-format').value,
+    formatSecondary: document.getElementById('f-format-secondary').value === '__other_format_secondary__' ? document.getElementById('f-format-secondary-other').value.trim() || 'Other' : document.getElementById('f-format-secondary').value,
     config:   document.getElementById('f-config').value,
     coteacher: document.getElementById('f-coteacher').value.trim(),
     reading:  (()=>{ const vals=[...document.querySelectorAll('input[name="f-reading"]:checked')].map(c=>c.id==='reading-other-cb'?document.getElementById('f-reading-other').value.trim()||'Other':c.value); return vals; })(),
@@ -1729,8 +1772,8 @@ function showScreen(s) {
 function newWalkthrough() { clearForm(); showScreen('form'); }
 
 function clearForm() {
-  ['f-observer','f-school','f-grade','f-format','f-config'].forEach(id=>document.getElementById(id).selectedIndex=0);
-  ['f-teacher','f-time','f-coteacher','f-other-name','f-other-code','f-format-other','f-reading-other','f-literary-other','f-standard-input',
+  ['f-observer','f-school','f-grade','f-format','f-format-secondary','f-config'].forEach(id=>document.getElementById(id).selectedIndex=0);
+  ['f-teacher','f-time','f-coteacher','f-other-name','f-other-code','f-format-other','f-format-secondary-other','f-reading-other','f-literary-other','f-standard-input',
    'f-standard','f-observed','f-needs','f-opportunities',
    'f-comments','f-teacher-response','f-teacher-support','f-teacher-sig','f-teacher-sig-date',
    'f-other-strength'
@@ -1738,6 +1781,7 @@ function clearForm() {
   document.getElementById('f-date').value = new Date().toISOString().split('T')[0];
   document.getElementById('other-observer-panel').style.display = 'none';
   document.getElementById('other-format-wrap').style.display = 'none';
+  document.getElementById('other-format-secondary-wrap').style.display = 'none';
   document.getElementById('other-reading-wrap').style.display = 'none';
   document.getElementById('other-literary-wrap').style.display = 'none';
   document.querySelectorAll('input[name="f-reading"]').forEach(c=>c.checked=false);
