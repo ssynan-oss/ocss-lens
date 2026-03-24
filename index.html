@@ -1321,7 +1321,7 @@ let teacherRoster = []; // [{name, email}]
 
 // ── Load teacher roster from Airtable on page load ──
 async function loadTeacherRoster() {
-  if (!AIRTABLE_TOKEN || AIRTABLE_TOKEN === 'YOUR_TOKEN_HERE') return;
+  if (!AIRTABLE_TOKEN || AIRTABLE_TOKEN === '') return;
   try {
     const url = `https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${encodeURIComponent(TEACHERS_TABLE)}?fields[]=Teacher+Name&fields[]=Teacher+Email`;
     const res = await fetch(url, {
@@ -1371,7 +1371,7 @@ function getTeacherEmail() {
 
 // ── Send walkthrough record to Airtable ──
 async function sendToAirtable(visit) {
-  if (!AIRTABLE_TOKEN || AIRTABLE_TOKEN === 'YOUR_TOKEN_HERE') {
+  if (!AIRTABLE_TOKEN || AIRTABLE_TOKEN === 'patc71LGax0rq6DDz.c0052577d1d00a8451845b5a688483bac24ffe7b45f566b4c89894fcc4867b21') {
     return { success: false, error: 'Token not configured' };
   }
 
