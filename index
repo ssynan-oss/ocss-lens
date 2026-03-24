@@ -1,0 +1,1462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OCSS LENS — Instructional Walkthrough</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy:        #1B2A5A;
+    --navy-mid:    #243672;
+    --navy-light:  #2e4494;
+    --red:         #B22234;
+    --red-dark:    #8c1a28;
+    --red-hover:   #c8263c;
+    --white:       #ffffff;
+    --cream:       #f4f5fa;
+    --border:      #d8daea;
+    --border-strong: #a8aec8;
+    --text:        #111827;
+    --text-mid:    #374151;
+    --text-muted:  #6b7280;
+    --strong-green: #166534;
+    --strong-amber: #92400e;
+    --strong-red:   #991b1b;
+    --bg-green:    #dcfce7;
+    --bg-amber:    #fef3c7;
+    --bg-red:      #fee2e2;
+    --radius:      10px;
+    --radius-lg:   16px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    min-height: 100vh;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  /* ── Header ── */
+  .site-header {
+    background: var(--navy);
+    padding: 0 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 68px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 4px solid var(--red);
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    text-decoration: none;
+  }
+
+  .logo-seal {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: transparent;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .logo-seal img {
+    width: 48px;
+    height: 48px;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+
+  .logo-text-wrap { display: flex; flex-direction: column; }
+
+  .logo-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: 21px;
+    color: var(--white);
+    letter-spacing: .02em;
+    line-height: 1.1;
+  }
+
+  .logo-sub {
+    font-size: 10.5px;
+    color: rgba(255,255,255,.55);
+    letter-spacing: .09em;
+    text-transform: uppercase;
+    margin-top: 1px;
+  }
+
+  .header-nav { display: flex; gap: 8px; }
+
+  .nav-btn {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 8px 18px;
+    border-radius: 7px;
+    border: 1px solid rgba(255,255,255,.2);
+    background: transparent;
+    color: rgba(255,255,255,.8);
+    cursor: pointer;
+    transition: all .18s;
+    letter-spacing: .01em;
+  }
+
+  .nav-btn:hover { background: rgba(255,255,255,.1); color: #fff; }
+  .nav-btn.active { background: var(--red); color: #fff; border-color: var(--red); font-weight: 600; }
+
+  /* ── Hero bar ── */
+  .hero-bar {
+    background: var(--navy-mid);
+    padding: 26px 40px 22px;
+  }
+
+  .hero-eyebrow {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,.5);
+    margin-bottom: 5px;
+  }
+
+  .hero-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 27px;
+    color: var(--white);
+    letter-spacing: .01em;
+  }
+
+  .hero-sub {
+    font-size: 13px;
+    color: rgba(255,255,255,.5);
+    margin-top: 5px;
+    font-weight: 300;
+  }
+
+  /* ── Red rule under hero ── */
+  .hero-rule {
+    height: 5px;
+    background: linear-gradient(90deg, var(--red) 0%, var(--red-dark) 100%);
+  }
+
+  /* ── Layout ── */
+  .layout {
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 32px 20px 80px;
+  }
+
+  /* ── Section blocks ── */
+  .form-section {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    margin-bottom: 18px;
+    overflow: hidden;
+    animation: fadeUp .35s ease both;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .form-section:nth-child(2) { animation-delay: .05s; }
+  .form-section:nth-child(3) { animation-delay: .10s; }
+  .form-section:nth-child(4) { animation-delay: .15s; }
+  .form-section:nth-child(5) { animation-delay: .20s; }
+  .form-section:nth-child(6) { animation-delay: .25s; }
+
+  .section-head {
+    background: var(--navy);
+    padding: 13px 22px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .section-icon {
+    width: 28px;
+    height: 28px;
+    background: rgba(178,34,52,.25);
+    border-radius: 7px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .section-icon svg { width: 14px; height: 14px; stroke: #fca5a5; }
+
+  .section-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 15px;
+    color: var(--white);
+    letter-spacing: .02em;
+  }
+
+  .section-body { padding: 22px; }
+
+  /* ── Fields ── */
+  .field-grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+  .field-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .field { display: flex; flex-direction: column; gap: 5px; }
+
+  .field label {
+    font-size: 11.5px;
+    font-weight: 600;
+    letter-spacing: .07em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  .field input,
+  .field select,
+  .field textarea {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    color: var(--text);
+    background: var(--cream);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    padding: 10px 13px;
+    transition: border-color .15s, box-shadow .15s;
+    width: 100%;
+  }
+
+  .field input:focus,
+  .field select:focus,
+  .field textarea:focus {
+    outline: none;
+    border-color: var(--navy-light);
+    box-shadow: 0 0 0 3px rgba(27,42,90,.10);
+    background: var(--white);
+  }
+
+  .field textarea { resize: vertical; min-height: 88px; line-height: 1.6; }
+
+  /* ── Observation descriptor cards ── */
+  .obs-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+
+  .obs-card {
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    overflow: visible;
+    transition: border-color .15s;
+  }
+
+  .obs-card:focus-within { border-color: var(--navy-light); }
+
+  .obs-card-head {
+    background: #eef0f8;
+    padding: 10px 15px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .obs-card-title { font-size: 13px; font-weight: 600; color: var(--navy); }
+  .obs-card-body  { padding: 13px 15px; display: flex; flex-direction: column; gap: 7px; }
+
+  .radio-opt {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    cursor: pointer;
+    padding: 7px 9px;
+    border-radius: 8px;
+    border: 1.5px solid transparent;
+    transition: all .14s;
+  }
+
+  .radio-opt:hover { background: var(--cream); }
+  .radio-opt input[type=radio] { display: none; }
+
+  .radio-dot {
+    width: 17px; height: 17px;
+    border-radius: 50%;
+    border: 2px solid var(--border-strong);
+    flex-shrink: 0; margin-top: 1px;
+    display: flex; align-items: center; justify-content: center;
+    transition: all .14s;
+  }
+
+  .radio-dot::after {
+    content: '';
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: white;
+    opacity: 0;
+    transition: opacity .14s;
+  }
+
+  .radio-text { font-size: 13px; color: var(--text-mid); line-height: 1.4; }
+
+  .radio-opt.sel-strong    { background: var(--bg-green);  border-color: #86efac; }
+  .radio-opt.sel-strong .radio-dot    { background: var(--strong-green); border-color: var(--strong-green); }
+  .radio-opt.sel-strong .radio-dot::after { opacity: 1; }
+  .radio-opt.sel-strong .radio-text   { color: var(--strong-green); font-weight: 500; }
+
+  .radio-opt.sel-developing { background: var(--bg-amber);  border-color: #fcd34d; }
+  .radio-opt.sel-developing .radio-dot { background: var(--strong-amber); border-color: var(--strong-amber); }
+  .radio-opt.sel-developing .radio-dot::after { opacity: 1; }
+  .radio-opt.sel-developing .radio-text { color: var(--strong-amber); font-weight: 500; }
+
+  .radio-opt.sel-notyet    { background: var(--bg-red);    border-color: #fca5a5; }
+  .radio-opt.sel-notyet .radio-dot    { background: var(--strong-red); border-color: var(--strong-red); }
+  .radio-opt.sel-notyet .radio-dot::after { opacity: 1; }
+  .radio-opt.sel-notyet .radio-text   { color: var(--strong-red); font-weight: 500; }
+
+  .radio-opt.sel-na { background: #eef0f8; border-color: #c0c8e8; }
+  .radio-opt.sel-na .radio-dot { background: var(--text-muted); border-color: var(--text-muted); }
+  .radio-opt.sel-na .radio-dot::after { opacity: 1; }
+
+  /* ── Strength tags ── */
+  .tag-row { display: flex; flex-wrap: wrap; gap: 8px; }
+
+  .tag {
+    font-size: 13px;
+    font-weight: 500;
+    padding: 6px 14px;
+    border-radius: 20px;
+    border: 1.5px solid var(--border-strong);
+    background: var(--white);
+    color: var(--text-mid);
+    cursor: pointer;
+    transition: all .15s;
+  }
+
+  .tag:hover { border-color: var(--navy); color: var(--navy); }
+  .tag.on { background: var(--navy); border-color: var(--navy); color: white; }
+
+  /* Other strength input */
+  .other-strength-wrap {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 4px;
+    flex-basis: 100%;
+  }
+
+  .other-strength-input {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    color: var(--text);
+    background: var(--cream);
+    border: 1.5px solid var(--border-strong);
+    border-radius: 20px;
+    padding: 6px 14px;
+    width: 240px;
+    transition: border-color .15s, box-shadow .15s;
+  }
+
+  .other-strength-input:focus {
+    outline: none;
+    border-color: var(--navy-light);
+    box-shadow: 0 0 0 3px rgba(27,42,90,.10);
+    background: var(--white);
+  }
+
+  .other-strength-input::placeholder { color: var(--text-muted); }
+
+  /* ── Notes ── */
+  .notes-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+
+  /* ── Submit ── */
+  .submit-area { display: flex; align-items: center; gap: 12px; padding: 24px 0 0; }
+
+  .btn-submit {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    padding: 13px 34px;
+    background: var(--red);
+    color: white;
+    border: none;
+    border-radius: var(--radius);
+    cursor: pointer;
+    letter-spacing: .02em;
+    transition: background .18s, transform .1s;
+    display: flex; align-items: center; gap: 10px;
+  }
+
+  .btn-submit:hover  { background: var(--red-hover); }
+  .btn-submit:active { transform: scale(.98); }
+  .btn-submit svg    { width: 17px; height: 17px; }
+
+  .btn-clear {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 13px 22px;
+    background: transparent;
+    color: var(--text-muted);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: all .15s;
+  }
+
+  .btn-clear:hover { border-color: var(--border-strong); color: var(--text); }
+
+  /* ── Summary ── */
+  #summary-screen { display: none; }
+
+  .summary-header {
+    background: var(--navy);
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    padding: 28px 32px 22px;
+    border-bottom: 4px solid var(--red);
+  }
+
+  .summary-eyebrow {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .13em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,.5);
+    margin-bottom: 7px;
+  }
+
+  .summary-title { font-family: 'DM Serif Display', serif; font-size: 24px; color: white; }
+
+  .summary-meta-row { display: flex; flex-wrap: wrap; gap: 20px; margin-top: 16px; }
+  .summary-meta-item { font-size: 13px; color: rgba(255,255,255,.55); }
+  .summary-meta-item strong { color: white; font-weight: 500; display: block; }
+
+  .summary-body {
+    background: white;
+    border: 1px solid var(--border);
+    border-top: none;
+    border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+    padding: 28px 32px;
+  }
+
+  .summary-section { margin-bottom: 26px; }
+
+  .summary-section-title {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .ratings-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+
+  .rating-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 9px 13px;
+    border-radius: 8px;
+    background: var(--cream);
+    font-size: 13px;
+  }
+
+  .rating-cat { color: var(--text-mid); }
+
+  .rating-badge {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 20px;
+    letter-spacing: .03em;
+  }
+
+  .rb-strong    { background: var(--bg-green); color: var(--strong-green); }
+  .rb-developing{ background: var(--bg-amber); color: var(--strong-amber); }
+  .rb-notyet    { background: var(--bg-red);   color: var(--strong-red);   }
+  .rb-na        { background: #eef0f8;          color: var(--text-muted);   }
+  .rb-none      { background: var(--cream);     color: var(--text-muted);   }
+
+  .strength-tags-display { display: flex; flex-wrap: wrap; gap: 8px; }
+
+  .strength-tag-display {
+    font-size: 12px;
+    font-weight: 600;
+    padding: 5px 13px;
+    border-radius: 20px;
+    background: var(--navy);
+    color: white;
+  }
+
+  .notes-display { font-size: 14px; color: var(--text); line-height: 1.7; }
+  .notes-label   { font-size: 12px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: .07em; margin-bottom: 5px; }
+
+  .summary-actions {
+    display: flex; gap: 10px;
+    margin-top: 26px; padding-top: 22px;
+    border-top: 1px solid var(--border);
+  }
+
+  .btn-primary {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px; font-weight: 600;
+    padding: 11px 26px;
+    background: var(--navy); color: white;
+    border: none; border-radius: var(--radius);
+    cursor: pointer; transition: background .18s;
+  }
+
+  .btn-primary:hover { background: var(--navy-light); }
+
+  .btn-secondary {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px; font-weight: 500;
+    padding: 11px 22px;
+    background: transparent; color: var(--text-mid);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    cursor: pointer; transition: all .15s;
+  }
+
+  .btn-secondary:hover { border-color: var(--border-strong); color: var(--text); }
+
+  #log-screen { display: none; }
+
+  .log-filters { display: flex; gap: 8px; margin-bottom: 18px; }
+
+  .filter-btn {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px; font-weight: 500;
+    padding: 7px 18px;
+    border-radius: 20px;
+    border: 1.5px solid var(--border);
+    background: white; color: var(--text-mid);
+    cursor: pointer; transition: all .15s;
+  }
+
+  .filter-btn:hover { border-color: var(--navy); color: var(--navy); }
+  .filter-btn.active { background: var(--navy); color: white; border-color: var(--navy); }
+
+  .log-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 18px 22px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    transition: border-color .15s, box-shadow .15s;
+  }
+
+  .log-card:hover { border-color: var(--navy-light); box-shadow: 0 2px 10px rgba(27,42,90,.08); }
+  .log-card-left h3 { font-size: 15px; font-weight: 600; color: var(--navy); margin-bottom: 4px; }
+  .log-card-left p  { font-size: 13px; color: var(--text-muted); }
+
+  .log-school-badge {
+    display: inline-block;
+    font-size: 11px; font-weight: 600;
+    padding: 2px 10px;
+    border-radius: 20px;
+    background: rgba(27,42,90,.08);
+    color: var(--navy);
+    margin-bottom: 5px;
+    letter-spacing: .03em;
+  }
+
+  .log-card-actions { display: flex; gap: 8px; flex-shrink: 0; margin-left: 16px; }
+
+  .empty-log { text-align: center; padding: 60px 24px; color: var(--text-muted); }
+  .empty-log p { font-size: 15px; margin-top: 12px; }
+
+  /* ── Print ── */
+  @media print {
+    .site-header, .hero-bar, .hero-rule,
+    .submit-area, .summary-actions, .log-filters, .header-nav { display: none !important; }
+    body { background: white; }
+    .layout { padding: 0; max-width: 100%; }
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 900px) {
+    .obs-grid { grid-template-columns: 1fr 1fr; }
+  }
+
+  @media (max-width: 640px) {
+    .site-header { padding: 0 16px; }
+    .hero-bar    { padding: 18px 16px; }
+    .layout      { padding: 18px 12px 60px; }
+    .field-grid-3, .field-grid-2, .obs-grid, .notes-grid, .ratings-grid { grid-template-columns: 1fr; }
+    .logo-sub    { display: none; }
+    .obs-card-body { padding: 10px 12px; }
+    .radio-opt   { padding: 8px 8px; }
+    .radio-text  { font-size: 12.5px; }
+    .section-body { padding: 16px; }
+    .header-nav .nav-btn { padding: 7px 12px; font-size: 12px; }
+    .other-strength-input { width: 100%; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── Header ── -->
+<header class="site-header">
+  <div class="logo">
+    <div class="logo-seal">
+      <img src="https://cmsv2-assets.apptegy.net/uploads/20314/logo/23196/Oglethorpe_County_GA_Logo.png"
+           alt="OCSS Seal"
+           onerror="this.style.display='none';this.parentElement.innerHTML='<svg viewBox=\'0 0 42 42\' fill=\'none\'><circle cx=\'21\' cy=\'21\' r=\'20\' fill=\'#1B2A5A\'/><text x=\'21\' y=\'26\' text-anchor=\'middle\' fill=\'white\' font-size=\'10\' font-weight=\'bold\' font-family=\'serif\'>OCSS</text></svg>'">
+    </div>
+    <div class="logo-text-wrap">
+      <div class="logo-name">OCSS LENS</div>
+      <div class="logo-sub">Oglethorpe County School System</div>
+    </div>
+  </div>
+  <nav class="header-nav">
+    <button class="nav-btn active" id="nav-form" onclick="showScreen('form')">New walkthrough</button>
+    <button class="nav-btn"        id="nav-log"  onclick="showScreen('log')">Visit log</button>
+  </nav>
+</header>
+
+<!-- ══════════════════ FORM SCREEN ══════════════════ -->
+<div id="form-screen">
+  <div class="hero-bar">
+    <div class="hero-eyebrow">Instructional walkthrough</div>
+    <div class="hero-title">What did you see today?</div>
+    <!--
+      CHANGE 1 — Michele's request: removed "Small group instruction" from the hero subtitle.
+      It was: "15-minute observation · Small group instruction · Reading focus"
+      Archived here in case Elementary wants to restore it later.
+      Original: <div class="hero-sub">15-minute observation · Small group instruction · Reading focus</div>
+    -->
+    <div class="hero-sub">15–20 minute observation · ELA focus</div>
+  </div>
+  <div class="hero-rule"></div>
+
+  <!-- About This Tool collapsible -->
+  <div style="max-width:920px; margin:0 auto; padding:12px 20px 0;">
+    <button onclick="toggleAbout()" id="about-btn"
+      style="font-family:'DM Sans',sans-serif; font-size:12.5px; font-weight:500;
+             color:rgba(255,255,255,.90); background:transparent; border:1px solid rgba(255,255,255,.35);
+             border-radius:20px; padding:5px 14px; cursor:pointer; display:flex; align-items:center;
+             gap:7px; transition:all .18s; margin-bottom:0; background:var(--navy-mid);"
+      onmouseover="this.style.color='white';this.style.borderColor='rgba(255,255,255,.7)'"
+      onmouseout="this.style.color='rgba(255,255,255,.90)';this.style.borderColor='rgba(255,255,255,.35)'">
+      <svg id="about-chevron" width="12" height="12" viewBox="0 0 12 12" fill="none"
+           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+           style="transition:transform .25s; flex-shrink:0;">
+        <polyline points="2,4 6,8 10,4"/>
+      </svg>
+      About this tool
+    </button>
+    <div id="about-panel" style="display:none; overflow:hidden;">
+      <div style="background:var(--navy-mid); border:1px solid rgba(255,255,255,.12);
+                  border-radius:0 0 var(--radius-lg) var(--radius-lg);
+                  padding:22px 26px 24px; margin-top:-1px;">
+        <p style="font-family:'DM Serif Display',serif; font-size:17px; color:white; margin-bottom:10px;">
+          OCSS LENS — Instructional Walkthrough Tool
+        </p>
+        <p style="font-size:13px; color:rgba(255,255,255,.90); line-height:1.7; margin-bottom:16px;">
+          LENS is designed as a <strong style="color:white;">coaching and growth tool</strong>, not an evaluative instrument.
+          Walkthroughs are brief, supportive observations intended to open dialogue between teachers and instructional coaches —
+          never to judge or rank. The language throughout this tool is intentionally observational and developmental.
+        </p>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px;">
+          <div style="background:rgba(255,255,255,.07); border-radius:var(--radius); padding:14px 16px;">
+            <p style="font-size:11px; font-weight:600; letter-spacing:.08em; text-transform:uppercase;
+                      color:rgba(255,255,255,.45); margin-bottom:8px;">Observation descriptors grounded in</p>
+            <ul style="font-size:12.5px; color:rgba(255,255,255,.92); line-height:1.8; padding-left:16px;">
+              <li>Hattie, J. — <em>Visible Learning</em> (2009): teacher clarity (instructional focus &amp; purpose) &amp; student relationships</li>
+              <li>Schlechty, P. — <em>Engaging Students</em> (2011): levels of engagement</li>
+              <li>Tomlinson, C.A. — <em>The Differentiated Classroom</em> (2014): differentiation &amp; access</li>
+              <li>Fisher &amp; Frey — text-dependent questioning &amp; accountable talk</li>
+              <li>Graham &amp; Perin — <em>Writing Next</em> (2007): writing as a learning tool</li>
+              <li>Marzano, R. — <em>The Highly Engaged Classroom</em> (2011): environment &amp; engagement</li>
+              <li>Bryk &amp; Schneider — <em>Trust in Schools</em> (2002): relational trust</li>
+              <li>Rowe, M.B. — <em>Wait Time</em> (1972, updated): 3–5 seconds of intentional wait time increases student participation, response quality, and discourse</li>
+              <li>Georgia ELA Standards (2024) — multimodal text as a primary text type requiring student interpretation, analysis, and written response</li>
+            </ul>
+          </div>
+          <div style="background:rgba(255,255,255,.07); border-radius:var(--radius); padding:14px 16px;">
+            <p style="font-size:11px; font-weight:600; letter-spacing:.08em; text-transform:uppercase;
+                      color:rgba(255,255,255,.45); margin-bottom:8px;">Coaching language grounded in</p>
+            <ul style="font-size:12.5px; color:rgba(255,255,255,.92); line-height:1.8; padding-left:16px;">
+              <li>Knight, J. — <em>Instructional Coaching</em> (2007): nonjudgmental, descriptive observation language preserves the coaching relationship</li>
+              <li>Georgia TKES framework — developmental growth language (Evident / Developing / Emerging) intentionally softer than state evaluation descriptors</li>
+              <li>Bloom's Taxonomy (Anderson &amp; Krathwohl, 2001) — higher-order questioning framework</li>
+              <li>University of Pittsburgh — <em>Accountable Talk</em> framework: evidence-based student discourse</li>
+              <li>Webb, N.L. — <em>Depth of Knowledge (DOK)</em> framework: four levels of cognitive complexity guide questioning, tasks, and assessments toward higher-order thinking</li>
+            </ul>
+          </div>
+        </div>
+        <p style="font-size:11.5px; color:rgba(255,255,255,.65); margin-top:14px; font-style:italic;">
+          Developed by Oglethorpe County School System · Sharon Synan, Instructional Technology &amp; Assessment Coordinator
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="layout">
+
+    <!-- Visit Info -->
+    <div class="form-section">
+      <div class="section-head">
+        <div class="section-icon">
+          <svg viewBox="0 0 14 14" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="1" y="2" width="12" height="11" rx="2"/>
+            <line x1="5" y1="1" x2="5" y2="4"/>
+            <line x1="9" y1="1" x2="9" y2="4"/>
+            <line x1="1" y1="6" x2="13" y2="6"/>
+          </svg>
+        </div>
+        <div class="section-title">Visit information</div>
+      </div>
+      <div class="section-body">
+        <div class="field-grid-3" style="margin-bottom:14px">
+          <div class="field">
+            <label>Observer</label>
+            <select id="f-observer" onchange="handleObserverChange(this.value)">
+              <option value="">Select observer...</option>
+              <optgroup label="Central Office Support">
+                <option>Dr. Kanya Cornish</option>
+                <option>Dr. Sharon Synan</option>
+              </optgroup>
+              <optgroup label="Instructional Coaches">
+                <!--
+                  ELEMENTARY ARCHIVE — Susan Winstead is the Elementary IC.
+                  Kept here for reference; removed from active dropdown since
+                  this tool is currently scoped to Middle and High School.
+                  Restore when Elementary adopts the tool.
+                  <option>Susan Winstead</option>
+                -->
+                <option>Michele Krolikowski</option>
+                <option>Jennifer Yauck</option>
+                <!--
+                  ARCHIVED — New Literacy Coach (TBD) removed until position is filled.
+                  Restore and update with name when hired.
+                -->
+              </optgroup>
+              <optgroup label="Administration">
+                <!--
+                  ELEMENTARY ARCHIVE — Katie Baldwin is Elementary Principal.
+                  <option>Katie Baldwin</option>
+                -->
+                <option>Mack Baldwin</option>
+                <option>Alecia Casper</option>
+                <option>Bill Sampson</option>
+                <option>Lauren Carlson</option>
+              </optgroup>
+              <optgroup label="Other">
+                <option value="__other__">Other (enter name + code)</option>
+              </optgroup>
+            </select>
+          </div>
+          <!-- Other observer panel (hidden by default) -->
+          <div id="other-observer-panel" style="display:none; grid-column: 1 / -1; background:#eef0f8; border:1.5px solid var(--border); border-radius:var(--radius); padding:14px 16px; margin-top:-6px;">
+            <div class="field-grid-2" style="margin-bottom:10px">
+              <div class="field">
+                <label>Your name</label>
+                <input type="text" id="f-other-name" placeholder="First and last name">
+              </div>
+              <div class="field">
+                <label>Access code</label>
+                <input type="password" id="f-other-code" placeholder="4-digit code" maxlength="4" inputmode="numeric">
+              </div>
+            </div>
+            <div id="code-msg" style="font-size:12px; color:var(--strong-red); display:none; margin-top:4px;">Incorrect code. Please try again or contact Sharon.</div>
+          </div>
+          <div class="field">
+            <label>School</label>
+            <select id="f-school">
+              <option value="">Select school...</option>
+              <!--
+                ELEMENTARY ARCHIVE — removed from active dropdown per Kanya/Michele review.
+                Restore when Elementary adopts the tool.
+                <option>Oglethorpe County Elementary</option>
+              -->
+              <option>Oglethorpe County Middle</option>
+              <option>Oglethorpe County High School</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Date</label>
+            <input type="date" id="f-date">
+          </div>
+        </div>
+        <div class="field-grid-2">
+          <div class="field">
+            <label>Teacher</label>
+            <input type="text" id="f-teacher" placeholder="Last name, First name">
+          </div>
+          <div class="field">
+            <label>Grade</label>
+            <select id="f-grade">
+              <option value="">Select grade...</option>
+              <option>6th</option>
+              <option>7th</option>
+              <option>8th</option>
+              <option>9th</option>
+              <option>10th</option>
+              <option>11th</option>
+              <option>12th</option>
+              <option>Multi-grade</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Subject</label>
+            <input type="text" id="f-subject" value="ELA" readonly
+              style="background:#eef0f8; color:var(--navy); font-weight:600; cursor:default; border-color:var(--border);">
+          </div>
+          <div class="field">
+            <label>Time of visit</label>
+            <input type="text" id="f-time" placeholder="e.g. 9:15 AM">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Classroom Context -->
+    <div class="form-section">
+      <div class="section-head">
+        <div class="section-icon">
+          <svg viewBox="0 0 14 14" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="1" y="1" width="5" height="5" rx="1.5"/>
+            <rect x="8" y="1" width="5" height="5" rx="1.5"/>
+            <rect x="1" y="8" width="5" height="5" rx="1.5"/>
+            <rect x="8" y="8" width="5" height="5" rx="1.5"/>
+          </svg>
+        </div>
+        <div class="section-title">Classroom context</div>
+      </div>
+      <div class="section-body">
+        <div class="field-grid-2" style="margin-bottom:14px">
+          <div class="field">
+            <label>Instructional format</label>
+            <select id="f-format" onchange="handleFormatChange(this.value)">
+              <option value="">Select...</option>
+              <!--
+                ELEMENTARY ARCHIVE — "Small group — teacher-led" and
+                "Small group — student-led" removed per Michele's recommendation
+                that small group is not a major MS/HS focus.
+                Restore for Elementary version.
+                <option>Small group — teacher-led</option>
+                <option>Small group — student-led</option>
+              -->
+              <option>Whole group instruction</option>
+              <option>Independent work</option>
+              <option>Stations / centers</option>
+              <option>Partner work</option>
+              <option>Small group — teacher-led</option>
+              <option>Small group — student-led</option>
+              <option>Lecture</option>
+              <option>Seminar / Workshop</option>
+              <option value="__other_format__">Other (describe below)</option>
+            </select>
+            <div id="other-format-wrap" style="display:none; margin-top:8px;">
+              <input type="text" id="f-format-other" placeholder="Describe instructional format..." style="font-family:'DM Sans',sans-serif; font-size:14px; color:var(--text); background:var(--cream); border:1.5px solid var(--border); border-radius:var(--radius); padding:10px 13px; width:100%;">
+            </div>
+          </div>
+          <div class="field">
+            <label>Reading and Writing focus</label>
+            <select id="f-reading" onchange="handleReadingChange(this.value)">
+              <option value="">Select or N/A</option>
+              <optgroup label="Secondary / ELA">
+                <option>Close reading / textual analysis</option>
+                <option>Evidence-based discussion (Socratic / seminar)</option>
+                <option>Argument &amp; persuasion</option>
+                <option>Literary analysis (character, theme, craft)</option>
+                <option>Research &amp; informational writing</option>
+                <option>Writing in response to text</option>
+                <option>Vocabulary in context</option>
+                <option>Text complexity / complex text access</option>
+              </optgroup>
+              <!--
+                ELEMENTARY ARCHIVE — "Foundational skills / decoding" and "Fluency"
+                removed per Kanya/Michele review. Comprehension and Independent reading
+                retained as relevant at all levels.
+                Restore full group for Elementary version:
+                <optgroup label="Elementary / All levels">
+                  <option>Foundational skills / decoding</option>
+                  <option>Fluency</option>
+                  <option>Comprehension</option>
+                  <option>Independent reading</option>
+                </optgroup>
+              -->
+              <option>Comprehension strategies / meaning-making</option>
+              <option>Independent reading / student-selected text</option>
+              <option value="__other_reading__">Other (describe below)</option>
+            </select>
+            <div id="other-reading-wrap" style="display:none; margin-top:8px;">
+              <input type="text" id="f-reading-other" placeholder="Describe reading and writing focus..." style="font-family:'DM Sans',sans-serif; font-size:14px; color:var(--text); background:var(--cream); border:1.5px solid var(--border); border-radius:var(--radius); padding:10px 13px; width:100%;">
+            </div>
+          </div>
+        </div>
+        <div class="field-grid-2">
+          <div class="field">
+            <label>Class configuration</label>
+            <select id="f-config">
+              <option value="">Select...</option>
+              <option>Standard — single teacher</option>
+              <option>Co-taught — two teachers of record</option>
+              <option>Push-in support</option>
+              <option>Pull-out</option>
+              <option>Student teacher / intern present</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="field" id="co-teacher-wrap" style="display:none">
+            <label>Co-teacher / support teacher</label>
+            <input type="text" id="f-coteacher" placeholder="Last name (if applicable)">
+          </div>
+        </div>
+        <div class="field-grid-2" style="margin-top:14px">
+          <div class="field">
+            <label>Literary / skill focus <span style="font-weight:400; text-transform:none; font-size:11px;">(secondary ELA)</span></label>
+            <select id="f-literary" onchange="handleLiteraryChange(this.value)">
+              <option value="">Select or N/A</option>
+              <option>Character development</option>
+              <option>Theme / central idea</option>
+              <option>Author's craft / style</option>
+              <option>Point of view / perspective</option>
+              <option>Figurative language / imagery</option>
+              <option>Text structure / genre</option>
+              <option>Argument / rhetorical analysis</option>
+              <option>Intertextuality / multiple texts</option>
+              <option>Research / source evaluation</option>
+              <option>Grammar / conventions in context</option>
+              <option value="__other_literary__">Other (describe below)</option>
+            </select>
+            <div id="other-literary-wrap" style="display:none; margin-top:8px;">
+              <input type="text" id="f-literary-other" placeholder="Describe literary or skill focus..." style="font-family:'DM Sans',sans-serif; font-size:14px; color:var(--text); background:var(--cream); border:1.5px solid var(--border); border-radius:var(--radius); padding:10px 13px; width:100%;">
+            </div>
+          </div>
+          <div class="field">
+            <label>Standard / learning target</label>
+            <input type="text" id="f-standard" placeholder="e.g. ELAGSE9-10RL1, posted LT...">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CHANGE 2 — Michele's request: renamed "Observation ratings" → "Observation descriptors" -->
+    <div class="form-section">
+      <div class="section-head">
+        <div class="section-icon">
+          <svg viewBox="0 0 14 14" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="7" cy="7" r="3"/>
+            <path d="M1 7C1 7 3.5 2 7 2s6 5 6 5-2.5 5-6 5S1 7 1 7z"/>
+          </svg>
+        </div>
+        <div class="section-title">Observation descriptors</div>
+      </div>
+      <div class="section-body">
+        <div class="obs-grid" id="obs-grid"></div>
+      </div>
+    </div>
+
+    <!-- Strengths -->
+    <div class="form-section">
+      <div class="section-head">
+        <div class="section-icon">
+          <svg viewBox="0 0 14 14" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="7,1 8.8,5.2 13.5,5.5 10,8.5 11,13 7,10.5 3,13 4,8.5 0.5,5.5 5.2,5.2"/>
+          </svg>
+        </div>
+        <div class="section-title">Strengths observed</div>
+      </div>
+      <div class="section-body">
+        <!-- CHANGE 3 — Michele's request: added "Other" free-text option to strengths -->
+        <div class="tag-row" id="strength-tags">
+          <button class="tag" onclick="toggleTag(this)">Strong routines</button>
+          <button class="tag" onclick="toggleTag(this)">Student talk</button>
+          <button class="tag" onclick="toggleTag(this)">Differentiation</button>
+          <button class="tag" onclick="toggleTag(this)">Student choice</button>
+          <button class="tag" onclick="toggleTag(this)">Positive classroom culture</button>
+          <button class="tag" onclick="toggleTag(this)">Teacher feedback loop</button>
+          <button class="tag" onclick="toggleTag(this)">High engagement</button>
+          <button class="tag" onclick="toggleTag(this)">Text evidence cited</button>
+          <button class="tag" onclick="toggleTag(this)">Socratic / seminar discussion</button>
+          <button class="tag" onclick="toggleTag(this)">Complex text tackled</button>
+          <button class="tag" onclick="toggleTag(this)">Student-to-student dialogue</button>
+          <button class="tag" onclick="toggleTag(this)">Writing to argue / analyze</button>
+          <button class="tag" onclick="toggleTag(this)">Author's craft discussed</button>
+          <button class="tag" onclick="toggleTag(this)">Culturally relevant text</button>
+          <button class="tag" onclick="toggleTag(this)">Student ownership of thinking</button>
+        </div>
+          <button class="tag" onclick="toggleTag(this)">Multimodal text in use</button>
+          <button class="tag" onclick="toggleTag(this)">Technology for creation or collaboration</button>
+        <div class="other-strength-wrap" style="margin-top:10px;">
+          <input
+            type="text"
+            id="f-other-strength"
+            class="other-strength-input"
+            placeholder="Other strength observed…"
+            maxlength="120"
+          >
+        </div>
+      </div>
+    </div>
+
+    <!-- Notes -->
+    <div class="form-section">
+      <div class="section-head">
+        <div class="section-icon">
+          <svg viewBox="0 0 14 14" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M2 2h10v8l-3 2H2z"/>
+            <line x1="4" y1="5" x2="10" y2="5"/>
+            <line x1="4" y1="7.5" x2="8" y2="7.5"/>
+          </svg>
+        </div>
+        <div class="section-title">Notes &amp; follow-up</div>
+      </div>
+      <div class="section-body">
+        <div class="notes-grid">
+          <div class="field">
+            <label>Highlights from observation</label>
+            <textarea id="f-observed" placeholder="Describe highlights from what you saw in the classroom..."></textarea>
+          </div>
+          <div class="field">
+            <label>What does the teacher need?</label>
+            <textarea id="f-needs" placeholder="Resources, support, a conversation, recognition..."></textarea>
+          </div>
+        </div>
+        <div class="field">
+          <label>Opportunities for students</label>
+          <textarea id="f-opportunities" placeholder="e.g. More time in leveled texts, peer discussion structures, student choice in reading..." style="min-height:72px"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- Teacher Response -->
+    <!--
+      CHANGE 4 — Michele's request: removed "Agreed action steps" from teacher response.
+      Rationale: too much to ask in a 15-minute walkthrough context.
+      Full action steps block archived below in comments for potential future use.
+
+      ARCHIVED ACTION STEPS BLOCK:
+      <div class="field" style="background:white; border:1.5px solid #b0c4e8; border-radius:var(--radius); padding:14px 16px;">
+        <label style="color:#2e4494; margin-bottom:8px; display:block;">
+          <svg style="display:inline;vertical-align:middle;margin-right:6px;margin-top:-2px" width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="#2e4494" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,7 5,10 12,3"/></svg>
+          Agreed action steps
+        </label>
+        <div id="action-steps-list"></div>
+        <div style="display:flex; gap:8px; margin-top:8px;">
+          <input type="text" id="f-action-input" placeholder="Type an action step and press Add..." style="background:var(--cream); flex:1; border:1.5px solid var(--border); border-radius:8px; padding:9px 12px; font-family:'DM Sans',sans-serif; font-size:13.5px;">
+          <button onclick="addActionStep()" style="font-family:'DM Sans',sans-serif; font-size:13px; font-weight:600; padding:9px 18px; background:#2e4494; color:white; border:none; border-radius:8px; cursor:pointer; white-space:nowrap;">Add</button>
+        </div>
+        <p style="font-size:11.5px; color:var(--text-muted); margin-top:8px; font-style:italic;">Who will do what by when? Click × to remove a step.</p>
+      </div>
+    -->
+    <div class="form-section" style="border-color:#b0c4e8; background:#f0f4fc; border-left:4px solid var(--red);">
+      <div class="section-head" style="background:#2e4494;">
+        <div class="section-icon" style="background:rgba(255,255,255,.15);">
+          <svg viewBox="0 0 14 14" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke="#a5b8f0">
+            <path d="M2 2h10v7H8l-3 3V9H2z"/>
+            <line x1="4" y1="5" x2="10" y2="5"/>
+            <line x1="4" y1="7" x2="7" y2="7"/>
+          </svg>
+        </div>
+        <div class="section-title">Teacher response</div>
+        <span style="margin-left:auto; font-size:11px; color:rgba(255,255,255,.45); font-weight:500; letter-spacing:.04em;">COMPLETED BY TEACHER</span>
+      </div>
+      <div class="section-body" style="background:#f0f4fc;">
+        <p style="font-size:13px; color:var(--text-muted); margin-bottom:14px; font-style:italic;">
+          This section is for the teacher to complete after reviewing the walkthrough. It stays with the record and can be printed together.
+        </p>
+        <div class="field" style="margin-bottom:14px">
+          <label>Teacher reflection / response</label>
+          <textarea id="f-teacher-response" placeholder="Thoughts on the observation, questions for your coach, what you'd like to try next..." style="min-height:100px; background:white;"></textarea>
+        </div>
+        <div class="field-grid-2">
+          <div class="field">
+            <label>What support would be helpful?</label>
+            <textarea id="f-teacher-support" placeholder="e.g. Co-planning time, a model lesson, resources for small groups..." style="min-height:72px; background:white;"></textarea>
+          </div>
+          <div class="field">
+            <label>Teacher signature &amp; date</label>
+            <input type="text" id="f-teacher-sig" placeholder="Type name to acknowledge" style="background:white; margin-bottom:8px;">
+            <input type="date" id="f-teacher-sig-date" style="background:white;">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Submit -->
+    <div class="submit-area">
+      <button class="btn-submit" onclick="submitForm()">
+        <svg viewBox="0 0 18 18" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 9l5 5 7-8"/>
+        </svg>
+        Save walkthrough
+      </button>
+      <button class="btn-clear" onclick="clearForm()">Clear form</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════ SUMMARY SCREEN ══════════════════ -->
+<div id="summary-screen">
+  <div class="layout">
+    <div class="summary-header">
+      <div class="summary-eyebrow">Walkthrough complete</div>
+      <div class="summary-title" id="sum-title">—</div>
+      <div class="summary-meta-row" id="sum-meta"></div>
+    </div>
+    <div class="summary-body">
+      <div class="summary-section">
+        <!-- CHANGE 2 reflected in summary: "Observation ratings" → "Observation descriptors" -->
+        <div class="summary-section-title">Observation descriptors</div>
+        <div class="ratings-grid" id="sum-ratings"></div>
+      </div>
+      <div class="summary-section">
+        <div class="summary-section-title">Strengths noted</div>
+        <div class="strength-tags-display" id="sum-strengths"></div>
+      </div>
+      <div class="summary-section">
+        <div class="summary-section-title">Notes</div>
+        <div id="sum-notes"></div>
+      </div>
+      <div class="summary-section" id="sum-teacher-response-wrap" style="background:#f0f4fc; border-radius:var(--radius); padding:18px 20px; border:1.5px solid #b0c4e8;">
+        <div class="summary-section-title" style="color:#2e4494; border-color:#b0c4e8;">Teacher response</div>
+        <div id="sum-teacher-response">
+          <span style="font-size:13px; color:var(--text-muted); font-style:italic;">No teacher response recorded yet.</span>
+        </div>
+      </div>
+      <div class="summary-actions">
+        <button class="btn-primary"   onclick="window.print()">Print summary</button>
+        <button class="btn-primary"   onclick="showScreen('log')">View visit log</button>
+        <button class="btn-secondary" onclick="newWalkthrough()">New walkthrough</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════ LOG SCREEN ══════════════════ -->
+<div id="log-screen">
+  <div class="hero-bar">
+    <div class="hero-eyebrow">OCSS LENS</div>
+    <div class="hero-title">Visit log</div>
+    <div class="hero-sub">All recorded walkthroughs</div>
+  </div>
+  <div class="hero-rule"></div>
+  <div class="layout">
+    <div class="log-filters">
+      <button class="filter-btn active" onclick="filterLog('all',this)">All schools</button>
+      <button class="filter-btn"        onclick="filterLog('Oglethorpe County Elementary',this)">Elementary</button>
+      <button class="filter-btn"        onclick="filterLog('Oglethorpe County Middle',this)">Middle</button>
+      <button class="filter-btn"        onclick="filterLog('Oglethorpe County High School',this)">High School</button>
+    </div>
+    <div id="log-list"></div>
+    <div style="margin-top:22px">
+      <button class="btn-submit" style="display:inline-flex" onclick="showScreen('form')">
+        <svg viewBox="0 0 18 18" fill="none" stroke="white" stroke-width="2" stroke-linecap="round">
+          <line x1="9" y1="3" x2="9" y2="15"/><line x1="3" y1="9" x2="15" y2="9"/>
+        </svg>
+        New walkthrough
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── Observer PIN table ──
+const GENERIC_CODE = '1234';
+
+function handleObserverChange(val) {
+  const panel = document.getElementById('other-observer-panel');
+  panel.style.display = val === '__other__' ? 'block' : 'none';
+  document.getElementById('code-msg').style.display = 'none';
+}
+
+function handleFormatChange(val) {
+  document.getElementById('other-format-wrap').style.display = val === '__other_format__' ? 'block' : 'none';
+}
+
+function handleReadingChange(val) {
+  document.getElementById('other-reading-wrap').style.display = val === '__other_reading__' ? 'block' : 'none';
+}
+
+function handleLiteraryChange(val) {
+  document.getElementById('other-literary-wrap').style.display = val === '__other_literary__' ? 'block' : 'none';
+}
+
+function resolveObserver() {
+  const sel = document.getElementById('f-observer').value;
+  if (sel !== '__other__') return sel;
+  const name = document.getElementById('f-other-name').value.trim();
+  const code = document.getElementById('f-other-code').value.trim();
+  const msg  = document.getElementById('code-msg');
+  if (!name) { alert('Please enter your name.'); return null; }
+  if (code !== GENERIC_CODE) {
+    msg.style.display = 'block';
+    return null;
+  }
+  msg.style.display = 'none';
+  return name + ' (Guest)';
+}
+
+// Show/hide co-teacher field
+document.getElementById('f-config').addEventListener('change', function() {
+  const needs = ['Co-taught — two teachers of record','Push-in support','Student teacher / intern present'];
+  document.getElementById('co-teacher-wrap').style.display = needs.includes(this.value) ? 'block' : 'none';
+});
+
+// ── Observation descriptor categories ──
+// CHANGE 2: "Observation ratings" renamed to "Observation descriptors" throughout
+// UPDATED — softened descriptor language per Kanya/Michele review
+// "Text complexity & access" renamed to "Differentiation & access" (leveled text not a district focus)
+// Negative/evaluative language replaced with growth-oriented, observational phrasing throughout
+const OBS_CATS = [
+  { id:'grouping',     label:'Instructional clarity',          opts:['Instructional focus is clear and purposeful','Focus of instruction is present; purpose emerging','Instructional focus not yet observable','Not applicable'] },
+  { id:'engagement',   label:'Student engagement',             opts:['Most/all students actively engaged','Partial engagement observed','Engagement opportunities to grow','Not observable'] },
+  { id:'questioning',  label:'Questioning techniques',         opts:['Higher-order / text-anchored questions','Questions developing toward higher-order','Questioning not observed during visit','Not applicable'] },
+  { id:'waittime',     label:'Wait Time &amp; Student Response',  opts:['Intentional wait time observed; students given time to think','Some wait time present; responses mostly immediate','Little to no wait time observed','Not applicable'] },
+  { id:'text',         label:'Differentiation &amp; access',   opts:['Differentiation evident &amp; purposeful','Some differentiation observed','Text use not observed during visit','Not applicable'] },
+  { id:'evidence',     label:'Evidence &amp; student talk',    opts:['Students cite evidence; build on peers','Some evidence use or discussion','Discussion developing; teacher-led observed','Not observable'] },
+  { id:'writing',      label:'Writing &amp; response',         opts:['Writing anchored to text / argument','Some writing present, connection emerging','Writing not observed during visit','Not applicable'] },
+  { id:'environment',  label:'Learning environment',           opts:['Welcoming, organized, print-rich','Functional, still developing','Environment still developing','Not applicable'] },
+  { id:'relationship', label:'Teacher–student relationship', opts:['Warm, respectful rapport evident','Cordial, still building','Relationship still developing','Not observable'] },
+  { id:'technology',   label:'Technology &amp; Multimodal Engagement', opts:['Technology used purposefully for creation, collaboration, or multimodal text response','Technology present; moving toward purposeful use','Technology use not observed or passive only','Not applicable'] },
+];
+
+const RATING_MAP = ['Evident','Developing','Emerging','N/A'];
+const SEL_CLASS  = ['sel-strong','sel-developing','sel-notyet','sel-na'];
+
+// Build obs grid
+const grid = document.getElementById('obs-grid');
+OBS_CATS.forEach(cat => {
+  const card = document.createElement('div');
+  card.className = 'obs-card';
+  card.innerHTML = `
+    <div class="obs-card-head"><div class="obs-card-title">${cat.label}</div></div>
+    <div class="obs-card-body">
+      ${cat.opts.map((opt,i)=>`
+        <label class="radio-opt" data-cat="${cat.id}" data-idx="${i}" onclick="selectRadio(this,'${cat.id}',${i})">
+          <input type="radio" name="${cat.id}" value="${RATING_MAP[i]}">
+          <div class="radio-dot"></div>
+          <span class="radio-text">${opt}</span>
+        </label>`).join('')}
+    </div>`;
+  grid.appendChild(card);
+});
+
+function selectRadio(el, cat, idx) {
+  document.querySelectorAll(`[data-cat="${cat}"]`).forEach(opt => opt.classList.remove(...SEL_CLASS));
+  el.classList.add(SEL_CLASS[idx]);
+  el.querySelector('input').checked = true;
+}
+
+// ── Tags & Other strength ──
+function toggleTag(el) { el.classList.toggle('on'); }
+
+function getSelectedTags() {
+  const tags = [...document.querySelectorAll('#strength-tags .tag.on')].map(b => b.textContent.trim());
+  // CHANGE 3: include "Other" free-text strength if entered
+  const otherVal = document.getElementById('f-other-strength').value.trim();
+  if (otherVal) tags.push(otherVal);
+  return tags;
+}
+
+// ── Storage ──
+let visits = [];
+try { visits = JSON.parse(localStorage.getItem('ocsd-lens-v2')||'[]'); } catch(e){}
+function save() { localStorage.setItem('ocsd-lens-v2', JSON.stringify(visits)); }
+
+// Default date
+document.getElementById('f-date').value = new Date().toISOString().split('T')[0];
+
+// ── Submit ──
+function submitForm() {
+  const observer = resolveObserver();
+  if (!observer) return;
+  const school   = document.getElementById('f-school').value;
+  const teacher  = document.getElementById('f-teacher').value.trim();
+  if (!school || !teacher) {
+    alert('Please select a school and enter the teacher name.');
+    return;
+  }
+  const ratings = {};
+  OBS_CATS.forEach(c => {
+    const el = document.querySelector(`input[name="${c.id}"]:checked`);
+    ratings[c.id] = el ? el.value : '';
+  });
+  const visit = {
+    id: Date.now(), observer, school,
+    date:    document.getElementById('f-date').value,
+    teacher, grade: document.getElementById('f-grade').value,
+    subject: document.getElementById('f-subject').value,
+    time:    document.getElementById('f-time').value,
+    format:  document.getElementById('f-format').value === '__other_format__' ? document.getElementById('f-format-other').value.trim() || 'Other' : document.getElementById('f-format').value,
+    config:  document.getElementById('f-config').value,
+    coteacher: document.getElementById('f-coteacher').value.trim(),
+    reading: document.getElementById('f-reading').value === '__other_reading__' ? document.getElementById('f-reading-other').value.trim() || 'Other' : document.getElementById('f-reading').value,
+    literary: document.getElementById('f-literary').value === '__other_literary__' ? document.getElementById('f-literary-other').value.trim() || 'Other' : document.getElementById('f-literary').value,
+    standard: document.getElementById('f-standard').value.trim(),
+    ratings, strengths: getSelectedTags(),
+    observed:      document.getElementById('f-observed').value.trim(),
+    needs:         document.getElementById('f-needs').value.trim(),
+    opportunities: document.getElementById('f-opportunities').value.trim(),
+    teacherResponse: document.getElementById('f-teacher-response').value.trim(),
+    teacherSupport:  document.getElementById('f-teacher-support').value.trim(),
+    teacherSig:      document.getElementById('f-teacher-sig').value.trim(),
+    teacherSigDate:  document.getElementById('f-teacher-sig-date').value,
+    // CHANGE 4: actionSteps removed from active form; field still saved as empty
+    // array so older records in localStorage remain compatible.
+    actionSteps: [],
+  };
+  visits.unshift(visit);
+  save();
+  renderSummary(visit);
+  showScreen('summary');
+}
+
+// ── Summary ──
+function fmtDate(d) {
+  return d ? new Date(d+'T12:00:00').toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'}) : '—';
+}
+
+function renderSummary(v) {
+  document.getElementById('sum-title').textContent = `${v.teacher}${v.grade?' — '+v.grade:''}`;
+
+  const configLabel = v.config ? v.config + (v.coteacher ? ` (${v.coteacher})` : '') : '—';
+  document.getElementById('sum-meta').innerHTML = [
+    ['Observer',v.observer],['School',v.school],['Date',fmtDate(v.date)],
+    ['Time',v.time||'—'],['Grade',v.grade||'—'],['Subject',v.subject||'ELA'],['Format',v.format||'—'],
+    ['Configuration', configLabel],['Reading focus',v.reading||'—'],
+    v.literary && ['Literary / skill focus', v.literary],
+    v.standard && ['Standard / target', v.standard],
+  ].filter(Boolean).map(([l,val])=>`<div class="summary-meta-item"><span>${l}</span><strong>${val}</strong></div>`).join('');
+
+  const rbClass = r => r==='Evident'?'rb-strong':r==='Developing'?'rb-developing':r==='Emerging'?'rb-notyet':r==='N/A'?'rb-na':'rb-none';
+  document.getElementById('sum-ratings').innerHTML = OBS_CATS.map(c=>`
+    <div class="rating-row">
+      <span class="rating-cat">${c.label}</span>
+      <span class="rating-badge ${rbClass(v.ratings[c.id])}">${v.ratings[c.id]||'—'}</span>
+    </div>`).join('');
+
+  const st = document.getElementById('sum-strengths');
+  st.innerHTML = v.strengths.length
+    ? v.strengths.map(s=>`<span class="strength-tag-display">${s}</span>`).join('')
+    : '<span style="font-size:13px;color:var(--text-muted)">None selected</span>';
+
+  document.getElementById('sum-notes').innerHTML = [
+    v.observed     && `<div style="margin-bottom:14px"><div class="notes-label">Highlights from observation</div><div class="notes-display">${v.observed}</div></div>`,
+    v.needs        && `<div style="margin-bottom:14px"><div class="notes-label">What the teacher needs</div><div class="notes-display">${v.needs}</div></div>`,
+    v.opportunities&& `<div><div class="notes-label">Opportunities for students</div><div class="notes-display">${v.opportunities}</div></div>`,
+  ].filter(Boolean).join('') || '<span style="font-size:13px;color:var(--text-muted)">No notes recorded.</span>';
+
+  // Teacher response block (action steps removed per Michele's recommendation)
+  const trWrap = document.getElementById('sum-teacher-response');
+  const hasResponse = v.teacherResponse || v.teacherSupport || v.teacherSig;
+  if (hasResponse) {
+    trWrap.innerHTML = [
+      v.teacherResponse && `<div style="margin-bottom:14px"><div class="notes-label">Teacher reflection</div><div class="notes-display">${v.teacherResponse}</div></div>`,
+      v.teacherSupport  && `<div style="margin-bottom:14px"><div class="notes-label">Support requested</div><div class="notes-display">${v.teacherSupport}</div></div>`,
+      v.teacherSig && `<div style="font-size:13px; color:var(--text-mid); margin-top:4px; padding-top:12px; border-top:1px solid var(--border);">
+        <strong>${v.teacherSig}</strong>${v.teacherSigDate?' &nbsp;·&nbsp; '+fmtDate(v.teacherSigDate):''}
+      </div>`,
+    ].filter(Boolean).join('');
+  } else {
+    trWrap.innerHTML = '<span style="font-size:13px;color:var(--text-muted);font-style:italic">No teacher response recorded yet.</span>';
+  }
+}
+
+// ── Log ──
+let currentFilter = 'all';
+
+function filterLog(f, el) {
+  currentFilter = f;
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  el.classList.add('active');
+  renderLog();
+}
+
+function renderLog() {
+  const filtered = currentFilter==='all' ? visits : visits.filter(v=>v.school===currentFilter);
+  const el = document.getElementById('log-list');
+  if (!filtered.length) {
+    el.innerHTML = `<div class="empty-log">
+      <svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="var(--border-strong)" stroke-width="1.5" stroke-linecap="round">
+        <circle cx="18" cy="18" r="10"/><line x1="25" y1="25" x2="34" y2="34"/>
+      </svg>
+      <p>No walkthroughs recorded yet for this filter.</p>
+    </div>`;
+    return;
+  }
+  el.innerHTML = filtered.map(v=>`
+    <div class="log-card">
+      <div class="log-card-left">
+        <div class="log-school-badge">${v.school}</div>
+        <h3>${v.teacher}${v.grade?' — '+v.grade+' ELA':''}</h3>
+        <p>${fmtDate(v.date)}${v.time?' at '+v.time:''} &nbsp;·&nbsp; ${v.observer}</p>
+      </div>
+      <div class="log-card-actions">
+        <button class="btn-secondary" style="font-size:13px;padding:8px 16px" onclick="viewVisit(${v.id})">View</button>
+        <button class="btn-secondary" style="font-size:13px;padding:8px 14px;color:var(--strong-red);border-color:#fca5a5" onclick="deleteVisit(${v.id})">Delete</button>
+      </div>
+    </div>`).join('');
+}
+
+function viewVisit(id) { const v=visits.find(x=>x.id===id); if(v){renderSummary(v);showScreen('summary');} }
+
+function deleteVisit(id) {
+  if (!confirm('Delete this walkthrough record?')) return;
+  visits = visits.filter(v=>v.id!==id);
+  save(); renderLog();
+}
+
+// ── About toggle ──
+function toggleAbout() {
+  const panel    = document.getElementById('about-panel');
+  const chevron  = document.getElementById('about-chevron');
+  const isOpen   = panel.style.display !== 'none';
+  panel.style.display  = isOpen ? 'none' : 'block';
+  chevron.style.transform = isOpen ? '' : 'rotate(180deg)';
+}
+
+// ── Navigation ──
+function showScreen(s) {
+  document.getElementById('form-screen').style.display    = s==='form'    ? 'block' : 'none';
+  document.getElementById('summary-screen').style.display = s==='summary' ? 'block' : 'none';
+  document.getElementById('log-screen').style.display     = s==='log'     ? 'block' : 'none';
+  document.getElementById('nav-form').classList.toggle('active', s==='form');
+  document.getElementById('nav-log').classList.toggle('active',  s==='log');
+  if (s==='log') renderLog();
+  window.scrollTo(0,0);
+}
+
+function newWalkthrough() { clearForm(); showScreen('form'); }
+
+function clearForm() {
+  ['f-observer','f-school','f-grade','f-format','f-config','f-reading','f-literary'].forEach(id=>document.getElementById(id).selectedIndex=0);
+  ['f-teacher','f-time','f-coteacher','f-other-name','f-other-code','f-format-other','f-reading-other','f-literary-other',
+   'f-standard','f-observed','f-needs','f-opportunities',
+   'f-teacher-response','f-teacher-support','f-teacher-sig','f-teacher-sig-date',
+   'f-other-strength'
+  ].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('f-date').value = new Date().toISOString().split('T')[0];
+  document.getElementById('other-observer-panel').style.display = 'none';
+  document.getElementById('other-format-wrap').style.display = 'none';
+  document.getElementById('other-reading-wrap').style.display = 'none';
+  document.getElementById('other-literary-wrap').style.display = 'none';
+  document.getElementById('co-teacher-wrap').style.display = 'none';
+  document.getElementById('code-msg').style.display = 'none';
+  document.querySelectorAll('.radio-opt').forEach(el=>el.classList.remove(...SEL_CLASS));
+  document.querySelectorAll('input[type=radio]').forEach(el=>el.checked=false);
+  document.querySelectorAll('.tag').forEach(el=>el.classList.remove('on'));
+}
+
+showScreen('form');
+</script>
+</body>
+</html>
