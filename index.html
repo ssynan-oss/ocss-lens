@@ -388,16 +388,18 @@
   /* Standard tags */
   .standard-tag {
     display: inline-flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 7px;
     font-size: 12.5px;
     font-weight: 500;
-    padding: 5px 10px 5px 13px;
-    border-radius: 20px;
+    padding: 6px 10px 6px 13px;
+    border-radius: 10px;
     background: #eef2fc;
     border: 1px solid #c0cef0;
     color: var(--navy);
-    margin: 0 4px 4px 0;
+    margin: 0 0 6px 0;
+    width: 100%;
+    line-height: 1.5;
   }
 
   .standard-tag-remove {
@@ -862,7 +864,7 @@
           </div>
           <div class="field">
             <label>School</label>
-            <select id="f-school">
+            <select id="f-school" onchange="handleSchoolChange()">
               <option value="">Select school...</option>
               <!--
                 ELEMENTARY ARCHIVE — removed from active dropdown per Kanya/Michele review.
@@ -884,8 +886,8 @@
             <input type="text" id="f-teacher" placeholder="Last name, First name">
           </div>
           <div class="field">
-            <label>Grade</label>
-            <select id="f-grade">
+            <label><span id="grade-label-text">Grade</span></label>
+            <select id="f-grade" onchange="updateStandardsDatalist()">
               <option value="">Select grade...</option>
               <option>6th</option>
               <option>7th</option>
@@ -1029,7 +1031,8 @@
             <label>Standard / learning target</label>
             <div id="standards-list" style="margin:6px 0;"></div>
             <div style="display:flex; gap:8px; margin-top:5px;">
-              <input type="text" id="f-standard-input" placeholder="e.g. ELAGSE9-10RL1, ELAGSE8-9W1 — type and press Add..." style="font-family:'DM Sans',sans-serif; font-size:14px; color:var(--text); background:var(--cream); border:1.5px solid var(--border); border-radius:var(--radius); padding:10px 13px; flex:1;">
+                            <input type="text" id="f-standard-input" list="standards-datalist" placeholder="Select school &amp; grade/course first, then type a standard code or keyword..." style="font-family:'DM Sans',sans-serif; font-size:14px; color:var(--text); background:var(--cream); border:1.5px solid var(--border); border-radius:var(--radius); padding:10px 13px; flex:1;">
+              <datalist id="standards-datalist"></datalist>
               <button onclick="addStandard()" style="font-family:'DM Sans',sans-serif; font-size:13px; font-weight:600; padding:9px 18px; background:var(--navy); color:white; border:none; border-radius:8px; cursor:pointer; white-space:nowrap;">Add</button>
             </div>
           </div>
@@ -1380,6 +1383,9 @@ let standards = [];
 
 function renderStandards() {
   const el = document.getElementById('standards-list');
+  el.style.display = standards.length ? 'flex' : 'none';
+  el.style.flexDirection = 'column';
+  el.style.gap = '4px';
   if (!standards.length) { el.innerHTML = ''; return; }
   el.innerHTML = standards.map((s,i) => `
     <span class="standard-tag">
@@ -1392,7 +1398,18 @@ function addStandard() {
   const inp = document.getElementById('f-standard-input');
   const val = inp.value.trim();
   if (!val) return;
-  standards.push(val);
+
+  // Look up full label from datalist if available
+  const datalist = document.getElementById('standards-datalist');
+  let displayText = val;
+  if (datalist) {
+    const match = [...datalist.options].find(o => o.value === val);
+    if (match && match.textContent) {
+      displayText = match.textContent; // "6.TT.4 — Text Types..."
+    }
+  }
+
+  standards.push(displayText);
   inp.value = '';
   renderStandards();
   inp.focus();
@@ -1408,6 +1425,96 @@ document.addEventListener('DOMContentLoaded', function() {
     if (e.key === 'Enter') { e.preventDefault(); addStandard(); }
   });
 });
+
+
+// ── Standards data (Georgia ELA, grouped by grade) ──
+const STANDARDS_DATA = {"06": [{"code": "6.P.EICC.1", "label": "Reader & Writer Identity Build an identity as a reader and writer, developing a..."}, {"code": "6.P.EICC.2", "label": "Engagement & Intention Engage in written or spoken dialogue as author and..."}, {"code": "6.P.EICC.3", "label": "Comprehension Strategies Engage with a range of complex texts for a variety of..."}, {"code": "6.P.EICC.4", "label": "Writing Processes Compose a range of texts for a variety of purposes and..."}, {"code": "6.P.ST.1", "label": "Context Develop and apply knowledge of key components of context such as..."}, {"code": "6.P.ST.2", "label": "Author, Audience, & Purpose Interpret and construct texts by developing and..."}, {"code": "6.P.AC.1", "label": "Reading like a Writer Interpret texts through the author’s lens by identifying,..."}, {"code": "6.P.AC.2", "label": "Writing like a Reader Construct texts with the audience’s experience in mind,..."}, {"code": "6.P.AC.3", "label": "Text Design Consider the impact of text design on audience and purpose when..."}, {"code": "6.P.CP.1", "label": "Collaboration Collaborate with others to accomplish shared goals and projects."}, {"code": "6.P.CP.2", "label": "Presentation Use presentation skills to tailor communication to target..."}, {"code": "6.L.GC.1", "label": "Grammar, Usage, & Mechanics Draw from knowledge of the conventions of Standard..."}, {"code": "6.L.GC.2", "label": "Syntax Apply understanding of syntax to comprehend, analyze, condense, and..."}, {"code": "6.L.V.1", "label": "General, Academic, & Specialized Vocabulary Use a variety of approaches to..."}, {"code": "6.L.V.2", "label": "Word Analysis Use word knowledge and word analysis skills to determine the..."}, {"code": "6.L.V.3", "label": "Meaning & Purpose Analyze the denotative and connotative meanings of words and..."}, {"code": "6.T.C.1", "label": "Purpose & Audience Analyze the impact of purpose and audience on a wide variety..."}, {"code": "6.T.C.2", "label": "Authors & Speakers Analyze how authors’ and/or speakers’ perspectives influence..."}, {"code": "6.T.SS.1", "label": "Organization Analyze and use organizational structures to craft meaning."}, {"code": "6.T.SS.2", "label": "Craft Interpret and use language to craft engaging texts."}, {"code": "6.T.T.1", "label": "Narrative Techniques Analyze and apply narrative techniques."}, {"code": "6.T.T.2", "label": "Expository Techniques Analyze and apply expository techniques."}, {"code": "6.T.T.3", "label": "Argumentative Techniques Analyze and apply argumentative techniques."}, {"code": "6.T.T.4", "label": "Poetic Techniques Analyze and apply poetic techniques."}, {"code": "6.T.RA.1", "label": "Research & Inquiry Conduct research, generating questions to guide..."}, {"code": "6.T.RA.2", "label": "Curating Sources & Evidence Utilize multiple print and digital texts to address..."}, {"code": "6.T.PM.1", "label": "Periods & Movements Demonstrate knowledge of dominant themes, genres, and..."}], "07": [{"code": "7.P.EICC.1", "label": "Reader & Writer Identity Build an identity as a reader and writer, developing a..."}, {"code": "7.P.EICC.2", "label": "Engagement & Intention Engage in written or spoken dialogue as author and..."}, {"code": "7.P.EICC.3", "label": "Comprehension Strategies Engage with a range of complex texts for a variety of..."}, {"code": "7.P.EICC.4", "label": "Writing Processes Compose a range of texts for a variety of purposes and..."}, {"code": "7.P.ST.1", "label": "Context Develop and apply knowledge of key components of context such as..."}, {"code": "7.P.ST.2", "label": "Author, Audience, & Purpose Interpret and construct texts by developing and..."}, {"code": "7.P.AC.1", "label": "Reading like a Writer Interpret texts through the author’s lens by identifying,..."}, {"code": "7.P.AC.2", "label": "Writing like a Reader Construct texts with the audience’s experience in mind,..."}, {"code": "7.P.AC.3", "label": "Text Design Consider the impact of text design on audience and purpose when..."}, {"code": "7.P.CP.1", "label": "Collaboration Collaborate with others to accomplish shared goals and projects."}, {"code": "7.P.CP.2", "label": "Presentation Use presentation skills to tailor communication to target..."}, {"code": "7.L.GC.1", "label": "Grammar, Usage, & Mechanics Draw from knowledge of the conventions of Standard..."}, {"code": "7.L.GC.2", "label": "Syntax Apply understanding of syntax to comprehend, analyze, condense, and..."}, {"code": "7.L.V.1", "label": "General, Academic, & Specialized Vocabulary Use a variety of approaches to..."}, {"code": "7.L.V.2", "label": "Word Analysis Use word knowledge and word analysis skills to determine the..."}, {"code": "7.L.V.3", "label": "Meaning & Purpose Analyze the denotative and connotative meanings of words and..."}, {"code": "7.T.C.1", "label": "Purpose & Audience Analyze the impact of purpose and audience on a wide variety..."}, {"code": "7.T.C.2", "label": "Authors & Speakers Analyze how authors’ and/or speakers’ perspectives influence..."}, {"code": "7.T.SS.1", "label": "Organization Analyze and use organizational structures to craft meaning."}, {"code": "7.T.SS.2", "label": "Craft Interpret and use language to craft engaging texts."}, {"code": "7.T.T.1", "label": "Narrative Techniques Analyze and apply narrative techniques."}, {"code": "7.T.T.2", "label": "Expository Techniques Analyze and apply expository techniques."}, {"code": "7.T.T.3", "label": "Argumentative Techniques Analyze and apply argumentative techniques."}, {"code": "7.T.T.4", "label": "Poetic Techniques Analyze and apply poetic techniques."}, {"code": "7.T.RA.1", "label": "Research & Inquiry Conduct research, generating questions to guide..."}, {"code": "7.T.RA.2", "label": "Curating Sources & Evidence Utilize multiple print and digital texts to address..."}, {"code": "7.T.PM.1", "label": "Periods & Movements Demonstrate knowledge of dominant themes, genres, and..."}], "08": [{"code": "8.P.EICC.1", "label": "Reader & Writer Identity Build an identity as a reader and writer, developing a..."}, {"code": "8.P.EICC.2", "label": "Engagement & Intention Engage in written or spoken dialogue as author and..."}, {"code": "8.P.EICC.3", "label": "Comprehension Strategies Engage with a range of complex texts for a variety of..."}, {"code": "8.P.EICC.4", "label": "Writing Processes Compose a range of texts for a variety of purposes and..."}, {"code": "8.P.ST.1", "label": "Context Develop and apply knowledge of key components of context such as..."}, {"code": "8.P.ST.2", "label": "Author, Audience, & Purpose Interpret and construct texts by developing and..."}, {"code": "8.P.AC.1", "label": "Reading like a Writer Interpret texts through the author’s lens by identifying,..."}, {"code": "8.P.AC.2", "label": "Writing like a Reader Construct texts with the audience’s experience in mind,..."}, {"code": "8.P.AC.3", "label": "Text Design Consider the impact of text design on audience and purpose when..."}, {"code": "8.P.CP.1", "label": "Collaboration Collaborate with others to accomplish shared goals and projects."}, {"code": "8.P.CP.2", "label": "Presentation Use presentation skills to tailor communication to target..."}, {"code": "8.L.GC.1", "label": "Grammar, Usage, & Mechanics Draw from knowledge of the conventions of Standard..."}, {"code": "8.L.GC.2", "label": "Syntax Apply understanding of syntax to comprehend, analyze, condense, and..."}, {"code": "8.L.V.1", "label": "General, Academic, & Specialized Vocabulary Use a variety of approaches to..."}, {"code": "8.L.V.2", "label": "Word Analysis Use word knowledge and word analysis skills to determine the..."}, {"code": "8.L.V.3", "label": "Meaning & Purpose Analyze the denotative and connotative meanings of words and..."}, {"code": "8.T.C.1", "label": "Purpose & Audience Analyze the impact of purpose and audience on a wide variety..."}, {"code": "8.T.C.2", "label": "Authors & Speakers Analyze how authors’ and/or speakers’ perspectives influence..."}, {"code": "8.T.SS.1", "label": "Organization Analyze and use organizational structures to craft meaning."}, {"code": "8.T.SS.2", "label": "Craft Interpret and use language to craft engaging texts."}, {"code": "8.T.T.1", "label": "Narrative Techniques Analyze and apply narrative techniques."}, {"code": "8.T.T.2", "label": "Expository Techniques Analyze and apply expository techniques."}, {"code": "8.T.T.3", "label": "Argumentative Techniques Analyze and apply argumentative techniques."}, {"code": "8.T.T.4", "label": "Poetic Techniques Analyze and apply poetic techniques."}, {"code": "8.T.RA.1", "label": "Research & Inquiry Conduct research, generating questions to guide..."}, {"code": "8.T.RA.2", "label": "Curating Sources & Evidence Utilize multiple print and digital texts to address..."}, {"code": "8.T.PM.1", "label": "Periods & Movements Demonstrate knowledge of dominant themes, genres, and..."}]};
+
+// Map form grade values to data keys
+const GRADE_TO_KEY = {
+  '6th': '06', '7th': '07', '8th': '08',
+  // High school grades will be added when HS standards are loaded
+  '9th': '09', '10th': '10', '11th': '11', '12th': '12'
+};
+
+// HS course standards data
+const HS_STANDARDS_DATA = {"Literature & Composition I": [{"code": "9.P.EICC.1", "label": "Reader & Writer Identity Build an identity as a reader and writer, developing a..."}, {"code": "9.P.EICC.2", "label": "Engagement & Intention Engage in written or spoken dialogue as author and audience for a..."}, {"code": "9.P.EICC.3", "label": "Comprehension Strategies Engage with a range of complex texts for a variety of tasks and..."}, {"code": "9.P.EICC.4", "label": "Writing Processes Compose a range of texts for a variety of purposes and audiences,..."}, {"code": "9.P.ST.1", "label": "Context Develop and apply knowledge of key components of context such as background..."}, {"code": "9.P.ST.2", "label": "Author, Audience, & Purpose Interpret and construct texts by developing and applying..."}, {"code": "9.P.AC.1", "label": "Reading like a Writer Interpret texts through the author’s lens by identifying,..."}, {"code": "9.P.AC.2", "label": "Writing like a Reader Construct texts with the audience’s experience in mind, basing..."}, {"code": "9.P.AC.3", "label": "Text Design Consider the impact of text design on audience and purpose when consuming and..."}, {"code": "9.P.CP.1", "label": "Collaboration Collaborate with others to accomplish shared goals and projects."}, {"code": "9.P.CP.2", "label": "Presentation Use presentation skills to tailor communication to target audiences for..."}, {"code": "9.L.GC.1", "label": "Grammar, Usage, & Mechanics Draw from knowledge of the conventions of Standard English..."}, {"code": "9.L.GC.2", "label": "Syntax Apply understanding of syntax to comprehend, analyze, evaluate, craft, and reshape..."}, {"code": "9.L.V.1", "label": "General, Academic, & Specialized Vocabulary Use expanding vocabulary knowledge to..."}, {"code": "9.L.V.2", "label": "Word Analysis Use word knowledge and word analysis skills to determine the meaning of..."}, {"code": "9.L.V.3", "label": "Meaning & Purpose Analyze and craft nuanced words and phrases in a variety of texts and..."}, {"code": "9.T.C.1", "label": "Purposes & Audiences Analyze the impact of purpose and audience on a wide variety of..."}, {"code": "9.T.C.2", "label": "Authors & Speakers Evaluate how authors’ and/or speakers’ perspectives influence texts..."}, {"code": "9.T.SS.1", "label": "Organization Analyze, evaluate, and use organizational structures and style to shape..."}, {"code": "9.T.SS.2", "label": "Craft Analyze, evaluate, and craft language to produce intended effects in a wide variety..."}, {"code": "9.T.T.1", "label": "Narrative Techniques Evaluate and apply narrative techniques to enhance text’s appeal to..."}, {"code": "9.T.T.2", "label": "Expository Techniques Evaluate and apply expository techniques to enhance text’s appeal..."}, {"code": "9.T.T.3", "label": "Argumentative Techniques Evaluate and apply argumentative techniques to enhance text’s..."}, {"code": "9.T.T.4", "label": "Poetic Techniques Evaluate and apply poetic techniques to enhance text’s appeal to..."}, {"code": "9.T.RA.1", "label": "Research & Inquiry Conduct research, generating questions to guide investigations of..."}, {"code": "9.T.RA.2", "label": "Curating Sources & Evidence Reference parts of texts to address a specific topic or..."}, {"code": "9.T.PM.1", "label": "Demonstrate knowledge of dominant themes, genres, and verbal styles of literature from a..."}], "Literature & Composition II": [{"code": "10.P.EICC.1", "label": "Reader & Writer Identity Build an identity as a reader and writer, developing a..."}, {"code": "10.P.EICC.2", "label": "Engagement & Intention Engage in written or spoken dialogue as author and audience for a..."}, {"code": "10.P.EICC.3", "label": "Comprehension Strategies Engage with a range of complex texts for a variety of tasks and..."}, {"code": "10.P.EICC.4", "label": "Writing Processes Compose a range of texts for a variety of purposes and audiences,..."}, {"code": "10.P.ST.1", "label": "Context Develop and apply knowledge of key components of context such as background..."}, {"code": "10.P.ST.2", "label": "Author, Audience, & Purpose Interpret and construct texts by developing and applying..."}, {"code": "10.P.AC.1", "label": "Reading like a Writer Interpret texts through the author’s lens by identifying,..."}, {"code": "10.P.AC.2", "label": "Writing like a Reader Construct texts with the audience’s experience in mind, basing..."}, {"code": "10.P.AC.3", "label": "Text Design Consider the impact of text design on audience and purpose when consuming and..."}, {"code": "10.P.CP.1", "label": "Collaboration Collaborate with others to accomplish shared goals and projects."}, {"code": "10.P.CP.2", "label": "Presentation Use presentation skills to tailor communication to target audiences for..."}, {"code": "10.L.GC.1", "label": "Grammar, Usage, & Mechanics Draw from knowledge of the conventions of Standard English..."}, {"code": "10.L.GC.2", "label": "Syntax Apply understanding of syntax to comprehend, analyze, evaluate, craft, and reshape..."}, {"code": "10.L.V.1", "label": "General, Academic, & Specialized Vocabulary Use expanding vocabulary knowledge to..."}, {"code": "10.L.V.2", "label": "Word Analysis Use word knowledge and word analysis skills to determine the meaning of..."}, {"code": "10.L.V.3", "label": "Meaning & Purpose Analyze and craft nuanced words and phrases in a variety of texts and..."}, {"code": "10.T.C.1", "label": "Purposes & Audiences Analyze the impact of purpose and audience on a wide variety of..."}, {"code": "10.T.C.2", "label": "Authors & Speakers Evaluate how authors’ and/or speakers’ perspectives influence texts..."}, {"code": "10.T.SS.1", "label": "Organization Analyze, evaluate, and use organizational structures and style to shape..."}, {"code": "10.T.SS.2", "label": "Craft Analyze, evaluate, and craft language to produce intended effects in a wide variety..."}, {"code": "10.T.T.1", "label": "Narrative Techniques Evaluate and apply narrative techniques to enhance text’s appeal to..."}, {"code": "10.T.T.2", "label": "Expository Techniques Evaluate and apply expository techniques to enhance text’s appeal..."}, {"code": "10.T.T.3", "label": "Argumentative Techniques Evaluate and apply argumentative techniques to enhance text’s..."}, {"code": "10.T.T.4", "label": "Poetic Techniques Evaluate and apply poetic techniques to enhance text’s appeal to..."}, {"code": "10.T.RA.1", "label": "Research & Inquiry  Conduct research, generating questions to guide investigations of..."}, {"code": "10.T.RA.2", "label": "Curating Sources & Evidence Reference parts of texts to address a specific topic or..."}, {"code": "10.T.PM.1", "label": "Demonstrate knowledge of dominant themes, genres, and verbal styles of literature from a..."}], "Literature & Composition III": [{"code": "11.P.EICC.1", "label": "Reader & Writer Identity Build an identity as a reader and writer, developing a..."}, {"code": "11.P.EICC.2", "label": "Engagement & Intention Engage in written or spoken dialogue as author and audience for a..."}, {"code": "11.P.EICC.3", "label": "Comprehension Strategies Engage with a range of complex texts for a variety of tasks and..."}, {"code": "11.P.EICC.4", "label": "Writing Processes Compose a range of texts for a variety of purposes and audiences,..."}, {"code": "11.P.ST.1", "label": "Context Develop and apply knowledge of key components of context such as background..."}, {"code": "11.P.ST.2", "label": "Author, Audience, & Purpose Interpret and construct texts by developing and applying..."}, {"code": "11.P.AC.1", "label": "Reading like a Writer Interpret texts through the author’s lens by identifying,..."}, {"code": "11.P.AC.2", "label": "Writing like a Reader Construct texts with the audience’s experience in mind, basing..."}, {"code": "11.P.AC.3", "label": "Text Design Consider the impact of text design on audience and purpose when consuming and..."}, {"code": "11.P.CP.1", "label": "Collaboration Collaborate with others to accomplish shared goals and projects."}, {"code": "11.P.CP.2", "label": "Presentation Use presentation skills to tailor communication to target audiences for..."}, {"code": "11.L.GC.1", "label": "Grammar, Usage, & Mechanics Draw from knowledge of the conventions of Standard English..."}, {"code": "11.L.GC.2", "label": "Syntax Apply understanding of syntax to comprehend, analyze, evaluate, craft, and reshape..."}, {"code": "11.L.V.1", "label": "General, Academic, & Specialized Vocabulary Use expanding vocabulary knowledge to..."}, {"code": "11.L.V.2", "label": "Word Analysis Use word knowledge and word analysis skills to determine the meaning of..."}, {"code": "11.L.V.3", "label": "Meaning & Purpose Analyze and craft nuanced words and phrases in a variety of texts and..."}, {"code": "11.T.C.1", "label": "Purposes & Audiences Analyze the impact of purpose and audience on a wide variety of..."}, {"code": "11.T.C.2", "label": "Authors & Speakers Evaluate how authors’ and/or speakers’ perspectives influence texts..."}, {"code": "11.T.SS.1", "label": "Organization Analyze, evaluate, and use organizational structures and style to shape..."}, {"code": "11.T.SS.2", "label": "Craft Analyze, evaluate, and craft language to produce intended effects in a wide variety..."}, {"code": "11.T.T.1", "label": "Narrative Techniques Evaluate and apply narrative techniques to enhance text’s appeal to..."}, {"code": "11.T.T.2", "label": "Expository Techniques Evaluate and apply expository techniques to enhance text’s appeal..."}, {"code": "11.T.T.3", "label": "Argumentative Techniques Evaluate and apply argumentative techniques to enhance text’s..."}, {"code": "11.T.T.4", "label": "Poetic Techniques Evaluate and apply poetic techniques to enhance text’s appeal to..."}, {"code": "11.T.RA.1", "label": "Research & Inquiry  Conduct research, generating questions to guide investigations of..."}, {"code": "11.T.RA.2", "label": "Curating Sources & Evidence Reference parts of texts to address a specific topic or..."}, {"code": "11.T.PM.1", "label": "Demonstrate knowledge of dominant themes, genres, and verbal styles of literature from a..."}], "Literature & Composition IV": [{"code": "12.P.EICC.1", "label": "Reader & Writer Identity Build an identity as a reader and writer, developing a..."}, {"code": "12.P.EICC.2", "label": "Engagement & Intention Engage in written or spoken dialogue as author and audience for a..."}, {"code": "12.P.EICC.3", "label": "Comprehension Strategies Engage with a range of complex texts for a variety of tasks and..."}, {"code": "12.P.EICC.4", "label": "Writing Processes Compose a range of texts for a variety of purposes and audiences,..."}, {"code": "12.P.ST.1", "label": "Context Develop and apply knowledge of key components of context such as background..."}, {"code": "12.P.ST.2", "label": "Author, Audience, & Purpose Interpret and construct texts by developing and applying..."}, {"code": "12.P.AC.1", "label": "Reading like a Writer Interpret texts through the author’s lens by identifying,..."}, {"code": "12.P.AC.2", "label": "Writing like a Reader Construct texts with the audience’s experience in mind, basing..."}, {"code": "12.P.AC.3", "label": "Text Design Consider the impact of text design on audience and purpose when consuming and..."}, {"code": "12.P.CP.1", "label": "Collaboration Collaborate with others to accomplish shared goals and projects."}, {"code": "12.P.CP.2", "label": "Presentation Use presentation skills to tailor communication to target audiences for..."}, {"code": "12.L.GC.1", "label": "Grammar, Usage, & Mechanics Draw from knowledge of the conventions of Standard English..."}, {"code": "12.L.GC.2", "label": "Syntax Apply understanding of syntax to comprehend, analyze, evaluate, craft, and reshape..."}, {"code": "12.L.V.1", "label": "General, Academic, & Specialized Vocabulary Use expanding vocabulary knowledge to..."}, {"code": "12.L.V.2", "label": "Word Analysis Use word knowledge and word analysis skills to determine the meaning of..."}, {"code": "12.L.V.3", "label": "Meaning & Purpose Analyze and craft nuanced words and phrases in a variety of texts and..."}, {"code": "12.T.C.1", "label": "Purposes & Audiences Analyze the impact of purpose and audience on a wide variety of..."}, {"code": "12.T.C.2", "label": "Authors & Speakers Evaluate how authors’ and/or speakers’ perspectives influence texts..."}, {"code": "12.T.SS.1", "label": "Organization Analyze, evaluate, and use organizational structures and style to shape..."}, {"code": "12.T.SS.2", "label": "Craft Analyze, evaluate, and craft language to produce intended effects in a wide variety..."}, {"code": "12.T.T.1", "label": "Narrative Techniques Evaluate and apply narrative techniques to enhance text’s appeal to..."}, {"code": "12.T.T.2", "label": "Expository Techniques Evaluate and apply expository techniques to enhance text’s appeal..."}, {"code": "12.T.T.3", "label": "Argumentative Techniques Evaluate and apply argumentative techniques to enhance text’s..."}, {"code": "12.T.T.4", "label": "Poetic Techniques Evaluate and apply poetic techniques to enhance text’s appeal to..."}, {"code": "12.T.RA.1", "label": "Research & Inquiry  Conduct research, generating questions to guide investigations of..."}, {"code": "12.T.RA.2", "label": "Curating Sources & Evidence Reference parts of texts to address a specific topic or..."}, {"code": "12.T.PM.1", "label": "Demonstrate knowledge of dominant themes, genres, and verbal styles of literature from a..."}], "Enhanced Literature & Composition I": [{"code": "8.P.EICC.1", "label": "Reader & Writer Identity Build an identity as a reader and writer, developing a..."}, {"code": "8.P.EICC.2", "label": "Engagement & Intention Engage in written or spoken dialogue as author and audience for a..."}, {"code": "8.P.EICC.3", "label": "Comprehension Strategies Engage with a range of complex texts for a variety of tasks and..."}, {"code": "8.P.EICC.4", "label": "Writing Processes Compose a range of texts for a variety of purposes and audiences,..."}, {"code": "9.P.EICC.1", "label": "Reader & Writer Identity Build an identity as a reader and writer, developing a..."}, {"code": "9.P.EICC.2", "label": "Engagement & Intention Engage in written or spoken dialogue as author and audience for a..."}, {"code": "9.P.EICC.3", "label": "Comprehension Strategies Engage with a range of complex texts for a variety of tasks and..."}, {"code": "9.P.EICC.4", "label": "Writing Processes Compose a range of texts for a variety of purposes and audiences,..."}, {"code": "8.P.ST.1", "label": "Context Develop and apply knowledge of key components of context such as background..."}, {"code": "8.P.ST.2", "label": "Author, Audience, & Purpose Interpret and construct texts by developing and applying..."}, {"code": "9.P.ST.1", "label": "Context Develop and apply knowledge of key components of context such as background..."}, {"code": "9.P.ST.2", "label": "Author, Audience, & Purpose Interpret and construct texts by developing and applying..."}, {"code": "8.P.AC.1", "label": "Reading like a Writer Interpret texts through the author’s lens by identifying,..."}, {"code": "8.P.AC.2", "label": "Writing like a Reader Construct texts with the audience’s experience in mind, basing..."}, {"code": "8.P.AC.3", "label": "Text Design Consider the impact of text design on audience and purpose when consuming and..."}, {"code": "9.P.AC.1", "label": "Reading like a Writer Interpret texts through the author’s lens by identifying,..."}, {"code": "9.P.AC.2", "label": "Writing like a Reader Construct texts with the audience’s experience in mind, basing..."}, {"code": "9.P.AC.3", "label": "Text Design Consider the impact of text design on audience and purpose when consuming and..."}, {"code": "8.P.CP.1", "label": "Collaboration Collaborate with others to accomplish shared goals and projects."}, {"code": "8.P.CP.2", "label": "Presentation Use presentation skills to tailor communication to target audiences for..."}, {"code": "9.P.CP.1", "label": "Collaboration Collaborate with others to accomplish shared goals and projects."}, {"code": "9.P.CP.2", "label": "Presentation Use presentation skills to tailor communication to target audiences for..."}, {"code": "8.L.GC.1", "label": "Grammar, Usage, & Mechanics Draw from knowledge of the conventions of Standard English..."}, {"code": "8.L.GC.2", "label": "Syntax Apply understanding of syntax to comprehend, analyze, condense, and combine ideas..."}, {"code": "9.L.GC.1", "label": "Grammar, Usage, & Mechanics Draw from knowledge of the conventions of Standard English..."}, {"code": "9.L.GC.2", "label": "Syntax Apply understanding of syntax to comprehend, analyze, evaluate, craft, and reshape..."}, {"code": "8.L.V.1", "label": "General, Academic, & Specialized Vocabulary Use a variety of approaches to continuously..."}, {"code": "8.L.V.2", "label": "Word Analysis Use word knowledge and word analysis skills to determine the meaning of..."}, {"code": "8.L.V.3", "label": "Meaning & Purpose Analyze the denotative and connotative meanings of words and phrases..."}, {"code": "9.L.V.1", "label": "General, Academic, & Specialized Vocabulary Use expanding vocabulary knowledge to..."}, {"code": "9.L.V.2", "label": "Word Analysis Use word knowledge and word analysis skills to determine the meaning of..."}, {"code": "9.L.V.3", "label": "Meaning & Purpose Analyze and craft nuanced words and phrases in a variety of texts and..."}, {"code": "8.T.C.1", "label": "Purpose & Audience Analyze the impact of purpose and audience on a wide variety of texts."}, {"code": "8.T.C.2", "label": "Authors & Speakers Analyze how authors’ and/or speakers’ perspectives influence texts and..."}, {"code": "9.T.C.1", "label": "Purposes & Audiences Analyze the impact of purpose and audience on a wide variety of..."}, {"code": "9.T.C.2", "label": "Authors & Speakers Evaluate how authors’ and/or speakers’ perspectives influence texts..."}, {"code": "8.T.SS.1", "label": "Organization Analyze and use organizational structures to craft meaning."}, {"code": "8.T.SS.2", "label": "Craft Interpret and use language to craft engaging texts."}, {"code": "9.T.SS.1", "label": "Organization Analyze, evaluate, and use organizational structures and style to shape..."}, {"code": "9.T.SS.2", "label": "Craft Analyze, evaluate, and craft language to produce intended effects in a wide variety..."}, {"code": "8.T.T.1", "label": "Narrative Techniques Analyze and apply narrative techniques."}, {"code": "8.T.T.2", "label": "Expository Techniques Analyze and apply expository techniques."}, {"code": "8.T.T.3", "label": "Argumentative Techniques Analyze and apply argumentative techniques."}, {"code": "8.T.T.4", "label": "Poetic Techniques Analyze and apply poetic techniques."}, {"code": "9.T.T.1", "label": "Narrative Techniques Evaluate and apply narrative techniques to enhance text’s appeal to..."}, {"code": "9.T.T.2", "label": "Expository Techniques Evaluate and apply expository techniques to enhance text’s appeal..."}, {"code": "9.T.T.3", "label": "Argumentative Techniques Evaluate and apply argumentative techniques to enhance text’s..."}, {"code": "9.T.T.4", "label": "Poetic Techniques Evaluate and apply poetic techniques to enhance text’s appeal to..."}, {"code": "8.T.RA.1", "label": "Research & Inquiry Conduct research, generating questions to guide investigations of..."}, {"code": "8.T.RA.2", "label": "Curating Sources & Evidence Utilize multiple print and digital texts to address a..."}, {"code": "9.T.RA.1", "label": "Research & Inquiry Conduct research, generating questions to guide investigations of..."}, {"code": "9.T.RA.2", "label": "Curating Sources & Evidence Reference parts of texts to address a specific topic or..."}, {"code": "8.T.PM.1", "label": "Periods & Movements Demonstrate knowledge of dominant themes, genres, and verbal styles..."}, {"code": "9.T.PM.1", "label": "Demonstrate knowledge of dominant themes, genres, and verbal styles of literature from a..."}]};
+
+const HS_COURSES = [
+  'Literature & Composition I',
+  'Literature & Composition II',
+  'Literature & Composition III',
+  'Literature & Composition IV',
+  'Enhanced Literature & Composition I',
+  'AP Language & Composition',
+  'AP Literature & Composition',
+];
+
+const MS_GRADES = ['6th','7th','8th'];
+const HS_GRADES = ['9th','10th','11th','12th'];
+
+function handleSchoolChange() {
+  const school = document.getElementById('f-school').value;
+  const gradeLabel  = document.querySelector('label[for="f-grade"], #grade-label');
+  const gradeSelect = document.getElementById('f-grade');
+
+  // Clear current options
+  gradeSelect.innerHTML = '';
+
+  if (school === 'Oglethorpe County High School') {
+    // Show course dropdown
+    if (gradeLabel) gradeLabel.textContent = 'Course';
+    document.getElementById('grade-label-text').textContent = 'Course';
+    const placeholder = new Option('Select course...', '');
+    gradeSelect.appendChild(placeholder);
+    HS_COURSES.forEach(c => {
+      gradeSelect.appendChild(new Option(c, c));
+    });
+  } else {
+    // Show grade dropdown (Middle or other)
+    document.getElementById('grade-label-text').textContent = 'Grade';
+    const placeholder = new Option('Select grade...', '');
+    gradeSelect.appendChild(placeholder);
+    ['6th','7th','8th','Multi-grade'].forEach(g => {
+      gradeSelect.appendChild(new Option(g, g));
+    });
+  }
+  updateStandardsDatalist();
+}
+
+function updateStandardsDatalist() {
+  const grade   = document.getElementById('f-grade').value;
+  const school  = document.getElementById('f-school').value;
+  const datalist = document.getElementById('standards-datalist');
+  datalist.innerHTML = '';
+
+  const isHS = school === 'Oglethorpe County High School';
+
+  if (isHS) {
+    // Filter by course name
+    const courseStds = HS_STANDARDS_DATA[grade];
+    if (!courseStds || !courseStds.length) {
+      // AP or no standards — observer types manually
+      return;
+    }
+    courseStds.forEach(s => {
+      const opt = document.createElement('option');
+      opt.value = s.code;
+      opt.textContent = s.code + ' — ' + s.label;
+      datalist.appendChild(opt);
+    });
+  } else {
+    // Filter by grade
+    const key = GRADE_TO_KEY[grade];
+    if (!key || !STANDARDS_DATA[key]) return;
+    STANDARDS_DATA[key].forEach(s => {
+      const opt = document.createElement('option');
+      opt.value = s.code;
+      opt.textContent = s.code + ' — ' + s.label;
+      datalist.appendChild(opt);
+    });
+  }
+}
 
 // ── Storage ──
 let visits = [];
@@ -1476,7 +1583,7 @@ function renderSummary(v) {
   const configLabel = v.config ? v.config + (v.coteacher ? ` (${v.coteacher})` : '') : '—';
   document.getElementById('sum-meta').innerHTML = [
     ['Observer',v.observer],['School',v.school],['Date',fmtDate(v.date)],
-    ['Time',v.time||'—'],['Grade',v.grade||'—'],['Subject',v.subject||'ELA'],
+    ['Time',v.time||'—'],['Grade / Course',v.grade||'—'],['Subject',v.subject||'ELA'],
     ['Primary format',v.format||'—'],
     v.formatSecondary && ['Secondary format (transition)',v.formatSecondary],
     v.reading && v.reading.length && ['Reading &amp; Writing focus', Array.isArray(v.reading)?v.reading.join(', '):v.reading],
