@@ -42,7 +42,6 @@
     line-height: 1.6;
   }
 
-  /* ── Header ── */
   .site-header {
     background: var(--navy);
     padding: 0 40px;
@@ -64,8 +63,7 @@
   }
 
   .logo-seal {
-    width: 48px;
-    height: 48px;
+    width: 48px; height: 48px;
     border-radius: 50%;
     background: transparent;
     padding: 0;
@@ -76,8 +74,7 @@
   }
 
   .logo-seal img {
-    width: 48px;
-    height: 48px;
+    width: 48px; height: 48px;
     object-fit: cover;
     border-radius: 50%;
   }
@@ -119,7 +116,6 @@
   .nav-btn:hover { background: rgba(255,255,255,.1); color: #fff; }
   .nav-btn.active { background: var(--red); color: #fff; border-color: var(--red); font-weight: 600; }
 
-  /* ── Hero bar ── */
   .hero-bar {
     background: var(--navy-mid);
     padding: 26px 40px 22px;
@@ -148,20 +144,17 @@
     font-weight: 300;
   }
 
-  /* ── Red rule under hero ── */
   .hero-rule {
     height: 5px;
     background: linear-gradient(90deg, var(--red) 0%, var(--red-dark) 100%);
   }
 
-  /* ── Layout ── */
   .layout {
     max-width: 920px;
     margin: 0 auto;
     padding: 32px 20px 80px;
   }
 
-  /* ── Section blocks ── */
   .form-section {
     background: var(--white);
     border: 1px solid var(--border);
@@ -191,8 +184,7 @@
   }
 
   .section-icon {
-    width: 28px;
-    height: 28px;
+    width: 28px; height: 28px;
     background: rgba(178,34,52,.25);
     border-radius: 7px;
     display: flex;
@@ -212,7 +204,6 @@
 
   .section-body { padding: 22px; }
 
-  /* ── Fields ── */
   .field-grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
   .field-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
   .field { display: flex; flex-direction: column; gap: 5px; }
@@ -225,7 +216,6 @@
     color: var(--text-muted);
   }
 
-  /* Prevent field label styles from cascading into checkbox option labels */
   .field .cb-opt {
     font-size: 13.5px;
     font-weight: 400;
@@ -259,7 +249,6 @@
 
   .field textarea { resize: vertical; min-height: 88px; line-height: 1.6; }
 
-  /* ── Observation descriptor cards ── */
   .obs-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
 
   .obs-card {
@@ -333,7 +322,6 @@
   .radio-opt.sel-na .radio-dot { background: var(--text-muted); border-color: var(--text-muted); }
   .radio-opt.sel-na .radio-dot::after { opacity: 1; }
 
-  /* ── Checkbox groups ── */
   .checkbox-group {
     display: flex;
     flex-direction: column;
@@ -385,7 +373,6 @@
     font-weight: 500;
   }
 
-  /* Standard tags */
   .standard-tag {
     display: inline-flex;
     align-items: flex-start;
@@ -410,7 +397,6 @@
 
   .standard-tag-remove:hover { color: var(--strong-red); }
 
-  /* ── Strength tags ── */
   .tag-row { display: flex; flex-wrap: wrap; gap: 8px; }
 
   .tag {
@@ -428,7 +414,6 @@
   .tag:hover { border-color: var(--navy); color: var(--navy); }
   .tag.on { background: var(--navy); border-color: var(--navy); color: white; }
 
-  /* Other strength input */
   .other-strength-wrap {
     display: flex;
     align-items: center;
@@ -458,10 +443,8 @@
 
   .other-strength-input::placeholder { color: var(--text-muted); }
 
-  /* ── Notes ── */
   .notes-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
 
-  /* ── Submit ── */
   .submit-area { display: flex; align-items: center; gap: 12px; padding: 24px 0 0; }
 
   .btn-submit {
@@ -482,6 +465,7 @@
   .btn-submit:hover  { background: var(--red-hover); }
   .btn-submit:active { transform: scale(.98); }
   .btn-submit svg    { width: 17px; height: 17px; }
+  .btn-submit:disabled { background: var(--border-strong); cursor: not-allowed; transform: none; }
 
   .btn-clear {
     font-family: 'DM Sans', sans-serif;
@@ -498,7 +482,80 @@
 
   .btn-clear:hover { border-color: var(--border-strong); color: var(--text); }
 
-  /* ── Summary ── */
+  /* ── Success toast ── */
+  #success-toast {
+    display: none;
+    position: fixed;
+    top: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 999;
+    background: #166534;
+    color: white;
+    border-radius: 12px;
+    padding: 16px 28px;
+    font-size: 14px;
+    font-weight: 500;
+    box-shadow: 0 8px 30px rgba(0,0,0,.18);
+    max-width: 520px;
+    width: calc(100% - 40px);
+    text-align: center;
+    animation: toastIn .3s ease;
+  }
+
+  @keyframes toastIn {
+    from { opacity: 0; transform: translateX(-50%) translateY(-12px); }
+    to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+  }
+
+  #success-toast .toast-title {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 5px;
+  }
+
+  #success-toast .toast-sub {
+    font-size: 13px;
+    color: rgba(255,255,255,.8);
+  }
+
+  /* ── Saving spinner overlay ── */
+  #saving-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(27,42,90,.18);
+    z-index: 998;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  #saving-overlay.active { display: flex; }
+
+  .saving-card {
+    background: white;
+    border-radius: 16px;
+    padding: 32px 40px;
+    text-align: center;
+    box-shadow: 0 12px 40px rgba(0,0,0,.15);
+  }
+
+  .saving-spinner {
+    width: 40px; height: 40px;
+    border: 4px solid var(--border);
+    border-top-color: var(--navy);
+    border-radius: 50%;
+    animation: spin .8s linear infinite;
+    margin: 0 auto 14px;
+  }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .saving-label { font-size: 15px; font-weight: 600; color: var(--navy); }
+  .saving-sub   { font-size: 12.5px; color: var(--text-muted); margin-top: 5px; }
+
   #summary-screen { display: none; }
 
   .summary-header {
@@ -664,7 +721,23 @@
   .empty-log { text-align: center; padding: 60px 24px; color: var(--text-muted); }
   .empty-log p { font-size: 15px; margin-top: 12px; }
 
-  /* ── Print ── */
+  /* Airtable sync badge */
+  .sync-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 20px;
+    margin-left: 8px;
+    vertical-align: middle;
+  }
+
+  .sync-badge.synced   { background: var(--bg-green); color: var(--strong-green); }
+  .sync-badge.unsynced { background: var(--bg-amber);  color: var(--strong-amber); }
+  .sync-badge.error    { background: var(--bg-red);    color: var(--strong-red);   }
+
   @media print {
     .site-header, .hero-bar, .hero-rule,
     .submit-area, .summary-actions, .log-filters, .header-nav { display: none !important; }
@@ -672,7 +745,6 @@
     .layout { padding: 0; max-width: 100%; }
   }
 
-  /* ── Responsive ── */
   @media (max-width: 900px) {
     .obs-grid { grid-template-columns: 1fr 1fr; }
   }
@@ -693,6 +765,21 @@
 </style>
 </head>
 <body>
+
+<!-- ══════════════════ SUCCESS TOAST ══════════════════ -->
+<div id="success-toast">
+  <div class="toast-title" id="toast-title">✓ Walkthrough saved!</div>
+  <div class="toast-sub"  id="toast-sub">Record sent to Airtable · Confirmation email sent to observer</div>
+</div>
+
+<!-- ══════════════════ SAVING OVERLAY ══════════════════ -->
+<div id="saving-overlay">
+  <div class="saving-card">
+    <div class="saving-spinner"></div>
+    <div class="saving-label">Saving walkthrough…</div>
+    <div class="saving-sub">Sending to Airtable</div>
+  </div>
+</div>
 
 <!-- ── Header ── -->
 <header class="site-header">
@@ -720,12 +807,6 @@
   <div class="hero-bar">
     <div class="hero-eyebrow">Instructional walkthrough</div>
     <div class="hero-title">What did you see today?</div>
-    <!--
-      CHANGE 1 — Michele's request: removed "Small group instruction" from the hero subtitle.
-      It was: "15-minute observation · Small group instruction · Reading focus"
-      Archived here in case Elementary wants to restore it later.
-      Original: <div class="hero-sub">15-minute observation · Small group instruction · Reading focus</div>
-    -->
     <div class="hero-sub">15–20 minute observation · ELA focus</div>
   </div>
   <div class="hero-rule"></div>
@@ -770,19 +851,19 @@
               <li>Graham &amp; Perin — <em>Writing Next</em> (2007): writing as a learning tool</li>
               <li>Marzano, R. — <em>The Highly Engaged Classroom</em> (2011): environment &amp; engagement</li>
               <li>Bryk &amp; Schneider — <em>Trust in Schools</em> (2002): relational trust</li>
-              <li>Rowe, M.B. — <em>Wait Time</em> (1972, updated): 3–5 seconds of intentional wait time increases student participation, response quality, and discourse</li>
-              <li>Georgia ELA Standards (2024) — multimodal text as a primary text type requiring student interpretation, analysis, and written response</li>
+              <li>Rowe, M.B. — <em>Wait Time</em> (1972, updated)</li>
+              <li>Georgia ELA Standards (2024) — multimodal text as a primary text type</li>
             </ul>
           </div>
           <div style="background:rgba(255,255,255,.07); border-radius:var(--radius); padding:14px 16px;">
             <p style="font-size:11px; font-weight:600; letter-spacing:.08em; text-transform:uppercase;
                       color:rgba(255,255,255,.45); margin-bottom:8px;">Coaching language grounded in</p>
             <ul style="font-size:12.5px; color:rgba(255,255,255,.92); line-height:1.8; padding-left:16px;">
-              <li>Knight, J. — <em>Instructional Coaching</em> (2007): nonjudgmental, descriptive observation language preserves the coaching relationship</li>
-              <li>Georgia TKES framework — developmental growth language (Evident / Developing / Emerging) intentionally softer than state evaluation descriptors</li>
-              <li>Bloom's Taxonomy (Anderson &amp; Krathwohl, 2001) — higher-order questioning framework</li>
-              <li>University of Pittsburgh — <em>Accountable Talk</em> framework: evidence-based student discourse</li>
-              <li>Webb, N.L. — <em>Depth of Knowledge (DOK)</em> framework: four levels of cognitive complexity guide questioning, tasks, and assessments toward higher-order thinking</li>
+              <li>Knight, J. — <em>Instructional Coaching</em> (2007)</li>
+              <li>Georgia TKES framework — developmental growth language</li>
+              <li>Bloom's Taxonomy (Anderson &amp; Krathwohl, 2001)</li>
+              <li>University of Pittsburgh — <em>Accountable Talk</em> framework</li>
+              <li>Webb, N.L. — <em>Depth of Knowledge (DOK)</em> framework</li>
             </ul>
           </div>
         </div>
@@ -819,25 +900,10 @@
                 <option>Dr. Sharon Synan</option>
               </optgroup>
               <optgroup label="Instructional Coaches">
-                <!--
-                  ELEMENTARY ARCHIVE — Susan Winstead is the Elementary IC.
-                  Kept here for reference; removed from active dropdown since
-                  this tool is currently scoped to Middle and High School.
-                  Restore when Elementary adopts the tool.
-                  <option>Susan Winstead</option>
-                -->
                 <option>Michelle Krolikowski</option>
                 <option>Jennifer Yauck</option>
-                <!--
-                  ARCHIVED — New Literacy Coach (TBD) removed until position is filled.
-                  Restore and update with name when hired.
-                -->
               </optgroup>
               <optgroup label="Administration">
-                <!--
-                  ELEMENTARY ARCHIVE — Katie Baldwin is Elementary Principal.
-                  <option>Katie Baldwin</option>
-                -->
                 <option>Mack Baldwin</option>
                 <option>Alecia Casper</option>
                 <option>Bill Sampson</option>
@@ -848,7 +914,7 @@
               </optgroup>
             </select>
           </div>
-          <!-- Other observer panel (hidden by default) -->
+          <!-- Other observer panel -->
           <div id="other-observer-panel" style="display:none; grid-column: 1 / -1; background:#eef0f8; border:1.5px solid var(--border); border-radius:var(--radius); padding:14px 16px; margin-top:-6px;">
             <div class="field-grid-2" style="margin-bottom:10px">
               <div class="field">
@@ -866,11 +932,6 @@
             <label>School</label>
             <select id="f-school" onchange="handleSchoolChange()">
               <option value="">Select school...</option>
-              <!--
-                ELEMENTARY ARCHIVE — removed from active dropdown per Kanya/Michele review.
-                Restore when Elementary adopts the tool.
-                <option>Oglethorpe County Elementary</option>
-              -->
               <option>Oglethorpe County Middle</option>
               <option>Oglethorpe County High School</option>
             </select>
@@ -883,7 +944,12 @@
         <div class="field-grid-2">
           <div class="field">
             <label>Teacher</label>
-            <input type="text" id="f-teacher" placeholder="Last name, First name">
+            <!-- Teacher field: text input with datalist for auto-complete from Airtable Teachers table -->
+            <input type="text" id="f-teacher" placeholder="Start typing a name…" list="teachers-datalist" autocomplete="off" oninput="handleTeacherInput(this.value)">
+            <datalist id="teachers-datalist"></datalist>
+            <div id="teacher-email-display" style="font-size:11.5px; color:var(--text-muted); margin-top:4px; display:none;">
+              📧 <span id="teacher-email-text"></span>
+            </div>
           </div>
           <div class="field">
             <label><span id="grade-label-text">Grade</span></label>
@@ -926,10 +992,7 @@
         <div class="section-title">Classroom context</div>
       </div>
       <div class="section-body">
-        <!-- Classroom context: unified 2-col grid, all fields aligned -->
         <div style="display:grid; grid-template-columns:1fr 1fr; gap:18px; align-items:start;">
-
-          <!-- Col 1 Row 1: Instructional Format (Primary + Secondary) -->
           <div class="field">
             <label>Primary instructional format <span style="font-weight:400;text-transform:none;font-size:11px;">(majority of visit)</span></label>
             <select id="f-format" onchange="handleFormatChange(this.value)">
@@ -965,7 +1028,6 @@
                 <input type="text" id="f-format-secondary-other" placeholder="Describe transition format..." style="font-family:'DM Sans',sans-serif; font-size:14px; color:var(--text); background:var(--cream); border:1.5px solid var(--border); border-radius:var(--radius); padding:10px 13px; width:100%;">
               </div>
             </div>
-            <!-- Class configuration sits below format in col 1 -->
             <div style="margin-top:14px;">
               <label style="font-size:11.5px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--text-muted);">Class configuration</label>
               <select id="f-config" style="margin-top:5px;">
@@ -982,10 +1044,8 @@
               <label>Co-teacher / support teacher</label>
               <input type="text" id="f-coteacher" placeholder="Last name (if applicable)">
             </div>
-
           </div>
 
-          <!-- Col 2: Reading/Writing Focus + Literary/Skill Focus stacked -->
           <div style="display:flex; flex-direction:column; gap:14px; min-width:0;">
             <div class="field">
               <label>Reading and Writing focus <span style="font-weight:400;text-transform:none;font-size:11px;">(select all that apply)</span></label>
@@ -1026,21 +1086,20 @@
               </div>
             </div>
           </div>
-          <!-- Standard / learning target — full width below both columns -->
           <div class="field" style="grid-column: 1 / -1; margin-top:4px;">
             <label>Standard / learning target</label>
             <div id="standards-list" style="margin:6px 0;"></div>
             <div style="display:flex; gap:8px; margin-top:5px;">
-                            <input type="text" id="f-standard-input" list="standards-datalist" placeholder="Select school &amp; grade/course first, then type a standard code or keyword..." style="font-family:'DM Sans',sans-serif; font-size:14px; color:var(--text); background:var(--cream); border:1.5px solid var(--border); border-radius:var(--radius); padding:10px 13px; flex:1;">
+              <input type="text" id="f-standard-input" list="standards-datalist" placeholder="Select school &amp; grade/course first, then type a standard code or keyword..." style="font-family:'DM Sans',sans-serif; font-size:14px; color:var(--text); background:var(--cream); border:1.5px solid var(--border); border-radius:var(--radius); padding:10px 13px; flex:1;">
               <datalist id="standards-datalist"></datalist>
               <button onclick="addStandard()" style="font-family:'DM Sans',sans-serif; font-size:13px; font-weight:600; padding:9px 18px; background:var(--navy); color:white; border:none; border-radius:8px; cursor:pointer; white-space:nowrap;">Add</button>
             </div>
           </div>
         </div>
-      </div><!-- end section-body -->
+      </div>
     </div>
 
-    <!-- CHANGE 2 — Michele's request: renamed "Observation ratings" → "Observation descriptors" -->
+    <!-- Observation descriptors -->
     <div class="form-section">
       <div class="section-head">
         <div class="section-icon">
@@ -1067,7 +1126,6 @@
         <div class="section-title">Strengths observed</div>
       </div>
       <div class="section-body">
-        <!-- CHANGE 3 — Michele's request: added "Other" free-text option to strengths -->
         <div class="tag-row" id="strength-tags">
           <button class="tag" onclick="toggleTag(this)">Strong routines</button>
           <button class="tag" onclick="toggleTag(this)">Student talk</button>
@@ -1085,17 +1143,12 @@
           <button class="tag" onclick="toggleTag(this)">Culturally relevant text</button>
           <button class="tag" onclick="toggleTag(this)">Student ownership of thinking</button>
           <button class="tag" onclick="toggleTag(this)">Literature circles</button>
-        </div>
           <button class="tag" onclick="toggleTag(this)">Multimodal text in use</button>
           <button class="tag" onclick="toggleTag(this)">Technology for creation or collaboration</button>
+        </div>
         <div class="other-strength-wrap" style="margin-top:10px;">
-          <input
-            type="text"
-            id="f-other-strength"
-            class="other-strength-input"
-            placeholder="Other strength observed…"
-            maxlength="120"
-          >
+          <input type="text" id="f-other-strength" class="other-strength-input"
+            placeholder="Other strength observed…" maxlength="120">
         </div>
       </div>
     </div>
@@ -1135,25 +1188,6 @@
     </div>
 
     <!-- Teacher Response -->
-    <!--
-      CHANGE 4 — Michele's request: removed "Agreed action steps" from teacher response.
-      Rationale: too much to ask in a 15-minute walkthrough context.
-      Full action steps block archived below in comments for potential future use.
-
-      ARCHIVED ACTION STEPS BLOCK:
-      <div class="field" style="background:white; border:1.5px solid #b0c4e8; border-radius:var(--radius); padding:14px 16px;">
-        <label style="color:#2e4494; margin-bottom:8px; display:block;">
-          <svg style="display:inline;vertical-align:middle;margin-right:6px;margin-top:-2px" width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="#2e4494" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,7 5,10 12,3"/></svg>
-          Agreed action steps
-        </label>
-        <div id="action-steps-list"></div>
-        <div style="display:flex; gap:8px; margin-top:8px;">
-          <input type="text" id="f-action-input" placeholder="Type an action step and press Add..." style="background:var(--cream); flex:1; border:1.5px solid var(--border); border-radius:8px; padding:9px 12px; font-family:'DM Sans',sans-serif; font-size:13.5px;">
-          <button onclick="addActionStep()" style="font-family:'DM Sans',sans-serif; font-size:13px; font-weight:600; padding:9px 18px; background:#2e4494; color:white; border:none; border-radius:8px; cursor:pointer; white-space:nowrap;">Add</button>
-        </div>
-        <p style="font-size:11.5px; color:var(--text-muted); margin-top:8px; font-style:italic;">Who will do what by when? Click × to remove a step.</p>
-      </div>
-    -->
     <div class="form-section" style="border-color:#b0c4e8; background:#f0f4fc; border-left:4px solid var(--red);">
       <div class="section-head" style="background:#2e4494;">
         <div class="section-icon" style="background:rgba(255,255,255,.15);">
@@ -1190,7 +1224,7 @@
 
     <!-- Submit -->
     <div class="submit-area">
-      <button class="btn-submit" onclick="submitForm()">
+      <button class="btn-submit" id="btn-save" onclick="submitForm()">
         <svg viewBox="0 0 18 18" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
           <path d="M3 9l5 5 7-8"/>
         </svg>
@@ -1212,7 +1246,6 @@
     </div>
     <div class="summary-body">
       <div class="summary-section">
-        <!-- CHANGE 2 reflected in summary: "Observation ratings" → "Observation descriptors" -->
         <div class="summary-section-title">Observation descriptors</div>
         <div class="ratings-grid" id="sum-ratings"></div>
       </div>
@@ -1230,6 +1263,8 @@
           <span style="font-size:13px; color:var(--text-muted); font-style:italic;">No teacher response recorded yet.</span>
         </div>
       </div>
+      <!-- Airtable sync status -->
+      <div id="sum-airtable-status" style="margin-top:16px; padding:12px 16px; border-radius:var(--radius); background:var(--cream); font-size:13px; color:var(--text-muted); display:none;"></div>
       <div class="summary-actions">
         <button class="btn-primary"   onclick="window.print()">Print summary</button>
         <button class="btn-primary"   onclick="showScreen('log')">View visit log</button>
@@ -1268,9 +1303,165 @@
 </div>
 
 <script>
-// ── Observer PIN table ──
+// ══════════════════════════════════════════════════════════════
+// AIRTABLE CONFIGURATION
+// Replace YOUR_TOKEN_HERE with your personal access token
+// Base ID and table names are already set correctly
+// ══════════════════════════════════════════════════════════════
+const AIRTABLE_TOKEN   = 'pat222IxvwH8DwsNJ.340bf48f3e743ebcf2c859243213a51e0950522043ba4955d796400c9617b62b';
+const AIRTABLE_BASE_ID = 'appGLedN9wlfxL9Ay';
+const WALKTHROUGHS_TABLE = 'Walkthroughs';
+const TEACHERS_TABLE     = 'Teachers';
+
+// ── Observer PIN ──
 const GENERIC_CODE = '1234';
 
+// ── Teacher roster cache ──
+let teacherRoster = []; // [{name, email}]
+
+// ── Load teacher roster from Airtable on page load ──
+async function loadTeacherRoster() {
+  if (!AIRTABLE_TOKEN || AIRTABLE_TOKEN === 'YOUR_TOKEN_HERE') return;
+  try {
+    const url = `https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${encodeURIComponent(TEACHERS_TABLE)}?fields[]=Teacher+Name&fields[]=Teacher+Email`;
+    const res = await fetch(url, {
+      headers: { Authorization: `Bearer ${AIRTABLE_TOKEN}` }
+    });
+    if (!res.ok) return;
+    const data = await res.json();
+    teacherRoster = (data.records || [])
+      .map(r => ({
+        name:  r.fields['Teacher Name']  || '',
+        email: r.fields['Teacher Email'] || ''
+      }))
+      .filter(t => t.name);
+
+    // Populate datalist
+    const dl = document.getElementById('teachers-datalist');
+    dl.innerHTML = '';
+    teacherRoster.forEach(t => {
+      const opt = document.createElement('option');
+      opt.value = t.name;
+      dl.appendChild(opt);
+    });
+  } catch(e) {
+    console.warn('Could not load teacher roster:', e);
+  }
+}
+
+// Auto-fill teacher email when a matching name is selected
+function handleTeacherInput(val) {
+  const match = teacherRoster.find(t => t.name.toLowerCase() === val.toLowerCase());
+  const emailDisplay = document.getElementById('teacher-email-display');
+  const emailText    = document.getElementById('teacher-email-text');
+  if (match && match.email) {
+    emailText.textContent = match.email;
+    emailDisplay.style.display = 'block';
+  } else {
+    emailDisplay.style.display = 'none';
+  }
+}
+
+// Get teacher email for current teacher field value
+function getTeacherEmail() {
+  const name = document.getElementById('f-teacher').value.trim();
+  const match = teacherRoster.find(t => t.name.toLowerCase() === name.toLowerCase());
+  return match ? match.email : '';
+}
+
+// ── Send walkthrough record to Airtable ──
+async function sendToAirtable(visit) {
+  if (!AIRTABLE_TOKEN || AIRTABLE_TOKEN === 'YOUR_TOKEN_HERE') {
+    return { success: false, error: 'Token not configured' };
+  }
+
+  const teacherEmail = getTeacherEmail() || visit.teacherEmailDirect || '';
+
+  // Map reading/literary arrays to comma-separated strings for long text fields
+  const readingStr  = Array.isArray(visit.reading)  ? visit.reading.join(', ')  : visit.reading  || '';
+  const literaryStr = Array.isArray(visit.literary) ? visit.literary.join(', ') : visit.literary || '';
+  const standardStr = Array.isArray(visit.standard) ? visit.standard.join(', ') : visit.standard || '';
+  const strengthsStr = Array.isArray(visit.strengths) ? visit.strengths.join(', ') : '';
+
+  const fields = {
+    'Observer':                        visit.observer                   || '',
+    'School':                          visit.school                     || '',
+    'Date':                            visit.date                       || '',
+    'Teacher Name':                    visit.teacher                    || '',
+    'Teacher Email':                   teacherEmail,
+    'Grade / Course':                  visit.grade                      || '',
+    'Subject':                         visit.subject                    || 'ELA',
+    'Time of Visit':                   visit.time                       || '',
+    'Primary Format':                  visit.format                     || '',
+    'Secondary Format':                visit.formatSecondary            || '',
+    'Class Configuration':             visit.config                     || '',
+    'Co-Teacher':                      visit.coteacher                  || '',
+    'Reading & Writing Focus':         readingStr,
+    'Literary / Skill Focus':          literaryStr,
+    'Standard / Learning Target':      standardStr,
+    'Instructional Clarity':           visit.ratings['grouping']        || '',
+    'Student Engagement':              visit.ratings['engagement']      || '',
+    'Questioning Techniques':          visit.ratings['questioning']     || '',
+    'Wait Time & Student Response':    visit.ratings['waittime']        || '',
+    'Differentiation & Access':        visit.ratings['text']            || '',
+    'Evidence & Student Talk':         visit.ratings['evidence']        || '',
+    'Writing & Response':              visit.ratings['writing']         || '',
+    'Learning Environment':            visit.ratings['environment']     || '',
+    'Teacher-Student Relationship':    visit.ratings['relationship']    || '',
+    'Technology & Multimodal Engagement': visit.ratings['technology']   || '',
+    'Strengths Observed':              strengthsStr,
+    'Other Strength':                  visit.otherStrength              || '',
+    'Highlights from Observation':     visit.observed                   || '',
+    'What Does the Teacher Need':      visit.needs                      || '',
+    'Opportunities for Students':      visit.opportunities              || '',
+    'General Comments':                visit.comments                   || '',
+    'Teacher Reflection':              visit.teacherResponse            || '',
+    'Support Requested':               visit.teacherSupport             || '',
+    'Teacher Signature':               visit.teacherSig                 || '',
+    'Status':                          'New',
+  };
+
+  // Only include Teacher Signature Date if populated (Airtable date fields can't be empty string)
+  if (visit.teacherSigDate) fields['Teacher Signature Date'] = visit.teacherSigDate;
+
+  try {
+    const res = await fetch(`https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${encodeURIComponent(WALKTHROUGHS_TABLE)}`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${AIRTABLE_TOKEN}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ fields })
+    });
+
+    if (!res.ok) {
+      const err = await res.json();
+      return { success: false, error: err.error?.message || 'Airtable error' };
+    }
+
+    const created = await res.json();
+    return { success: true, recordId: created.id };
+  } catch(e) {
+    return { success: false, error: e.message };
+  }
+}
+
+// ── Send confirmation email via Airtable automation ──
+// Airtable will handle the actual email via its built-in automation.
+// We just need to ensure the Observer field and Status are set correctly
+// so the automation triggers. No separate email API call needed here.
+// If you want to send email from here directly, add SendGrid or similar later.
+
+// ── Show success toast ──
+function showToast(title, sub, duration = 5000) {
+  const toast = document.getElementById('success-toast');
+  document.getElementById('toast-title').textContent = title;
+  document.getElementById('toast-sub').textContent   = sub;
+  toast.style.display = 'block';
+  setTimeout(() => { toast.style.display = 'none'; }, duration);
+}
+
+// ── Observer helpers ──
 function handleObserverChange(val) {
   const panel = document.getElementById('other-observer-panel');
   panel.style.display = val === '__other__' ? 'block' : 'none';
@@ -1283,14 +1474,6 @@ function handleFormatChange(val) {
 
 function handleFormatSecondaryChange(val) {
   document.getElementById('other-format-secondary-wrap').style.display = val === '__other_format_secondary__' ? 'block' : 'none';
-}
-
-function handleReadingChange(val) {
-  document.getElementById('other-reading-wrap').style.display = val === '__other_reading__' ? 'block' : 'none';
-}
-
-function handleLiteraryChange(val) {
-  document.getElementById('other-literary-wrap').style.display = val === '__other_literary__' ? 'block' : 'none';
 }
 
 function resolveObserver() {
@@ -1308,17 +1491,12 @@ function resolveObserver() {
   return name + ' (Guest)';
 }
 
-// Show/hide co-teacher field
 document.getElementById('f-config').addEventListener('change', function() {
   const needs = ['Co-taught — two teachers of record','Push-in support','Student teacher / intern present'];
   document.getElementById('co-teacher-wrap').style.display = needs.includes(this.value) ? 'block' : 'none';
 });
 
 // ── Observation descriptor categories ──
-// CHANGE 2: "Observation ratings" renamed to "Observation descriptors" throughout
-// UPDATED — softened descriptor language per Kanya/Michele review
-// "Text complexity & access" renamed to "Differentiation & access" (leveled text not a district focus)
-// Negative/evaluative language replaced with growth-oriented, observational phrasing throughout
 const OBS_CATS = [
   { id:'grouping',     label:'Instructional clarity',          opts:['Instructional focus is clear and purposeful','Focus of instruction is present; purpose emerging','Instructional focus not yet observable','Not applicable'] },
   { id:'engagement',   label:'Student engagement',             opts:['Most/all students actively engaged','Partial engagement observed','Engagement opportunities to grow','Not observed'] },
@@ -1334,19 +1512,17 @@ const OBS_CATS = [
 
 const RATING_MAP = ['Evident','Developing','Emerging','N/A'];
 const SEL_CLASS  = ['sel-strong','sel-developing','sel-notyet','sel-na'];
+const SEL_CLASS_EXT  = ['sel-strong','sel-strong','sel-developing','sel-notyet','sel-na'];
+const RATING_MAP_EXT = ['Evident','Purposeful','Developing','Emerging','N/A'];
 
 // Build obs grid
 const grid = document.getElementById('obs-grid');
-// Style map for up to 5 options — index maps to visual class
-const SEL_CLASS_EXT = ['sel-strong','sel-strong','sel-developing','sel-notyet','sel-na'];
-const RATING_MAP_EXT = ['Evident','Purposeful','Developing','Emerging','N/A'];
-
 OBS_CATS.forEach(cat => {
   const card = document.createElement('div');
   card.className = 'obs-card';
   const useExtended = cat.opts.length > 4;
-  const rMap  = useExtended ? RATING_MAP_EXT : RATING_MAP;
-  const sMap  = useExtended ? SEL_CLASS_EXT  : SEL_CLASS;
+  const rMap = useExtended ? RATING_MAP_EXT : RATING_MAP;
+  const sMap = useExtended ? SEL_CLASS_EXT  : SEL_CLASS;
   card.innerHTML = `
     <div class="obs-card-head"><div class="obs-card-title">${cat.label}</div></div>
     <div class="obs-card-body">
@@ -1367,18 +1543,14 @@ function selectRadio(el, cat, idx, selClass) {
   el.querySelector('input').checked = true;
 }
 
-// ── Tags & Other strength ──
+// ── Tags ──
 function toggleTag(el) { el.classList.toggle('on'); }
 
 function getSelectedTags() {
-  const tags = [...document.querySelectorAll('#strength-tags .tag.on')].map(b => b.textContent.trim());
-  // CHANGE 3: include "Other" free-text strength if entered
-  const otherVal = document.getElementById('f-other-strength').value.trim();
-  if (otherVal) tags.push(otherVal);
-  return tags;
+  return [...document.querySelectorAll('#strength-tags .tag.on')].map(b => b.textContent.trim());
 }
 
-// ── Standards list ──
+// ── Standards ──
 let standards = [];
 
 function renderStandards() {
@@ -1398,17 +1570,12 @@ function addStandard() {
   const inp = document.getElementById('f-standard-input');
   const val = inp.value.trim();
   if (!val) return;
-
-  // Look up full label from datalist if available
   const datalist = document.getElementById('standards-datalist');
   let displayText = val;
   if (datalist) {
     const match = [...datalist.options].find(o => o.value === val);
-    if (match && match.textContent) {
-      displayText = match.textContent; // "6.TT.4 — Text Types..."
-    }
+    if (match && match.textContent) displayText = match.textContent;
   }
-
   standards.push(displayText);
   inp.value = '';
   renderStandards();
@@ -1424,99 +1591,50 @@ document.addEventListener('DOMContentLoaded', function() {
   document.getElementById('f-standard-input').addEventListener('keydown', function(e) {
     if (e.key === 'Enter') { e.preventDefault(); addStandard(); }
   });
+  loadTeacherRoster();
 });
 
+// ── Standards data ──
+const STANDARDS_DATA = {"06": [{"code": "6.P.EICC.1", "label": "Reader & Writer Identity"}, {"code": "6.P.EICC.2", "label": "Engagement & Intention"}, {"code": "6.P.EICC.3", "label": "Comprehension Strategies"}, {"code": "6.P.EICC.4", "label": "Writing Processes"}, {"code": "6.P.ST.1", "label": "Context"}, {"code": "6.P.ST.2", "label": "Author, Audience, & Purpose"}, {"code": "6.P.AC.1", "label": "Reading like a Writer"}, {"code": "6.P.AC.2", "label": "Writing like a Reader"}, {"code": "6.P.AC.3", "label": "Text Design"}, {"code": "6.P.CP.1", "label": "Collaboration"}, {"code": "6.P.CP.2", "label": "Presentation"}, {"code": "6.L.GC.1", "label": "Grammar, Usage, & Mechanics"}, {"code": "6.L.GC.2", "label": "Syntax"}, {"code": "6.L.V.1", "label": "General, Academic, & Specialized Vocabulary"}, {"code": "6.L.V.2", "label": "Word Analysis"}, {"code": "6.L.V.3", "label": "Meaning & Purpose"}, {"code": "6.T.C.1", "label": "Purpose & Audience"}, {"code": "6.T.C.2", "label": "Authors & Speakers"}, {"code": "6.T.SS.1", "label": "Organization"}, {"code": "6.T.SS.2", "label": "Craft"}, {"code": "6.T.T.1", "label": "Narrative Techniques"}, {"code": "6.T.T.2", "label": "Expository Techniques"}, {"code": "6.T.T.3", "label": "Argumentative Techniques"}, {"code": "6.T.T.4", "label": "Poetic Techniques"}, {"code": "6.T.RA.1", "label": "Research & Inquiry"}, {"code": "6.T.RA.2", "label": "Curating Sources & Evidence"}, {"code": "6.T.PM.1", "label": "Periods & Movements"}], "07": [{"code": "7.P.EICC.1", "label": "Reader & Writer Identity"}, {"code": "7.P.EICC.2", "label": "Engagement & Intention"}, {"code": "7.P.EICC.3", "label": "Comprehension Strategies"}, {"code": "7.P.EICC.4", "label": "Writing Processes"}, {"code": "7.P.ST.1", "label": "Context"}, {"code": "7.P.ST.2", "label": "Author, Audience, & Purpose"}, {"code": "7.P.AC.1", "label": "Reading like a Writer"}, {"code": "7.P.AC.2", "label": "Writing like a Reader"}, {"code": "7.P.AC.3", "label": "Text Design"}, {"code": "7.P.CP.1", "label": "Collaboration"}, {"code": "7.P.CP.2", "label": "Presentation"}, {"code": "7.L.GC.1", "label": "Grammar, Usage, & Mechanics"}, {"code": "7.L.GC.2", "label": "Syntax"}, {"code": "7.L.V.1", "label": "General, Academic, & Specialized Vocabulary"}, {"code": "7.L.V.2", "label": "Word Analysis"}, {"code": "7.L.V.3", "label": "Meaning & Purpose"}, {"code": "7.T.C.1", "label": "Purpose & Audience"}, {"code": "7.T.C.2", "label": "Authors & Speakers"}, {"code": "7.T.SS.1", "label": "Organization"}, {"code": "7.T.SS.2", "label": "Craft"}, {"code": "7.T.T.1", "label": "Narrative Techniques"}, {"code": "7.T.T.2", "label": "Expository Techniques"}, {"code": "7.T.T.3", "label": "Argumentative Techniques"}, {"code": "7.T.T.4", "label": "Poetic Techniques"}, {"code": "7.T.RA.1", "label": "Research & Inquiry"}, {"code": "7.T.RA.2", "label": "Curating Sources & Evidence"}, {"code": "7.T.PM.1", "label": "Periods & Movements"}], "08": [{"code": "8.P.EICC.1", "label": "Reader & Writer Identity"}, {"code": "8.P.EICC.2", "label": "Engagement & Intention"}, {"code": "8.P.EICC.3", "label": "Comprehension Strategies"}, {"code": "8.P.EICC.4", "label": "Writing Processes"}, {"code": "8.P.ST.1", "label": "Context"}, {"code": "8.P.ST.2", "label": "Author, Audience, & Purpose"}, {"code": "8.P.AC.1", "label": "Reading like a Writer"}, {"code": "8.P.AC.2", "label": "Writing like a Reader"}, {"code": "8.P.AC.3", "label": "Text Design"}, {"code": "8.P.CP.1", "label": "Collaboration"}, {"code": "8.P.CP.2", "label": "Presentation"}, {"code": "8.L.GC.1", "label": "Grammar, Usage, & Mechanics"}, {"code": "8.L.GC.2", "label": "Syntax"}, {"code": "8.L.V.1", "label": "General, Academic, & Specialized Vocabulary"}, {"code": "8.L.V.2", "label": "Word Analysis"}, {"code": "8.L.V.3", "label": "Meaning & Purpose"}, {"code": "8.T.C.1", "label": "Purpose & Audience"}, {"code": "8.T.C.2", "label": "Authors & Speakers"}, {"code": "8.T.SS.1", "label": "Organization"}, {"code": "8.T.SS.2", "label": "Craft"}, {"code": "8.T.T.1", "label": "Narrative Techniques"}, {"code": "8.T.T.2", "label": "Expository Techniques"}, {"code": "8.T.T.3", "label": "Argumentative Techniques"}, {"code": "8.T.T.4", "label": "Poetic Techniques"}, {"code": "8.T.RA.1", "label": "Research & Inquiry"}, {"code": "8.T.RA.2", "label": "Curating Sources & Evidence"}, {"code": "8.T.PM.1", "label": "Periods & Movements"}]};
 
-// ── Standards data (Georgia ELA, grouped by grade) ──
-const STANDARDS_DATA = {"06": [{"code": "6.P.EICC.1", "label": "Reader & Writer Identity Build an identity as a reader and writer, developing a..."}, {"code": "6.P.EICC.2", "label": "Engagement & Intention Engage in written or spoken dialogue as author and..."}, {"code": "6.P.EICC.3", "label": "Comprehension Strategies Engage with a range of complex texts for a variety of..."}, {"code": "6.P.EICC.4", "label": "Writing Processes Compose a range of texts for a variety of purposes and..."}, {"code": "6.P.ST.1", "label": "Context Develop and apply knowledge of key components of context such as..."}, {"code": "6.P.ST.2", "label": "Author, Audience, & Purpose Interpret and construct texts by developing and..."}, {"code": "6.P.AC.1", "label": "Reading like a Writer Interpret texts through the author’s lens by identifying,..."}, {"code": "6.P.AC.2", "label": "Writing like a Reader Construct texts with the audience’s experience in mind,..."}, {"code": "6.P.AC.3", "label": "Text Design Consider the impact of text design on audience and purpose when..."}, {"code": "6.P.CP.1", "label": "Collaboration Collaborate with others to accomplish shared goals and projects."}, {"code": "6.P.CP.2", "label": "Presentation Use presentation skills to tailor communication to target..."}, {"code": "6.L.GC.1", "label": "Grammar, Usage, & Mechanics Draw from knowledge of the conventions of Standard..."}, {"code": "6.L.GC.2", "label": "Syntax Apply understanding of syntax to comprehend, analyze, condense, and..."}, {"code": "6.L.V.1", "label": "General, Academic, & Specialized Vocabulary Use a variety of approaches to..."}, {"code": "6.L.V.2", "label": "Word Analysis Use word knowledge and word analysis skills to determine the..."}, {"code": "6.L.V.3", "label": "Meaning & Purpose Analyze the denotative and connotative meanings of words and..."}, {"code": "6.T.C.1", "label": "Purpose & Audience Analyze the impact of purpose and audience on a wide variety..."}, {"code": "6.T.C.2", "label": "Authors & Speakers Analyze how authors’ and/or speakers’ perspectives influence..."}, {"code": "6.T.SS.1", "label": "Organization Analyze and use organizational structures to craft meaning."}, {"code": "6.T.SS.2", "label": "Craft Interpret and use language to craft engaging texts."}, {"code": "6.T.T.1", "label": "Narrative Techniques Analyze and apply narrative techniques."}, {"code": "6.T.T.2", "label": "Expository Techniques Analyze and apply expository techniques."}, {"code": "6.T.T.3", "label": "Argumentative Techniques Analyze and apply argumentative techniques."}, {"code": "6.T.T.4", "label": "Poetic Techniques Analyze and apply poetic techniques."}, {"code": "6.T.RA.1", "label": "Research & Inquiry Conduct research, generating questions to guide..."}, {"code": "6.T.RA.2", "label": "Curating Sources & Evidence Utilize multiple print and digital texts to address..."}, {"code": "6.T.PM.1", "label": "Periods & Movements Demonstrate knowledge of dominant themes, genres, and..."}], "07": [{"code": "7.P.EICC.1", "label": "Reader & Writer Identity Build an identity as a reader and writer, developing a..."}, {"code": "7.P.EICC.2", "label": "Engagement & Intention Engage in written or spoken dialogue as author and..."}, {"code": "7.P.EICC.3", "label": "Comprehension Strategies Engage with a range of complex texts for a variety of..."}, {"code": "7.P.EICC.4", "label": "Writing Processes Compose a range of texts for a variety of purposes and..."}, {"code": "7.P.ST.1", "label": "Context Develop and apply knowledge of key components of context such as..."}, {"code": "7.P.ST.2", "label": "Author, Audience, & Purpose Interpret and construct texts by developing and..."}, {"code": "7.P.AC.1", "label": "Reading like a Writer Interpret texts through the author’s lens by identifying,..."}, {"code": "7.P.AC.2", "label": "Writing like a Reader Construct texts with the audience’s experience in mind,..."}, {"code": "7.P.AC.3", "label": "Text Design Consider the impact of text design on audience and purpose when..."}, {"code": "7.P.CP.1", "label": "Collaboration Collaborate with others to accomplish shared goals and projects."}, {"code": "7.P.CP.2", "label": "Presentation Use presentation skills to tailor communication to target..."}, {"code": "7.L.GC.1", "label": "Grammar, Usage, & Mechanics Draw from knowledge of the conventions of Standard..."}, {"code": "7.L.GC.2", "label": "Syntax Apply understanding of syntax to comprehend, analyze, condense, and..."}, {"code": "7.L.V.1", "label": "General, Academic, & Specialized Vocabulary Use a variety of approaches to..."}, {"code": "7.L.V.2", "label": "Word Analysis Use word knowledge and word analysis skills to determine the..."}, {"code": "7.L.V.3", "label": "Meaning & Purpose Analyze the denotative and connotative meanings of words and..."}, {"code": "7.T.C.1", "label": "Purpose & Audience Analyze the impact of purpose and audience on a wide variety..."}, {"code": "7.T.C.2", "label": "Authors & Speakers Analyze how authors’ and/or speakers’ perspectives influence..."}, {"code": "7.T.SS.1", "label": "Organization Analyze and use organizational structures to craft meaning."}, {"code": "7.T.SS.2", "label": "Craft Interpret and use language to craft engaging texts."}, {"code": "7.T.T.1", "label": "Narrative Techniques Analyze and apply narrative techniques."}, {"code": "7.T.T.2", "label": "Expository Techniques Analyze and apply expository techniques."}, {"code": "7.T.T.3", "label": "Argumentative Techniques Analyze and apply argumentative techniques."}, {"code": "7.T.T.4", "label": "Poetic Techniques Analyze and apply poetic techniques."}, {"code": "7.T.RA.1", "label": "Research & Inquiry Conduct research, generating questions to guide..."}, {"code": "7.T.RA.2", "label": "Curating Sources & Evidence Utilize multiple print and digital texts to address..."}, {"code": "7.T.PM.1", "label": "Periods & Movements Demonstrate knowledge of dominant themes, genres, and..."}], "08": [{"code": "8.P.EICC.1", "label": "Reader & Writer Identity Build an identity as a reader and writer, developing a..."}, {"code": "8.P.EICC.2", "label": "Engagement & Intention Engage in written or spoken dialogue as author and..."}, {"code": "8.P.EICC.3", "label": "Comprehension Strategies Engage with a range of complex texts for a variety of..."}, {"code": "8.P.EICC.4", "label": "Writing Processes Compose a range of texts for a variety of purposes and..."}, {"code": "8.P.ST.1", "label": "Context Develop and apply knowledge of key components of context such as..."}, {"code": "8.P.ST.2", "label": "Author, Audience, & Purpose Interpret and construct texts by developing and..."}, {"code": "8.P.AC.1", "label": "Reading like a Writer Interpret texts through the author’s lens by identifying,..."}, {"code": "8.P.AC.2", "label": "Writing like a Reader Construct texts with the audience’s experience in mind,..."}, {"code": "8.P.AC.3", "label": "Text Design Consider the impact of text design on audience and purpose when..."}, {"code": "8.P.CP.1", "label": "Collaboration Collaborate with others to accomplish shared goals and projects."}, {"code": "8.P.CP.2", "label": "Presentation Use presentation skills to tailor communication to target..."}, {"code": "8.L.GC.1", "label": "Grammar, Usage, & Mechanics Draw from knowledge of the conventions of Standard..."}, {"code": "8.L.GC.2", "label": "Syntax Apply understanding of syntax to comprehend, analyze, condense, and..."}, {"code": "8.L.V.1", "label": "General, Academic, & Specialized Vocabulary Use a variety of approaches to..."}, {"code": "8.L.V.2", "label": "Word Analysis Use word knowledge and word analysis skills to determine the..."}, {"code": "8.L.V.3", "label": "Meaning & Purpose Analyze the denotative and connotative meanings of words and..."}, {"code": "8.T.C.1", "label": "Purpose & Audience Analyze the impact of purpose and audience on a wide variety..."}, {"code": "8.T.C.2", "label": "Authors & Speakers Analyze how authors’ and/or speakers’ perspectives influence..."}, {"code": "8.T.SS.1", "label": "Organization Analyze and use organizational structures to craft meaning."}, {"code": "8.T.SS.2", "label": "Craft Interpret and use language to craft engaging texts."}, {"code": "8.T.T.1", "label": "Narrative Techniques Analyze and apply narrative techniques."}, {"code": "8.T.T.2", "label": "Expository Techniques Analyze and apply expository techniques."}, {"code": "8.T.T.3", "label": "Argumentative Techniques Analyze and apply argumentative techniques."}, {"code": "8.T.T.4", "label": "Poetic Techniques Analyze and apply poetic techniques."}, {"code": "8.T.RA.1", "label": "Research & Inquiry Conduct research, generating questions to guide..."}, {"code": "8.T.RA.2", "label": "Curating Sources & Evidence Utilize multiple print and digital texts to address..."}, {"code": "8.T.PM.1", "label": "Periods & Movements Demonstrate knowledge of dominant themes, genres, and..."}]};
+const HS_STANDARDS_DATA = {"Literature & Composition I": [{"code":"9.P.EICC.1","label":"Reader & Writer Identity"},{"code":"9.P.EICC.2","label":"Engagement & Intention"},{"code":"9.P.EICC.3","label":"Comprehension Strategies"},{"code":"9.P.EICC.4","label":"Writing Processes"},{"code":"9.P.ST.1","label":"Context"},{"code":"9.P.ST.2","label":"Author, Audience, & Purpose"},{"code":"9.P.AC.1","label":"Reading like a Writer"},{"code":"9.P.AC.2","label":"Writing like a Reader"},{"code":"9.P.AC.3","label":"Text Design"},{"code":"9.P.CP.1","label":"Collaboration"},{"code":"9.P.CP.2","label":"Presentation"},{"code":"9.L.GC.1","label":"Grammar, Usage, & Mechanics"},{"code":"9.L.GC.2","label":"Syntax"},{"code":"9.L.V.1","label":"General, Academic, & Specialized Vocabulary"},{"code":"9.L.V.2","label":"Word Analysis"},{"code":"9.L.V.3","label":"Meaning & Purpose"},{"code":"9.T.C.1","label":"Purposes & Audiences"},{"code":"9.T.C.2","label":"Authors & Speakers"},{"code":"9.T.SS.1","label":"Organization"},{"code":"9.T.SS.2","label":"Craft"},{"code":"9.T.T.1","label":"Narrative Techniques"},{"code":"9.T.T.2","label":"Expository Techniques"},{"code":"9.T.T.3","label":"Argumentative Techniques"},{"code":"9.T.T.4","label":"Poetic Techniques"},{"code":"9.T.RA.1","label":"Research & Inquiry"},{"code":"9.T.RA.2","label":"Curating Sources & Evidence"},{"code":"9.T.PM.1","label":"Periods & Movements"}],"Literature & Composition II": [{"code":"10.P.EICC.1","label":"Reader & Writer Identity"},{"code":"10.P.EICC.2","label":"Engagement & Intention"},{"code":"10.P.EICC.3","label":"Comprehension Strategies"},{"code":"10.P.EICC.4","label":"Writing Processes"},{"code":"10.T.T.1","label":"Narrative Techniques"},{"code":"10.T.T.2","label":"Expository Techniques"},{"code":"10.T.T.3","label":"Argumentative Techniques"},{"code":"10.T.T.4","label":"Poetic Techniques"},{"code":"10.T.RA.1","label":"Research & Inquiry"},{"code":"10.T.RA.2","label":"Curating Sources & Evidence"}],"Literature & Composition III": [{"code":"11.P.EICC.1","label":"Reader & Writer Identity"},{"code":"11.T.T.1","label":"Narrative Techniques"},{"code":"11.T.T.2","label":"Expository Techniques"},{"code":"11.T.T.3","label":"Argumentative Techniques"},{"code":"11.T.T.4","label":"Poetic Techniques"},{"code":"11.T.RA.1","label":"Research & Inquiry"},{"code":"11.T.RA.2","label":"Curating Sources & Evidence"}],"Literature & Composition IV": [{"code":"12.P.EICC.1","label":"Reader & Writer Identity"},{"code":"12.T.T.1","label":"Narrative Techniques"},{"code":"12.T.T.2","label":"Expository Techniques"},{"code":"12.T.T.3","label":"Argumentative Techniques"},{"code":"12.T.T.4","label":"Poetic Techniques"},{"code":"12.T.RA.1","label":"Research & Inquiry"},{"code":"12.T.RA.2","label":"Curating Sources & Evidence"}],"Enhanced Literature & Composition I": [{"code":"8.P.EICC.1","label":"Reader & Writer Identity (Gr 8)"},{"code":"9.P.EICC.1","label":"Reader & Writer Identity (Gr 9)"},{"code":"8.T.T.1","label":"Narrative Techniques (Gr 8)"},{"code":"9.T.T.1","label":"Narrative Techniques (Gr 9)"}]};
 
-// Map form grade values to data keys
-const GRADE_TO_KEY = {
-  '6th': '06', '7th': '07', '8th': '08',
-  // High school grades will be added when HS standards are loaded
-  '9th': '09', '10th': '10', '11th': '11', '12th': '12'
-};
-
-// HS course standards data
-const HS_STANDARDS_DATA = {"Literature & Composition I": [{"code": "9.P.EICC.1", "label": "Reader & Writer Identity Build an identity as a reader and writer, developing a..."}, {"code": "9.P.EICC.2", "label": "Engagement & Intention Engage in written or spoken dialogue as author and audience for a..."}, {"code": "9.P.EICC.3", "label": "Comprehension Strategies Engage with a range of complex texts for a variety of tasks and..."}, {"code": "9.P.EICC.4", "label": "Writing Processes Compose a range of texts for a variety of purposes and audiences,..."}, {"code": "9.P.ST.1", "label": "Context Develop and apply knowledge of key components of context such as background..."}, {"code": "9.P.ST.2", "label": "Author, Audience, & Purpose Interpret and construct texts by developing and applying..."}, {"code": "9.P.AC.1", "label": "Reading like a Writer Interpret texts through the author’s lens by identifying,..."}, {"code": "9.P.AC.2", "label": "Writing like a Reader Construct texts with the audience’s experience in mind, basing..."}, {"code": "9.P.AC.3", "label": "Text Design Consider the impact of text design on audience and purpose when consuming and..."}, {"code": "9.P.CP.1", "label": "Collaboration Collaborate with others to accomplish shared goals and projects."}, {"code": "9.P.CP.2", "label": "Presentation Use presentation skills to tailor communication to target audiences for..."}, {"code": "9.L.GC.1", "label": "Grammar, Usage, & Mechanics Draw from knowledge of the conventions of Standard English..."}, {"code": "9.L.GC.2", "label": "Syntax Apply understanding of syntax to comprehend, analyze, evaluate, craft, and reshape..."}, {"code": "9.L.V.1", "label": "General, Academic, & Specialized Vocabulary Use expanding vocabulary knowledge to..."}, {"code": "9.L.V.2", "label": "Word Analysis Use word knowledge and word analysis skills to determine the meaning of..."}, {"code": "9.L.V.3", "label": "Meaning & Purpose Analyze and craft nuanced words and phrases in a variety of texts and..."}, {"code": "9.T.C.1", "label": "Purposes & Audiences Analyze the impact of purpose and audience on a wide variety of..."}, {"code": "9.T.C.2", "label": "Authors & Speakers Evaluate how authors’ and/or speakers’ perspectives influence texts..."}, {"code": "9.T.SS.1", "label": "Organization Analyze, evaluate, and use organizational structures and style to shape..."}, {"code": "9.T.SS.2", "label": "Craft Analyze, evaluate, and craft language to produce intended effects in a wide variety..."}, {"code": "9.T.T.1", "label": "Narrative Techniques Evaluate and apply narrative techniques to enhance text’s appeal to..."}, {"code": "9.T.T.2", "label": "Expository Techniques Evaluate and apply expository techniques to enhance text’s appeal..."}, {"code": "9.T.T.3", "label": "Argumentative Techniques Evaluate and apply argumentative techniques to enhance text’s..."}, {"code": "9.T.T.4", "label": "Poetic Techniques Evaluate and apply poetic techniques to enhance text’s appeal to..."}, {"code": "9.T.RA.1", "label": "Research & Inquiry Conduct research, generating questions to guide investigations of..."}, {"code": "9.T.RA.2", "label": "Curating Sources & Evidence Reference parts of texts to address a specific topic or..."}, {"code": "9.T.PM.1", "label": "Demonstrate knowledge of dominant themes, genres, and verbal styles of literature from a..."}], "Literature & Composition II": [{"code": "10.P.EICC.1", "label": "Reader & Writer Identity Build an identity as a reader and writer, developing a..."}, {"code": "10.P.EICC.2", "label": "Engagement & Intention Engage in written or spoken dialogue as author and audience for a..."}, {"code": "10.P.EICC.3", "label": "Comprehension Strategies Engage with a range of complex texts for a variety of tasks and..."}, {"code": "10.P.EICC.4", "label": "Writing Processes Compose a range of texts for a variety of purposes and audiences,..."}, {"code": "10.P.ST.1", "label": "Context Develop and apply knowledge of key components of context such as background..."}, {"code": "10.P.ST.2", "label": "Author, Audience, & Purpose Interpret and construct texts by developing and applying..."}, {"code": "10.P.AC.1", "label": "Reading like a Writer Interpret texts through the author’s lens by identifying,..."}, {"code": "10.P.AC.2", "label": "Writing like a Reader Construct texts with the audience’s experience in mind, basing..."}, {"code": "10.P.AC.3", "label": "Text Design Consider the impact of text design on audience and purpose when consuming and..."}, {"code": "10.P.CP.1", "label": "Collaboration Collaborate with others to accomplish shared goals and projects."}, {"code": "10.P.CP.2", "label": "Presentation Use presentation skills to tailor communication to target audiences for..."}, {"code": "10.L.GC.1", "label": "Grammar, Usage, & Mechanics Draw from knowledge of the conventions of Standard English..."}, {"code": "10.L.GC.2", "label": "Syntax Apply understanding of syntax to comprehend, analyze, evaluate, craft, and reshape..."}, {"code": "10.L.V.1", "label": "General, Academic, & Specialized Vocabulary Use expanding vocabulary knowledge to..."}, {"code": "10.L.V.2", "label": "Word Analysis Use word knowledge and word analysis skills to determine the meaning of..."}, {"code": "10.L.V.3", "label": "Meaning & Purpose Analyze and craft nuanced words and phrases in a variety of texts and..."}, {"code": "10.T.C.1", "label": "Purposes & Audiences Analyze the impact of purpose and audience on a wide variety of..."}, {"code": "10.T.C.2", "label": "Authors & Speakers Evaluate how authors’ and/or speakers’ perspectives influence texts..."}, {"code": "10.T.SS.1", "label": "Organization Analyze, evaluate, and use organizational structures and style to shape..."}, {"code": "10.T.SS.2", "label": "Craft Analyze, evaluate, and craft language to produce intended effects in a wide variety..."}, {"code": "10.T.T.1", "label": "Narrative Techniques Evaluate and apply narrative techniques to enhance text’s appeal to..."}, {"code": "10.T.T.2", "label": "Expository Techniques Evaluate and apply expository techniques to enhance text’s appeal..."}, {"code": "10.T.T.3", "label": "Argumentative Techniques Evaluate and apply argumentative techniques to enhance text’s..."}, {"code": "10.T.T.4", "label": "Poetic Techniques Evaluate and apply poetic techniques to enhance text’s appeal to..."}, {"code": "10.T.RA.1", "label": "Research & Inquiry  Conduct research, generating questions to guide investigations of..."}, {"code": "10.T.RA.2", "label": "Curating Sources & Evidence Reference parts of texts to address a specific topic or..."}, {"code": "10.T.PM.1", "label": "Demonstrate knowledge of dominant themes, genres, and verbal styles of literature from a..."}], "Literature & Composition III": [{"code": "11.P.EICC.1", "label": "Reader & Writer Identity Build an identity as a reader and writer, developing a..."}, {"code": "11.P.EICC.2", "label": "Engagement & Intention Engage in written or spoken dialogue as author and audience for a..."}, {"code": "11.P.EICC.3", "label": "Comprehension Strategies Engage with a range of complex texts for a variety of tasks and..."}, {"code": "11.P.EICC.4", "label": "Writing Processes Compose a range of texts for a variety of purposes and audiences,..."}, {"code": "11.P.ST.1", "label": "Context Develop and apply knowledge of key components of context such as background..."}, {"code": "11.P.ST.2", "label": "Author, Audience, & Purpose Interpret and construct texts by developing and applying..."}, {"code": "11.P.AC.1", "label": "Reading like a Writer Interpret texts through the author’s lens by identifying,..."}, {"code": "11.P.AC.2", "label": "Writing like a Reader Construct texts with the audience’s experience in mind, basing..."}, {"code": "11.P.AC.3", "label": "Text Design Consider the impact of text design on audience and purpose when consuming and..."}, {"code": "11.P.CP.1", "label": "Collaboration Collaborate with others to accomplish shared goals and projects."}, {"code": "11.P.CP.2", "label": "Presentation Use presentation skills to tailor communication to target audiences for..."}, {"code": "11.L.GC.1", "label": "Grammar, Usage, & Mechanics Draw from knowledge of the conventions of Standard English..."}, {"code": "11.L.GC.2", "label": "Syntax Apply understanding of syntax to comprehend, analyze, evaluate, craft, and reshape..."}, {"code": "11.L.V.1", "label": "General, Academic, & Specialized Vocabulary Use expanding vocabulary knowledge to..."}, {"code": "11.L.V.2", "label": "Word Analysis Use word knowledge and word analysis skills to determine the meaning of..."}, {"code": "11.L.V.3", "label": "Meaning & Purpose Analyze and craft nuanced words and phrases in a variety of texts and..."}, {"code": "11.T.C.1", "label": "Purposes & Audiences Analyze the impact of purpose and audience on a wide variety of..."}, {"code": "11.T.C.2", "label": "Authors & Speakers Evaluate how authors’ and/or speakers’ perspectives influence texts..."}, {"code": "11.T.SS.1", "label": "Organization Analyze, evaluate, and use organizational structures and style to shape..."}, {"code": "11.T.SS.2", "label": "Craft Analyze, evaluate, and craft language to produce intended effects in a wide variety..."}, {"code": "11.T.T.1", "label": "Narrative Techniques Evaluate and apply narrative techniques to enhance text’s appeal to..."}, {"code": "11.T.T.2", "label": "Expository Techniques Evaluate and apply expository techniques to enhance text’s appeal..."}, {"code": "11.T.T.3", "label": "Argumentative Techniques Evaluate and apply argumentative techniques to enhance text’s..."}, {"code": "11.T.T.4", "label": "Poetic Techniques Evaluate and apply poetic techniques to enhance text’s appeal to..."}, {"code": "11.T.RA.1", "label": "Research & Inquiry  Conduct research, generating questions to guide investigations of..."}, {"code": "11.T.RA.2", "label": "Curating Sources & Evidence Reference parts of texts to address a specific topic or..."}, {"code": "11.T.PM.1", "label": "Demonstrate knowledge of dominant themes, genres, and verbal styles of literature from a..."}], "Literature & Composition IV": [{"code": "12.P.EICC.1", "label": "Reader & Writer Identity Build an identity as a reader and writer, developing a..."}, {"code": "12.P.EICC.2", "label": "Engagement & Intention Engage in written or spoken dialogue as author and audience for a..."}, {"code": "12.P.EICC.3", "label": "Comprehension Strategies Engage with a range of complex texts for a variety of tasks and..."}, {"code": "12.P.EICC.4", "label": "Writing Processes Compose a range of texts for a variety of purposes and audiences,..."}, {"code": "12.P.ST.1", "label": "Context Develop and apply knowledge of key components of context such as background..."}, {"code": "12.P.ST.2", "label": "Author, Audience, & Purpose Interpret and construct texts by developing and applying..."}, {"code": "12.P.AC.1", "label": "Reading like a Writer Interpret texts through the author’s lens by identifying,..."}, {"code": "12.P.AC.2", "label": "Writing like a Reader Construct texts with the audience’s experience in mind, basing..."}, {"code": "12.P.AC.3", "label": "Text Design Consider the impact of text design on audience and purpose when consuming and..."}, {"code": "12.P.CP.1", "label": "Collaboration Collaborate with others to accomplish shared goals and projects."}, {"code": "12.P.CP.2", "label": "Presentation Use presentation skills to tailor communication to target audiences for..."}, {"code": "12.L.GC.1", "label": "Grammar, Usage, & Mechanics Draw from knowledge of the conventions of Standard English..."}, {"code": "12.L.GC.2", "label": "Syntax Apply understanding of syntax to comprehend, analyze, evaluate, craft, and reshape..."}, {"code": "12.L.V.1", "label": "General, Academic, & Specialized Vocabulary Use expanding vocabulary knowledge to..."}, {"code": "12.L.V.2", "label": "Word Analysis Use word knowledge and word analysis skills to determine the meaning of..."}, {"code": "12.L.V.3", "label": "Meaning & Purpose Analyze and craft nuanced words and phrases in a variety of texts and..."}, {"code": "12.T.C.1", "label": "Purposes & Audiences Analyze the impact of purpose and audience on a wide variety of..."}, {"code": "12.T.C.2", "label": "Authors & Speakers Evaluate how authors’ and/or speakers’ perspectives influence texts..."}, {"code": "12.T.SS.1", "label": "Organization Analyze, evaluate, and use organizational structures and style to shape..."}, {"code": "12.T.SS.2", "label": "Craft Analyze, evaluate, and craft language to produce intended effects in a wide variety..."}, {"code": "12.T.T.1", "label": "Narrative Techniques Evaluate and apply narrative techniques to enhance text’s appeal to..."}, {"code": "12.T.T.2", "label": "Expository Techniques Evaluate and apply expository techniques to enhance text’s appeal..."}, {"code": "12.T.T.3", "label": "Argumentative Techniques Evaluate and apply argumentative techniques to enhance text’s..."}, {"code": "12.T.T.4", "label": "Poetic Techniques Evaluate and apply poetic techniques to enhance text’s appeal to..."}, {"code": "12.T.RA.1", "label": "Research & Inquiry  Conduct research, generating questions to guide investigations of..."}, {"code": "12.T.RA.2", "label": "Curating Sources & Evidence Reference parts of texts to address a specific topic or..."}, {"code": "12.T.PM.1", "label": "Demonstrate knowledge of dominant themes, genres, and verbal styles of literature from a..."}], "Enhanced Literature & Composition I": [{"code": "8.P.EICC.1", "label": "Reader & Writer Identity Build an identity as a reader and writer, developing a..."}, {"code": "8.P.EICC.2", "label": "Engagement & Intention Engage in written or spoken dialogue as author and audience for a..."}, {"code": "8.P.EICC.3", "label": "Comprehension Strategies Engage with a range of complex texts for a variety of tasks and..."}, {"code": "8.P.EICC.4", "label": "Writing Processes Compose a range of texts for a variety of purposes and audiences,..."}, {"code": "9.P.EICC.1", "label": "Reader & Writer Identity Build an identity as a reader and writer, developing a..."}, {"code": "9.P.EICC.2", "label": "Engagement & Intention Engage in written or spoken dialogue as author and audience for a..."}, {"code": "9.P.EICC.3", "label": "Comprehension Strategies Engage with a range of complex texts for a variety of tasks and..."}, {"code": "9.P.EICC.4", "label": "Writing Processes Compose a range of texts for a variety of purposes and audiences,..."}, {"code": "8.P.ST.1", "label": "Context Develop and apply knowledge of key components of context such as background..."}, {"code": "8.P.ST.2", "label": "Author, Audience, & Purpose Interpret and construct texts by developing and applying..."}, {"code": "9.P.ST.1", "label": "Context Develop and apply knowledge of key components of context such as background..."}, {"code": "9.P.ST.2", "label": "Author, Audience, & Purpose Interpret and construct texts by developing and applying..."}, {"code": "8.P.AC.1", "label": "Reading like a Writer Interpret texts through the author’s lens by identifying,..."}, {"code": "8.P.AC.2", "label": "Writing like a Reader Construct texts with the audience’s experience in mind, basing..."}, {"code": "8.P.AC.3", "label": "Text Design Consider the impact of text design on audience and purpose when consuming and..."}, {"code": "9.P.AC.1", "label": "Reading like a Writer Interpret texts through the author’s lens by identifying,..."}, {"code": "9.P.AC.2", "label": "Writing like a Reader Construct texts with the audience’s experience in mind, basing..."}, {"code": "9.P.AC.3", "label": "Text Design Consider the impact of text design on audience and purpose when consuming and..."}, {"code": "8.P.CP.1", "label": "Collaboration Collaborate with others to accomplish shared goals and projects."}, {"code": "8.P.CP.2", "label": "Presentation Use presentation skills to tailor communication to target audiences for..."}, {"code": "9.P.CP.1", "label": "Collaboration Collaborate with others to accomplish shared goals and projects."}, {"code": "9.P.CP.2", "label": "Presentation Use presentation skills to tailor communication to target audiences for..."}, {"code": "8.L.GC.1", "label": "Grammar, Usage, & Mechanics Draw from knowledge of the conventions of Standard English..."}, {"code": "8.L.GC.2", "label": "Syntax Apply understanding of syntax to comprehend, analyze, condense, and combine ideas..."}, {"code": "9.L.GC.1", "label": "Grammar, Usage, & Mechanics Draw from knowledge of the conventions of Standard English..."}, {"code": "9.L.GC.2", "label": "Syntax Apply understanding of syntax to comprehend, analyze, evaluate, craft, and reshape..."}, {"code": "8.L.V.1", "label": "General, Academic, & Specialized Vocabulary Use a variety of approaches to continuously..."}, {"code": "8.L.V.2", "label": "Word Analysis Use word knowledge and word analysis skills to determine the meaning of..."}, {"code": "8.L.V.3", "label": "Meaning & Purpose Analyze the denotative and connotative meanings of words and phrases..."}, {"code": "9.L.V.1", "label": "General, Academic, & Specialized Vocabulary Use expanding vocabulary knowledge to..."}, {"code": "9.L.V.2", "label": "Word Analysis Use word knowledge and word analysis skills to determine the meaning of..."}, {"code": "9.L.V.3", "label": "Meaning & Purpose Analyze and craft nuanced words and phrases in a variety of texts and..."}, {"code": "8.T.C.1", "label": "Purpose & Audience Analyze the impact of purpose and audience on a wide variety of texts."}, {"code": "8.T.C.2", "label": "Authors & Speakers Analyze how authors’ and/or speakers’ perspectives influence texts and..."}, {"code": "9.T.C.1", "label": "Purposes & Audiences Analyze the impact of purpose and audience on a wide variety of..."}, {"code": "9.T.C.2", "label": "Authors & Speakers Evaluate how authors’ and/or speakers’ perspectives influence texts..."}, {"code": "8.T.SS.1", "label": "Organization Analyze and use organizational structures to craft meaning."}, {"code": "8.T.SS.2", "label": "Craft Interpret and use language to craft engaging texts."}, {"code": "9.T.SS.1", "label": "Organization Analyze, evaluate, and use organizational structures and style to shape..."}, {"code": "9.T.SS.2", "label": "Craft Analyze, evaluate, and craft language to produce intended effects in a wide variety..."}, {"code": "8.T.T.1", "label": "Narrative Techniques Analyze and apply narrative techniques."}, {"code": "8.T.T.2", "label": "Expository Techniques Analyze and apply expository techniques."}, {"code": "8.T.T.3", "label": "Argumentative Techniques Analyze and apply argumentative techniques."}, {"code": "8.T.T.4", "label": "Poetic Techniques Analyze and apply poetic techniques."}, {"code": "9.T.T.1", "label": "Narrative Techniques Evaluate and apply narrative techniques to enhance text’s appeal to..."}, {"code": "9.T.T.2", "label": "Expository Techniques Evaluate and apply expository techniques to enhance text’s appeal..."}, {"code": "9.T.T.3", "label": "Argumentative Techniques Evaluate and apply argumentative techniques to enhance text’s..."}, {"code": "9.T.T.4", "label": "Poetic Techniques Evaluate and apply poetic techniques to enhance text’s appeal to..."}, {"code": "8.T.RA.1", "label": "Research & Inquiry Conduct research, generating questions to guide investigations of..."}, {"code": "8.T.RA.2", "label": "Curating Sources & Evidence Utilize multiple print and digital texts to address a..."}, {"code": "9.T.RA.1", "label": "Research & Inquiry Conduct research, generating questions to guide investigations of..."}, {"code": "9.T.RA.2", "label": "Curating Sources & Evidence Reference parts of texts to address a specific topic or..."}, {"code": "8.T.PM.1", "label": "Periods & Movements Demonstrate knowledge of dominant themes, genres, and verbal styles..."}, {"code": "9.T.PM.1", "label": "Demonstrate knowledge of dominant themes, genres, and verbal styles of literature from a..."}]};
-
-const HS_COURSES = [
-  'Literature & Composition I',
-  'Literature & Composition II',
-  'Literature & Composition III',
-  'Literature & Composition IV',
-  'Enhanced Literature & Composition I',
-  'AP Language & Composition',
-  'AP Literature & Composition',
-];
-
-const MS_GRADES = ['6th','7th','8th'];
-const HS_GRADES = ['9th','10th','11th','12th'];
+const HS_COURSES = ['Literature & Composition I','Literature & Composition II','Literature & Composition III','Literature & Composition IV','Enhanced Literature & Composition I','AP Language & Composition','AP Literature & Composition'];
+const GRADE_TO_KEY = {'6th':'06','7th':'07','8th':'08','9th':'09','10th':'10','11th':'11','12th':'12'};
 
 function handleSchoolChange() {
   const school = document.getElementById('f-school').value;
-  const gradeLabel  = document.querySelector('label[for="f-grade"], #grade-label');
   const gradeSelect = document.getElementById('f-grade');
-
-  // Clear current options
   gradeSelect.innerHTML = '';
-
   if (school === 'Oglethorpe County High School') {
-    // Show course dropdown
-    if (gradeLabel) gradeLabel.textContent = 'Course';
     document.getElementById('grade-label-text').textContent = 'Course';
-    const placeholder = new Option('Select course...', '');
-    gradeSelect.appendChild(placeholder);
-    HS_COURSES.forEach(c => {
-      gradeSelect.appendChild(new Option(c, c));
-    });
+    gradeSelect.appendChild(new Option('Select course...', ''));
+    HS_COURSES.forEach(c => gradeSelect.appendChild(new Option(c, c)));
   } else {
-    // Show grade dropdown (Middle or other)
     document.getElementById('grade-label-text').textContent = 'Grade';
-    const placeholder = new Option('Select grade...', '');
-    gradeSelect.appendChild(placeholder);
-    ['6th','7th','8th','Multi-grade'].forEach(g => {
-      gradeSelect.appendChild(new Option(g, g));
-    });
+    gradeSelect.appendChild(new Option('Select grade...', ''));
+    ['6th','7th','8th','Multi-grade'].forEach(g => gradeSelect.appendChild(new Option(g, g)));
   }
   updateStandardsDatalist();
 }
 
 function updateStandardsDatalist() {
-  const grade   = document.getElementById('f-grade').value;
-  const school  = document.getElementById('f-school').value;
+  const grade  = document.getElementById('f-grade').value;
+  const school = document.getElementById('f-school').value;
   const datalist = document.getElementById('standards-datalist');
   datalist.innerHTML = '';
-
   const isHS = school === 'Oglethorpe County High School';
-
-  if (isHS) {
-    // Filter by course name
-    const courseStds = HS_STANDARDS_DATA[grade];
-    if (!courseStds || !courseStds.length) {
-      // AP or no standards — observer types manually
-      return;
-    }
-    courseStds.forEach(s => {
-      const opt = document.createElement('option');
-      opt.value = s.code;
-      opt.textContent = s.code + ' — ' + s.label;
-      datalist.appendChild(opt);
-    });
-  } else {
-    // Filter by grade
-    const key = GRADE_TO_KEY[grade];
-    if (!key || !STANDARDS_DATA[key]) return;
-    STANDARDS_DATA[key].forEach(s => {
-      const opt = document.createElement('option');
-      opt.value = s.code;
-      opt.textContent = s.code + ' — ' + s.label;
-      datalist.appendChild(opt);
-    });
-  }
+  const stds = isHS ? HS_STANDARDS_DATA[grade] : STANDARDS_DATA[GRADE_TO_KEY[grade]];
+  if (!stds) return;
+  stds.forEach(s => {
+    const opt = document.createElement('option');
+    opt.value = s.code;
+    opt.textContent = s.code + ' — ' + s.label;
+    datalist.appendChild(opt);
+  });
 }
 
-// ── Storage ──
+// ── Local storage ──
 let visits = [];
 try { visits = JSON.parse(localStorage.getItem('ocsd-lens-v2')||'[]'); } catch(e){}
 function save() { localStorage.setItem('ocsd-lens-v2', JSON.stringify(visits)); }
@@ -1525,20 +1643,26 @@ function save() { localStorage.setItem('ocsd-lens-v2', JSON.stringify(visits)); 
 document.getElementById('f-date').value = new Date().toISOString().split('T')[0];
 
 // ── Submit ──
-function submitForm() {
+async function submitForm() {
   const observer = resolveObserver();
   if (!observer) return;
-  const school   = document.getElementById('f-school').value;
-  const teacher  = document.getElementById('f-teacher').value.trim();
+  const school  = document.getElementById('f-school').value;
+  const teacher = document.getElementById('f-teacher').value.trim();
   if (!school || !teacher) {
     alert('Please select a school and enter the teacher name.');
     return;
   }
+
   const ratings = {};
   OBS_CATS.forEach(c => {
     const el = document.querySelector(`input[name="${c.id}"]:checked`);
     ratings[c.id] = el ? el.value : '';
   });
+
+  const otherStrengthVal = document.getElementById('f-other-strength').value.trim();
+  const allStrengths = [...getSelectedTags()];
+  if (otherStrengthVal) allStrengths.push(otherStrengthVal);
+
   const visit = {
     id: Date.now(), observer, school,
     date:    document.getElementById('f-date').value,
@@ -1549,26 +1673,63 @@ function submitForm() {
     formatSecondary: document.getElementById('f-format-secondary').value === '__other_format_secondary__' ? document.getElementById('f-format-secondary-other').value.trim() || 'Other' : document.getElementById('f-format-secondary').value,
     config:  document.getElementById('f-config').value,
     coteacher: document.getElementById('f-coteacher').value.trim(),
-    reading: (()=>{ const vals=[...document.querySelectorAll('input[name="f-reading"]:checked')].map(c=>c.value==='__other_reading__'?document.getElementById('f-reading-other').value.trim()||'Other':c.value); return vals; })(),
-    literary: (()=>{ const vals=[...document.querySelectorAll('input[name="f-literary"]:checked')].map(c=>c.id==='literary-other-cb'?document.getElementById('f-literary-other').value.trim()||'Other':c.value); return vals; })(),
+    reading: [...document.querySelectorAll('input[name="f-reading"]:checked')].map(c => c.id === 'reading-other-cb' ? document.getElementById('f-reading-other').value.trim() || 'Other' : c.value),
+    literary: [...document.querySelectorAll('input[name="f-literary"]:checked')].map(c => c.id === 'literary-other-cb' ? document.getElementById('f-literary-other').value.trim() || 'Other' : c.value),
     standard: [...standards],
-    ratings, strengths: getSelectedTags(),
+    ratings,
+    strengths: allStrengths,
+    otherStrength: otherStrengthVal,
     observed:      document.getElementById('f-observed').value.trim(),
     needs:         document.getElementById('f-needs').value.trim(),
     opportunities: document.getElementById('f-opportunities').value.trim(),
-    comments:     document.getElementById('f-comments').value.trim(),
+    comments:      document.getElementById('f-comments').value.trim(),
     teacherResponse: document.getElementById('f-teacher-response').value.trim(),
     teacherSupport:  document.getElementById('f-teacher-support').value.trim(),
     teacherSig:      document.getElementById('f-teacher-sig').value.trim(),
     teacherSigDate:  document.getElementById('f-teacher-sig-date').value,
-    // CHANGE 4: actionSteps removed from active form; field still saved as empty
-    // array so older records in localStorage remain compatible.
     actionSteps: [],
+    airtableId: null,
+    syncStatus: 'pending',
   };
+
+  // Save locally first
   currentVisitId = visit.id;
   visits.unshift(visit);
   save();
-  renderSummary(visit);
+
+  // Show saving overlay
+  document.getElementById('saving-overlay').classList.add('active');
+  const btn = document.getElementById('btn-save');
+  btn.disabled = true;
+
+  // Send to Airtable
+  const result = await sendToAirtable(visit);
+
+  // Hide overlay
+  document.getElementById('saving-overlay').classList.remove('active');
+  btn.disabled = false;
+
+  if (result.success) {
+    // Update local record with Airtable record ID
+    visits[0].airtableId  = result.recordId;
+    visits[0].syncStatus  = 'synced';
+    save();
+
+    showToast(
+      '✓ Walkthrough saved to Airtable!',
+      `Record ID: ${result.recordId} · Observer: ${observer}`
+    );
+  } else {
+    visits[0].syncStatus = 'error';
+    save();
+    showToast(
+      '⚠ Saved locally — Airtable sync failed',
+      `Error: ${result.error}. The record is saved in your browser and can be retried.`,
+      8000
+    );
+  }
+
+  renderSummary(visits[0]);
   showScreen('summary');
 }
 
@@ -1587,7 +1748,7 @@ function renderSummary(v) {
     ['Primary format',v.format||'—'],
     v.formatSecondary && ['Secondary format (transition)',v.formatSecondary],
     v.reading && v.reading.length && ['Reading &amp; Writing focus', Array.isArray(v.reading)?v.reading.join(', '):v.reading],
-    ['Configuration', configLabel],['Reading focus',v.reading||'—'],
+    ['Configuration', configLabel],
     v.literary && v.literary.length && ['Literary / skill focus', Array.isArray(v.literary)?v.literary.join(', '):v.literary],
     v.standard && v.standard.length && ['Standard / target', Array.isArray(v.standard)?v.standard.join(', '):v.standard],
   ].filter(Boolean).map(([l,val])=>`<div class="summary-meta-item"><span>${l}</span><strong>${val}</strong></div>`).join('');
@@ -1600,7 +1761,7 @@ function renderSummary(v) {
     </div>`).join('');
 
   const st = document.getElementById('sum-strengths');
-  st.innerHTML = v.strengths.length
+  st.innerHTML = v.strengths && v.strengths.length
     ? v.strengths.map(s=>`<span class="strength-tag-display">${s}</span>`).join('')
     : '<span style="font-size:13px;color:var(--text-muted)">None selected</span>';
 
@@ -1611,7 +1772,6 @@ function renderSummary(v) {
     v.comments     && `<div style="background:#f0f4fc; border-radius:8px; padding:12px 16px; border:1px solid #b0c4e8;"><div class="notes-label" style="color:#2e4494;">General comments</div><div class="notes-display">${v.comments}</div></div>`,
   ].filter(Boolean).join('') || '<span style="font-size:13px;color:var(--text-muted)">No notes recorded.</span>';
 
-  // Teacher response block (action steps removed per Michele's recommendation)
   const trWrap = document.getElementById('sum-teacher-response');
   const hasResponse = v.teacherResponse || v.teacherSupport || v.teacherSig;
   if (hasResponse) {
@@ -1624,6 +1784,22 @@ function renderSummary(v) {
     ].filter(Boolean).join('');
   } else {
     trWrap.innerHTML = '<span style="font-size:13px;color:var(--text-muted);font-style:italic">No teacher response recorded yet.</span>';
+  }
+
+  // Airtable sync status
+  const statusEl = document.getElementById('sum-airtable-status');
+  if (v.syncStatus === 'synced') {
+    statusEl.style.display = 'block';
+    statusEl.style.background = 'var(--bg-green)';
+    statusEl.style.color = 'var(--strong-green)';
+    statusEl.innerHTML = `✓ Saved to Airtable · Record ID: <code style="font-size:12px;">${v.airtableId}</code>`;
+  } else if (v.syncStatus === 'error') {
+    statusEl.style.display = 'block';
+    statusEl.style.background = 'var(--bg-amber)';
+    statusEl.style.color = 'var(--strong-amber)';
+    statusEl.innerHTML = '⚠ Saved locally only — Airtable sync failed. Check your token or network connection.';
+  } else {
+    statusEl.style.display = 'none';
   }
 }
 
@@ -1653,7 +1829,9 @@ function renderLog() {
     <div class="log-card">
       <div class="log-card-left">
         <div class="log-school-badge">${v.school}</div>
-        <h3>${v.teacher}${v.grade?' — '+v.grade+' ELA':''}</h3>
+        <h3>${v.teacher}${v.grade?' — '+v.grade+' ELA':''}
+          ${v.syncStatus==='synced'?'<span class="sync-badge synced">✓ Airtable</span>':v.syncStatus==='error'?'<span class="sync-badge error">⚠ Sync failed</span>':''}
+        </h3>
         <p>${fmtDate(v.date)}${v.time?' at '+v.time:''} &nbsp;·&nbsp; ${v.observer}</p>
       </div>
       <div class="log-card-actions">
@@ -1664,7 +1842,6 @@ function renderLog() {
     </div>`).join('');
 }
 
-// Track which visit is currently being viewed/edited
 let currentVisitId = null;
 
 function viewVisit(id) {
@@ -1678,9 +1855,7 @@ function editVisit(id) {
   if (!v) return;
   currentVisitId = id;
 
-  // Populate Visit Info
   const obs = document.getElementById('f-observer');
-  // Try to match named observer; otherwise use Other
   let matchedObs = false;
   for (let opt of obs.options) { if (opt.value === v.observer || opt.text === v.observer) { obs.value = opt.value; matchedObs = true; break; } }
   if (!matchedObs) {
@@ -1695,30 +1870,18 @@ function editVisit(id) {
   document.getElementById('f-grade').value    = v.grade  || '';
   document.getElementById('f-time').value     = v.time   || '';
 
-  // Classroom context
   document.getElementById('f-format').value  = v.format  || '';
   handleFormatChange(v.format || '');
   document.getElementById('f-format-secondary').value = v.formatSecondary || '';
   handleFormatSecondaryChange(v.formatSecondary || '');
-  if (v.formatSecondary && !document.getElementById('f-format-secondary').value) {
-    document.getElementById('f-format-secondary').value = '__other_format_secondary__';
-    document.getElementById('f-format-secondary-other').value = v.formatSecondary;
-    document.getElementById('other-format-secondary-wrap').style.display = 'block';
-  }
-  if (v.format && !document.getElementById('f-format').value) {
-    document.getElementById('f-format').value = '__other_format__';
-    document.getElementById('f-format-other').value = v.format;
-    document.getElementById('other-format-wrap').style.display = 'block';
-  }
   document.getElementById('f-config').value  = v.config  || '';
   document.getElementById('f-coteacher').value = v.coteacher || '';
   const needsCo = ['Co-taught — two teachers of record','Push-in support','Student teacher / intern present'];
   document.getElementById('co-teacher-wrap').style.display = needsCo.includes(v.config) ? 'block' : 'none';
-  document.getElementById('f-standard-input').value = '';
+
   standards = Array.isArray(v.standard) ? [...v.standard] : (v.standard ? [v.standard] : []);
   renderStandards();
 
-  // Reading checkboxes
   document.querySelectorAll('input[name="f-reading"]').forEach(c => c.checked = false);
   document.getElementById('other-reading-wrap').style.display = 'none';
   if (Array.isArray(v.reading)) {
@@ -1733,7 +1896,6 @@ function editVisit(id) {
     });
   }
 
-  // Literary checkboxes
   document.querySelectorAll('input[name="f-literary"]').forEach(c => c.checked = false);
   document.getElementById('other-literary-wrap').style.display = 'none';
   if (Array.isArray(v.literary)) {
@@ -1748,47 +1910,38 @@ function editVisit(id) {
     });
   }
 
-  // Observation descriptors
-  document.querySelectorAll('.radio-opt').forEach(el => el.classList.remove(...SEL_CLASS));
+  document.querySelectorAll('.radio-opt').forEach(el => el.classList.remove(...SEL_CLASS, ...SEL_CLASS_EXT));
   document.querySelectorAll('input[type=radio]').forEach(el => el.checked = false);
   if (v.ratings) {
     OBS_CATS.forEach(c => {
       const val = v.ratings[c.id];
-      if (val) {
-        const idx = RATING_MAP.indexOf(val);
-        if (idx !== -1) {
-          const opt = document.querySelector(`[data-cat="${c.id}"][data-idx="${idx}"]`);
-          if (opt) { opt.classList.add(SEL_CLASS[idx]); opt.querySelector('input').checked = true; }
-        }
+      if (!val) return;
+      const useExt = c.opts.length > 4;
+      const rMap = useExt ? RATING_MAP_EXT : RATING_MAP;
+      const sMap = useExt ? SEL_CLASS_EXT  : SEL_CLASS;
+      const idx = rMap.indexOf(val);
+      if (idx !== -1) {
+        const opt = document.querySelector(`[data-cat="${c.id}"][data-idx="${idx}"]`);
+        if (opt) { opt.classList.add(sMap[idx]); opt.querySelector('input').checked = true; }
       }
     });
   }
 
-  // Strengths tags
   document.querySelectorAll('.tag').forEach(t => {
     t.classList.toggle('on', v.strengths && v.strengths.includes(t.textContent.trim()));
   });
-  document.getElementById('f-other-strength').value = '';
-  if (v.strengths) {
-    const knownTags = [...document.querySelectorAll('.tag')].map(t => t.textContent.trim());
-    const otherStrength = v.strengths.find(s => !knownTags.includes(s));
-    if (otherStrength) document.getElementById('f-other-strength').value = otherStrength;
-  }
+  document.getElementById('f-other-strength').value = v.otherStrength || '';
 
-  // Notes
   document.getElementById('f-observed').value      = v.observed      || '';
   document.getElementById('f-needs').value          = v.needs         || '';
   document.getElementById('f-opportunities').value  = v.opportunities || '';
   document.getElementById('f-comments').value       = v.comments      || '';
-
-  // Teacher response
   document.getElementById('f-teacher-response').value  = v.teacherResponse || '';
   document.getElementById('f-teacher-support').value   = v.teacherSupport  || '';
   document.getElementById('f-teacher-sig').value       = v.teacherSig      || '';
   document.getElementById('f-teacher-sig-date').value  = v.teacherSigDate  || '';
 
-  // Switch submit button to Update mode
-  const btn = document.querySelector('.btn-submit');
+  const btn = document.getElementById('btn-save');
   btn.innerHTML = `<svg viewBox="0 0 18 18" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l5 5 7-8"/></svg> Update walkthrough`;
   btn.onclick = updateVisit;
 
@@ -1796,7 +1949,7 @@ function editVisit(id) {
   window.scrollTo(0,0);
 }
 
-function updateVisit() {
+async function updateVisit() {
   const observer = resolveObserver();
   if (!observer) return;
   const school  = document.getElementById('f-school').value;
@@ -1812,6 +1965,10 @@ function updateVisit() {
   const idx = visits.findIndex(x => x.id === currentVisitId);
   if (idx === -1) return;
 
+  const otherStrengthVal = document.getElementById('f-other-strength').value.trim();
+  const allStrengths = [...getSelectedTags()];
+  if (otherStrengthVal) allStrengths.push(otherStrengthVal);
+
   visits[idx] = {
     ...visits[idx],
     observer, school,
@@ -1823,10 +1980,10 @@ function updateVisit() {
     formatSecondary: document.getElementById('f-format-secondary').value === '__other_format_secondary__' ? document.getElementById('f-format-secondary-other').value.trim() || 'Other' : document.getElementById('f-format-secondary').value,
     config:   document.getElementById('f-config').value,
     coteacher: document.getElementById('f-coteacher').value.trim(),
-    reading:  (()=>{ const vals=[...document.querySelectorAll('input[name="f-reading"]:checked')].map(c=>c.id==='reading-other-cb'?document.getElementById('f-reading-other').value.trim()||'Other':c.value); return vals; })(),
-    literary: (()=>{ const vals=[...document.querySelectorAll('input[name="f-literary"]:checked')].map(c=>c.id==='literary-other-cb'?document.getElementById('f-literary-other').value.trim()||'Other':c.value); return vals; })(),
+    reading:  [...document.querySelectorAll('input[name="f-reading"]:checked')].map(c=>c.id==='reading-other-cb'?document.getElementById('f-reading-other').value.trim()||'Other':c.value),
+    literary: [...document.querySelectorAll('input[name="f-literary"]:checked')].map(c=>c.id==='literary-other-cb'?document.getElementById('f-literary-other').value.trim()||'Other':c.value),
     standard: [...standards],
-    ratings, strengths: getSelectedTags(),
+    ratings, strengths: allStrengths, otherStrength: otherStrengthVal,
     observed:      document.getElementById('f-observed').value.trim(),
     needs:         document.getElementById('f-needs').value.trim(),
     opportunities: document.getElementById('f-opportunities').value.trim(),
@@ -1840,8 +1997,7 @@ function updateVisit() {
 
   save();
 
-  // Reset submit button back to normal
-  const btn = document.querySelector('.btn-submit');
+  const btn = document.getElementById('btn-save');
   btn.innerHTML = `<svg viewBox="0 0 18 18" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l5 5 7-8"/></svg> Save walkthrough`;
   btn.onclick = submitForm;
 
@@ -1856,16 +2012,14 @@ function deleteVisit(id) {
   save(); renderLog();
 }
 
-// ── About toggle ──
 function toggleAbout() {
-  const panel    = document.getElementById('about-panel');
-  const chevron  = document.getElementById('about-chevron');
-  const isOpen   = panel.style.display !== 'none';
-  panel.style.display  = isOpen ? 'none' : 'block';
+  const panel   = document.getElementById('about-panel');
+  const chevron = document.getElementById('about-chevron');
+  const isOpen  = panel.style.display !== 'none';
+  panel.style.display     = isOpen ? 'none' : 'block';
   chevron.style.transform = isOpen ? '' : 'rotate(180deg)';
 }
 
-// ── Navigation ──
 function showScreen(s) {
   document.getElementById('form-screen').style.display    = s==='form'    ? 'block' : 'none';
   document.getElementById('summary-screen').style.display = s==='summary' ? 'block' : 'none';
@@ -1881,27 +2035,25 @@ function newWalkthrough() { clearForm(); showScreen('form'); }
 function clearForm() {
   ['f-observer','f-school','f-grade','f-format','f-format-secondary','f-config'].forEach(id=>document.getElementById(id).selectedIndex=0);
   ['f-teacher','f-time','f-coteacher','f-other-name','f-other-code','f-format-other','f-format-secondary-other','f-reading-other','f-literary-other','f-standard-input',
-   'f-standard','f-observed','f-needs','f-opportunities',
-   'f-comments','f-teacher-response','f-teacher-support','f-teacher-sig','f-teacher-sig-date',
-   'f-other-strength'
-  ].forEach(id=>document.getElementById(id).value='');
+   'f-observed','f-needs','f-opportunities','f-comments',
+   'f-teacher-response','f-teacher-support','f-teacher-sig','f-teacher-sig-date','f-other-strength'
+  ].forEach(id => { const el = document.getElementById(id); if(el) el.value=''; });
   document.getElementById('f-date').value = new Date().toISOString().split('T')[0];
   document.getElementById('other-observer-panel').style.display = 'none';
   document.getElementById('other-format-wrap').style.display = 'none';
   document.getElementById('other-format-secondary-wrap').style.display = 'none';
   document.getElementById('other-reading-wrap').style.display = 'none';
   document.getElementById('other-literary-wrap').style.display = 'none';
+  document.getElementById('teacher-email-display').style.display = 'none';
   document.querySelectorAll('input[name="f-reading"]').forEach(c=>c.checked=false);
   document.querySelectorAll('input[name="f-literary"]').forEach(c=>c.checked=false);
   standards = []; renderStandards();
-  document.getElementById('f-standard-input').value = '';
   document.getElementById('co-teacher-wrap').style.display = 'none';
   document.getElementById('code-msg').style.display = 'none';
-  document.querySelectorAll('.radio-opt').forEach(el=>el.classList.remove(...SEL_CLASS));
+  document.querySelectorAll('.radio-opt').forEach(el=>el.classList.remove(...SEL_CLASS,...SEL_CLASS_EXT));
   document.querySelectorAll('input[type=radio]').forEach(el=>el.checked=false);
   document.querySelectorAll('.tag').forEach(el=>el.classList.remove('on'));
-  // Reset submit button if in edit mode
-  const btn = document.querySelector('.btn-submit');
+  const btn = document.getElementById('btn-save');
   btn.innerHTML = `<svg viewBox="0 0 18 18" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l5 5 7-8"/></svg> Save walkthrough`;
   btn.onclick = submitForm;
   currentVisitId = null;
