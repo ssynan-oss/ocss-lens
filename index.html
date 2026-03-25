@@ -947,9 +947,13 @@
             <!-- Teacher field: text input with datalist for auto-complete from Airtable Teachers table -->
             <input type="text" id="f-teacher" placeholder="Start typing a name…" list="teachers-datalist" autocomplete="off" oninput="handleTeacherInput(this.value)">
             <datalist id="teachers-datalist"></datalist>
-            <div id="teacher-email-display" style="font-size:11.5px; color:var(--text-muted); margin-top:4px; display:none;">
+            <div id="teacher-email-display" style="font-size:11.5px; color:var(--text-muted); margin-top:4px; display:block;">
               📧 <span id="teacher-email-text"></span>
-            </div>
+           </div>
+          </div>
+          <div class="field">
+            <label>Teacher Email</label>
+            <input type="email" id="f-teacher-email" placeholder="teacher@oglethorpe.k12.ga.us">
           </div>
           <div class="field">
             <label><span id="grade-label-text">Grade</span></label>
@@ -1323,7 +1327,7 @@ let teacherRoster = []; // [{name, email}]
 async function loadTeacherRoster() {
   if (!AIRTABLE_TOKEN || AIRTABLE_TOKEN === '') return;
   try {
-    const url = `https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${encodeURIComponent(TEACHERS_TABLE)}?fields[]=Teacher+Name&fields[]=Teacher+Email`;
+    const url = `https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${encodeURIComponent(TEACHERS_TABLE)}?fields[]=Email;
     const res = await fetch(url, {
       headers: { Authorization: `Bearer ${AIRTABLE_TOKEN}` }
     });
@@ -1332,7 +1336,7 @@ async function loadTeacherRoster() {
     teacherRoster = (data.records || [])
       .map(r => ({
         name:  r.fields['Teacher Name']  || '',
-        email: r.fields['Teacher Email'] || ''
+        email: r.fields['Email'] || '',
       }))
       .filter(t => t.name);
 
