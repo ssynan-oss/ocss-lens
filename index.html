@@ -1327,7 +1327,7 @@ let teacherRoster = []; // [{name, email}]
 async function loadTeacherRoster() {
   if (!AIRTABLE_TOKEN || AIRTABLE_TOKEN === '') return;
   try {
-    const url = `https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${encodeURIComponent(TEACHERS_TABLE)}?fields[]=Email;
+    const url = `https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${encodeURIComponent(TEACHERS_TABLE)}?fields[]=Email'
     const res = await fetch(url, {
       headers: { Authorization: `Bearer ${AIRTABLE_TOKEN}` }
     });
