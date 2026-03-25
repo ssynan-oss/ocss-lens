@@ -1670,6 +1670,7 @@ async function submitForm() {
     id: Date.now(), observer, school,
     date:    document.getElementById('f-date').value,
     teacher, grade: document.getElementById('f-grade').value,
+    teacherEmailDirect: document.getElementById('f-teacher-email').value.trim(),
     subject: document.getElementById('f-subject').value,
     time:    document.getElementById('f-time').value,
     format:  document.getElementById('f-format').value === '__other_format__' ? document.getElementById('f-format-other').value.trim() || 'Other' : document.getElementById('f-format').value,
