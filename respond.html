@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OCSS LENS — Teacher Response</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy: #1a2744;
+      --navy-mid: #223058;
+      --teal: #2a7f7f;
+      --teal-light: #3a9f9f;
+      --gold: #c9a84c;
+      --gold-light: #e0c068;
+      --cream: #f8f5f0;
+      --white: #ffffff;
+      --text: #1a2744;
+      --text-light: #4a5568;
+      --border: #ddd8d0;
+      --success: #2a7f5f;
+      --error: #c0392b;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Source Sans 3', sans-serif;
+      background: var(--cream);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* Header */
+    .site-header {
+      background: var(--navy);
+      color: white;
+      padding: 0;
+      border-bottom: 3px solid var(--gold);
+    }
+    .header-inner {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .header-inner img {
+      height: 44px;
+      width: auto;
+      opacity: 0.92;
+    }
+    .header-text h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      color: white;
+    }
+    .header-text p {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.65);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-top: 1px;
+    }
+
+    /* Loading / Error states */
+    .state-screen {
+      max-width: 800px;
+      margin: 60px auto;
+      padding: 0 24px;
+      text-align: center;
+    }
+    .state-screen .icon {
+      font-size: 3rem;
+      margin-bottom: 16px;
+    }
+    .state-screen h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      color: var(--navy);
+      margin-bottom: 8px;
+    }
+    .state-screen p {
+      color: var(--text-light);
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid var(--border);
+      border-top-color: var(--teal);
+      border-radius: 50%;
+      animation: spin 0.9s linear infinite;
+      margin: 0 auto 20px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Main content */
+    .main {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 32px 24px 60px;
+    }
+
+    /* Observation summary card */
+    .observation-card {
+      background: var(--navy);
+      color: white;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 28px;
+      box-shadow: 0 4px 20px rgba(26,39,68,0.15);
+    }
+    .obs-header {
+      padding: 20px 24px 16px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    .obs-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+    .obs-header h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      font-weight: 500;
+    }
+    .obs-meta {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 0;
+    }
+    .obs-meta-item {
+      padding: 14px 24px;
+      border-right: 1px solid rgba(255,255,255,0.08);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .obs-meta-item:last-child { border-right: none; }
+    .obs-meta-label {
+      font-size: 0.68rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 3px;
+    }
+    .obs-meta-value {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: white;
+    }
+
+    /* Observation notes sections */
+    .notes-section {
+      background: white;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      overflow: hidden;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+    .notes-section-header {
+      padding: 14px 20px;
+      background: var(--navy-mid);
+      color: white;
+    }
+    .notes-section-header h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      font-weight: 500;
+    }
+    .notes-section-body {
+      padding: 18px 20px;
+      font-size: 0.93rem;
+      line-height: 1.7;
+      color: var(--text);
+      min-height: 48px;
+    }
+    .notes-section-body.empty {
+      color: var(--text-light);
+      font-style: italic;
+    }
+
+    /* Strengths chips */
+    .strengths-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: 16px 20px;
+    }
+    .chip {
+      background: rgba(42,127,127,0.1);
+      color: var(--teal);
+      border: 1px solid rgba(42,127,127,0.25);
+      border-radius: 20px;
+      padding: 4px 12px;
+      font-size: 0.82rem;
+      font-weight: 500;
+    }
+
+    /* Descriptor grid */
+    .descriptor-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+    }
+    .descriptor-item {
+      padding: 12px 20px;
+      border-right: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .descriptor-item:nth-child(even) { border-right: none; }
+    .descriptor-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--text-light);
+      margin-bottom: 3px;
+    }
+    .descriptor-value {
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--text);
+    }
+    .descriptor-value.evident { color: var(--success); }
+    .descriptor-value.developing { color: var(--teal); }
+    .descriptor-value.emerging { color: var(--gold); }
+    .descriptor-value.not-observed { color: #aaa; }
+
+    /* Divider */
+    .section-divider {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin: 32px 0 24px;
+    }
+    .section-divider::before,
+    .section-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+    .section-divider span {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      color: var(--navy);
+      white-space: nowrap;
+    }
+
+    /* Teacher intro box */
+    .teacher-intro {
+      background: linear-gradient(135deg, rgba(42,127,127,0.08), rgba(201,168,76,0.06));
+      border: 1px solid rgba(42,127,127,0.2);
+      border-radius: 10px;
+      padding: 20px 24px;
+      margin-bottom: 24px;
+    }
+    .teacher-intro p {
+      font-size: 0.95rem;
+      line-height: 1.7;
+      color: var(--text);
+    }
+    .teacher-intro strong {
+      color: var(--teal);
+    }
+
+    /* Response form */
+    .response-form {
+      background: white;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      margin-bottom: 20px;
+    }
+    .form-field {
+      padding: 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .form-field:last-child { border-bottom: none; }
+    .form-field label {
+      display: block;
+      padding: 14px 20px 0;
+      font-size: 0.78rem;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      font-weight: 600;
+      color: var(--navy);
+    }
+    .form-field textarea {
+      display: block;
+      width: 100%;
+      padding: 10px 20px 16px;
+      border: none;
+      outline: none;
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: var(--text);
+      background: transparent;
+      resize: vertical;
+      min-height: 100px;
+    }
+    .form-field input[type="text"] {
+      display: block;
+      width: 100%;
+      padding: 10px 20px 16px;
+      border: none;
+      outline: none;
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 0.95rem;
+      color: var(--text);
+      background: transparent;
+    }
+
+    /* Submit button */
+    .submit-area {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 16px;
+      margin-top: 24px;
+    }
+    .btn-submit {
+      background: var(--navy);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      padding: 13px 32px;
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      letter-spacing: 0.02em;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .btn-submit:hover { background: var(--teal); transform: translateY(-1px); }
+    .btn-submit:disabled { background: #aaa; cursor: not-allowed; transform: none; }
+    .submit-note {
+      font-size: 0.82rem;
+      color: var(--text-light);
+    }
+
+    /* Success state */
+    .success-banner {
+      background: var(--success);
+      color: white;
+      border-radius: 10px;
+      padding: 24px 28px;
+      text-align: center;
+      margin-bottom: 24px;
+    }
+    .success-banner h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      margin-bottom: 8px;
+    }
+    .success-banner p {
+      font-size: 0.93rem;
+      opacity: 0.9;
+      line-height: 1.6;
+    }
+
+    /* Already responded */
+    .already-responded {
+      background: rgba(201,168,76,0.1);
+      border: 1px solid rgba(201,168,76,0.35);
+      border-radius: 10px;
+      padding: 20px 24px;
+      margin-bottom: 24px;
+      color: var(--text);
+      font-size: 0.93rem;
+      line-height: 1.6;
+    }
+
+    /* Footer */
+    .site-footer {
+      background: var(--navy);
+      color: rgba(255,255,255,0.45);
+      text-align: center;
+      padding: 20px;
+      font-size: 0.78rem;
+      letter-spacing: 0.04em;
+      margin-top: 40px;
+    }
+
+    @media (max-width: 600px) {
+      .descriptor-grid { grid-template-columns: 1fr; }
+      .descriptor-item { border-right: none; }
+      .obs-meta { grid-template-columns: 1fr 1fr; }
+      .submit-area { flex-direction: column; align-items: stretch; }
+      .btn-submit { width: 100%; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <img src="https://cmsv2-assets.apptegy.net/uploads/20314/logo/23196/Oglethorpe_County_GA_Logo.png" alt="OCSS Seal">
+    <div class="header-text">
+      <h1>OCSS LENS</h1>
+      <p>Oglethorpe County School System · Teacher Response</p>
+    </div>
+  </div>
+</header>
+
+<main class="main" id="main-content">
+  <!-- Loading state -->
+  <div id="loading-state" class="state-screen">
+    <div class="spinner"></div>
+    <h2>Loading your walkthrough…</h2>
+    <p>Retrieving your observation record. This will just take a moment.</p>
+  </div>
+
+  <!-- Error state -->
+  <div id="error-state" class="state-screen" style="display:none;">
+    <div class="icon">⚠️</div>
+    <h2>Unable to load walkthrough</h2>
+    <p id="error-message">The link may be invalid or expired. Please contact your observer for a new link.</p>
+  </div>
+
+  <!-- Main content (hidden until loaded) -->
+  <div id="content" style="display:none;">
+
+    <!-- Observation summary -->
+    <div class="observation-card">
+      <div class="obs-header">
+        <div class="obs-label">Instructional Walkthrough — LENS Observation</div>
+        <h2 id="obs-teacher-name">Loading…</h2>
+      </div>
+      <div class="obs-meta">
+        <div class="obs-meta-item">
+          <div class="obs-meta-label">Observer</div>
+          <div class="obs-meta-value" id="obs-observer">—</div>
+        </div>
+        <div class="obs-meta-item">
+          <div class="obs-meta-label">Date</div>
+          <div class="obs-meta-value" id="obs-date">—</div>
+        </div>
+        <div class="obs-meta-item">
+          <div class="obs-meta-label">School</div>
+          <div class="obs-meta-value" id="obs-school">—</div>
+        </div>
+        <div class="obs-meta-item">
+          <div class="obs-meta-label">Grade / Subject</div>
+          <div class="obs-meta-value" id="obs-grade-subject">—</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Observation descriptors -->
+    <div class="notes-section" id="descriptors-section" style="display:none;">
+      <div class="notes-section-header"><h3>Observation Descriptors</h3></div>
+      <div class="descriptor-grid" id="descriptor-grid"></div>
+    </div>
+
+    <!-- Strengths -->
+    <div class="notes-section" id="strengths-section" style="display:none;">
+      <div class="notes-section-header"><h3>Strengths Observed</h3></div>
+      <div class="strengths-chips" id="strengths-chips"></div>
+    </div>
+
+    <!-- Highlights -->
+    <div class="notes-section" id="highlights-section" style="display:none;">
+      <div class="notes-section-header"><h3>Highlights from the Observation</h3></div>
+      <div class="notes-section-body" id="obs-highlights"></div>
+    </div>
+
+    <!-- What does the teacher need -->
+    <div class="notes-section" id="needs-section" style="display:none;">
+      <div class="notes-section-header"><h3>What Does the Teacher Need?</h3></div>
+      <div class="notes-section-body" id="obs-needs"></div>
+    </div>
+
+    <!-- Opportunities -->
+    <div class="notes-section" id="opps-section" style="display:none;">
+      <div class="notes-section-header"><h3>Opportunities for Students</h3></div>
+      <div class="notes-section-body" id="obs-opps"></div>
+    </div>
+
+    <!-- General comments / personal note -->
+    <div class="notes-section" id="comments-section" style="display:none;">
+      <div class="notes-section-header"><h3>Personal Note to You</h3></div>
+      <div class="notes-section-body" id="obs-comments"></div>
+    </div>
+
+    <!-- Teacher response section -->
+    <div class="section-divider"><span>Your Response</span></div>
+
+    <!-- Already responded notice -->
+    <div class="already-responded" id="already-responded" style="display:none;">
+      <strong>You've already submitted a response.</strong> Your reflection is on file and your observer has been notified. Thank you for taking the time to share your thinking.
+    </div>
+
+    <!-- Success banner (shown after submit) -->
+    <div class="success-banner" id="success-banner" style="display:none;">
+      <h2>✓ Response submitted!</h2>
+      <p>Thank you for sharing your reflection. Your observer will follow up with you soon.</p>
+    </div>
+
+    <!-- Teacher intro -->
+    <div class="teacher-intro" id="response-intro">
+      <p>Please take a few minutes to share your thoughts on this observation. Your reflection is an important part of the coaching conversation — <strong>this is your space to be heard</strong>. Your response will be added to the walkthrough record and shared with your observer.</p>
+    </div>
+
+    <!-- Response form -->
+    <div class="response-form" id="response-form">
+      <div class="form-field">
+        <label for="teacher-reflection">Your Reflection / Response</label>
+        <textarea id="teacher-reflection" rows="5" placeholder="Share your thoughts on the observation, any context you'd like your observer to know, or anything you'd like to discuss…"></textarea>
+      </div>
+      <div class="form-field">
+        <label for="support-requested">What Support Would Be Helpful?</label>
+        <textarea id="support-requested" rows="3" placeholder="Is there anything specific you're looking for from your coach or instructional leader?"></textarea>
+      </div>
+      <div class="form-field">
+        <label for="teacher-signature">Your Name (Signature)</label>
+        <input type="text" id="teacher-signature" placeholder="Type your full name to sign">
+      </div>
+    </div>
+
+    <div class="submit-area" id="submit-area">
+      <span class="submit-note">Your response cannot be edited after submission.</span>
+      <button class="btn-submit" id="submit-btn" onclick="submitResponse()">Submit Response</button>
+    </div>
+
+  </div>
+</main>
+
+<footer class="site-footer">
+  OCSS LENS · Oglethorpe County School System · Developed by Sharon Synan
+</footer>
+
+<script>
+  const AIRTABLE_TOKEN = 'patG72MNWRN17dn10.13c975ee5688ffad05f574ff3ead34bb534dda46e830f50192c69d90ad4d1754';
+  const AIRTABLE_BASE  = 'appGLedN9wIfxL9Ay';
+  const AIRTABLE_TABLE = 'tbl2vp05HS6Qvqpzs';
+
+  const DESCRIPTOR_FIELDS = [
+    'Instructional Clarity',
+    'Student Engagement',
+    'Differentiation & Access',
+    'Teacher-Student Relationship',
+    'Writing & Response',
+    'Wait Time & Student Response',
+    'Technology & Multimodal Engagement'
+  ];
+
+  let recordId = null;
+  let recordData = null;
+
+  function getParam(name) {
+    return new URLSearchParams(window.location.search).get(name);
+  }
+
+  function show(id) { document.getElementById(id).style.display = ''; }
+  function hide(id) { document.getElementById(id).style.display = 'none'; }
+  function setText(id, val) { document.getElementById(id).textContent = val || '—'; }
+
+  function colorClass(val) {
+    if (!val) return 'not-observed';
+    const v = val.toLowerCase();
+    if (v.includes('evident')) return 'evident';
+    if (v.includes('developing')) return 'developing';
+    if (v.includes('emerging')) return 'emerging';
+    return '';
+  }
+
+  async function loadRecord() {
+    recordId = getParam('id');
+    if (!recordId) {
+      hide('loading-state');
+      document.getElementById('error-message').textContent = 'No walkthrough ID was provided. Please use the link from your email.';
+      show('error-state');
+      return;
+    }
+
+    try {
+      const res = await fetch(
+        `https://api.airtable.com/v0/${AIRTABLE_BASE}/${AIRTABLE_TABLE}/${recordId}`,
+        { headers: { Authorization: `Bearer ${AIRTABLE_TOKEN}` } }
+      );
+
+      if (!res.ok) throw new Error(`Airtable error: ${res.status}`);
+      const data = await res.json();
+      recordData = data.fields;
+
+      populatePage(recordData);
+      hide('loading-state');
+      show('content');
+
+    } catch (err) {
+      hide('loading-state');
+      document.getElementById('error-message').textContent = err.message || 'Something went wrong. Please try again or contact your observer.';
+      show('error-state');
+    }
+  }
+
+  function populatePage(f) {
+    // Header
+    setText('obs-teacher-name', f['Teacher Name'] || 'Walkthrough Record');
+    setText('obs-observer', f['Observer']);
+    setText('obs-date', f['Date']);
+    setText('obs-school', f['School']);
+    const grade = f['Grade / Course'] || '';
+    const subject = f['Subject'] || '';
+    setText('obs-grade-subject', [grade, subject].filter(Boolean).join(' · ') || '—');
+
+    // Descriptors
+    const descGrid = document.getElementById('descriptor-grid');
+    let hasDesc = false;
+    DESCRIPTOR_FIELDS.forEach(field => {
+      if (f[field]) {
+        hasDesc = true;
+        descGrid.innerHTML += `
+          <div class="descriptor-item">
+            <div class="descriptor-label">${field}</div>
+            <div class="descriptor-value ${colorClass(f[field])}">${f[field]}</div>
+          </div>`;
+      }
+    });
+    if (hasDesc) show('descriptors-section');
+
+    // Strengths
+    const strengthsRaw = f['Strengths Observed'] || '';
+    if (strengthsRaw) {
+      const chips = strengthsRaw.split(',').map(s => s.trim()).filter(Boolean);
+      const chipsEl = document.getElementById('strengths-chips');
+      chips.forEach(s => { chipsEl.innerHTML += `<span class="chip">${s}</span>`; });
+      show('strengths-section');
+    }
+
+    // Notes sections
+    function showNote(sectionId, bodyId, value) {
+      if (value) {
+        document.getElementById(bodyId).textContent = value;
+        show(sectionId);
+      }
+    }
+    showNote('highlights-section', 'obs-highlights', f['Highlights from Observation'] || f['Highlights']);
+    showNote('needs-section', 'obs-needs', f['What Does the Teacher Need'] || f['Teacher Needs']);
+    showNote('opps-section', 'obs-opps', f['Opportunities for Students']);
+    showNote('comments-section', 'obs-comments', f['General Comments'] || f['Personal Note']);
+
+    // Already responded?
+    if (f['Teacher Reflection'] || f['Teacher Response']) {
+      hide('response-intro');
+      hide('response-form');
+      hide('submit-area');
+      show('already-responded');
+    }
+  }
+
+  async function submitResponse() {
+    const reflection = document.getElementById('teacher-reflection').value.trim();
+    const support = document.getElementById('support-requested').value.trim();
+    const signature = document.getElementById('teacher-signature').value.trim();
+
+    if (!reflection) {
+      alert('Please share your reflection before submitting.');
+      return;
+    }
+    if (!signature) {
+      alert('Please enter your name to sign the response.');
+      return;
+    }
+
+    const btn = document.getElementById('submit-btn');
+    btn.disabled = true;
+    btn.textContent = 'Submitting…';
+
+    const today = new Date().toISOString().split('T')[0];
+
+    try {
+      const res = await fetch(
+        `https://api.airtable.com/v0/${AIRTABLE_BASE}/${AIRTABLE_TABLE}/${recordId}`,
+        {
+          method: 'PATCH',
+          headers: {
+            Authorization: `Bearer ${AIRTABLE_TOKEN}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            fields: {
+              'Teacher Reflection': reflection,
+              'Support Requested': support || '',
+              'Teacher Signature': signature,
+              'Teacher Response Date': today,
+              'Teacher Responded': true
+            }
+          })
+        }
+      );
+
+      if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err?.error?.message || 'Submission failed');
+      }
+
+      hide('response-intro');
+      hide('response-form');
+      hide('submit-area');
+      show('success-banner');
+
+    } catch (err) {
+      btn.disabled = false;
+      btn.textContent = 'Submit Response';
+      alert('Something went wrong: ' + err.message + '\n\nPlease try again or contact your observer.');
+    }
+  }
+
+  loadRecord();
+</script>
+</body>
+</html>
