@@ -762,6 +762,23 @@
     .header-nav .nav-btn { padding: 7px 12px; font-size: 12px; }
     .other-strength-input { width: 100%; }
   }
+.status-badge {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-size: 11px; font-weight: 600; padding: 3px 10px;
+    border-radius: 20px; margin-bottom: 5px;
+  }
+  .status-draft    { background: #eef0f8; color: var(--navy); }
+  .status-sent     { background: var(--bg-amber); color: var(--strong-amber); }
+  .status-received { background: var(--bg-green); color: var(--strong-green); }
+  .btn-send {
+    font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 600;
+    padding: 8px 16px; background: var(--navy); color: white;
+    border: none; border-radius: var(--radius); cursor: pointer;
+    transition: background .18s; white-space: nowrap;
+  }
+  .btn-send:hover { background: var(--navy-light); }
+  .btn-send.sent  { background: var(--strong-amber); }
+  .btn-send:disabled { background: var(--border-strong); cursor: not-allowed; }
 </style>
 </head>
 <body>
@@ -1694,6 +1711,7 @@ async function submitForm() {
     actionSteps: [],
     airtableId: null,
     syncStatus: 'pending',
+    emailStatus: 'draft',
   };
 
   // Save locally first
@@ -1733,8 +1751,7 @@ async function submitForm() {
     );
   }
 
-  renderSummary(visits[0]);
-  showScreen('summary');
+  showScreen('log');
 }
 
 // ── Summary ──
@@ -1829,9 +1846,19 @@ function renderLog() {
     </div>`;
     return;
   }
-  el.innerHTML = filtered.map(v=>`
+  el.innerHTML = filtered.map(v => {
+    const es = v.emailStatus || 'draft';
+    const statusBadge = es === 'received'
+      ? '<span class="status-badge status-received">✓ Response received</span>'
+      : es === 'sent'
+      ? '<span class="status-badge status-sent">📨 Awaiting response</span>'
+      : '<span class="status-badge status-draft">● Draft</span>';
+    const sendBtnLabel = es === 'sent' ? '↩ Resend' : '📨 Send to Teacher';
+    const canSend = !!(v.airtableId && getTeacherEmailFromVisit(v));
+    return `
     <div class="log-card">
       <div class="log-card-left">
+        ${statusBadge}
         <div class="log-school-badge">${v.school}</div>
         <h3>${v.teacher}${v.grade?' — '+v.grade+' ELA':''}
           ${v.syncStatus==='synced'?'<span class="sync-badge synced">✓ Airtable</span>':v.syncStatus==='error'?'<span class="sync-badge error">⚠ Sync failed</span>':''}
@@ -1839,14 +1866,56 @@ function renderLog() {
         <p>${fmtDate(v.date)}${v.time?' at '+v.time:''} &nbsp;·&nbsp; ${v.observer}</p>
       </div>
       <div class="log-card-actions">
+        <button class="btn-send ${es==='sent'?'sent':''}" id="send-btn-${v.id}"
+          onclick="sendToTeacher(${v.id})"
+          ${!canSend?'disabled title="Save to Airtable first and ensure teacher email is set"':''}>
+          ${sendBtnLabel}
+        </button>
         <button class="btn-secondary" style="font-size:13px;padding:8px 16px" onclick="viewVisit(${v.id})">View</button>
         <button class="btn-secondary" style="font-size:13px;padding:8px 14px;color:var(--navy-light);border-color:#b0c4e8" onclick="editVisit(${v.id})">&#9998; Edit</button>
         <button class="btn-secondary" style="font-size:13px;padding:8px 14px;color:var(--strong-red);border-color:#fca5a5" onclick="deleteVisit(${v.id})">Delete</button>
       </div>
-    </div>`).join('');
+    </div>`;
+  }).join('');
 }
 
-let currentVisitId = null;
+function getTeacherEmailFromVisit(v) {
+  if (v.teacherEmailDirect) return v.teacherEmailDirect;
+  const match = teacherRoster.find(t => t.name.toLowerCase() === (v.teacher||'').toLowerCase());
+  return match ? match.email : '';
+}
+
+async function sendToTeacher(id) {
+  const v = visits.find(x => x.id === id);
+  if (!v) return;
+  if (!v.airtableId) { alert('This walkthrough has not synced to Airtable yet. Please wait and try again.'); return; }
+  const email = getTeacherEmailFromVisit(v);
+  if (!email) { alert('No teacher email found. Please edit the record and add the teacher email.'); return; }
+
+  const btn = document.getElementById(`send-btn-${id}`);
+  if (btn) { btn.disabled = true; btn.textContent = 'Sending…'; }
+
+  try {
+    const res = await fetch(
+      `https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${encodeURIComponent(WALKTHROUGHS_TABLE)}/${v.airtableId}`,
+      {
+        method: 'PATCH',
+        headers: { Authorization: `Bearer ${AIRTABLE_TOKEN}`, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ fields: { 'Status': 'Sent' } })
+      }
+    );
+    if (!res.ok) throw new Error('Airtable update failed');
+
+    const idx = visits.findIndex(x => x.id === id);
+    visits[idx].emailStatus = 'sent';
+    save();
+    showToast('📨 Sent to teacher!', `Email sent to ${email}`);
+    renderLog();
+  } catch(e) {
+    alert('Could not send: ' + e.message);
+    if (btn) { btn.disabled = false; btn.textContent = '📨 Send to Teacher'; }
+  }
+}
 
 function viewVisit(id) {
   currentVisitId = id;
