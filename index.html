@@ -2109,7 +2109,7 @@ function clearForm() {
   ['f-observer','f-school','f-grade','f-format','f-format-secondary','f-config'].forEach(id=>document.getElementById(id).selectedIndex=0);
   ['f-teacher','f-time','f-coteacher','f-other-name','f-other-code','f-format-other','f-format-secondary-other','f-reading-other','f-literary-other','f-standard-input',
    'f-observed','f-needs','f-opportunities','f-comments',
-   'f-teacher-response','f-teacher-support','f-teacher-sig','f-teacher-sig-date','f-other-strength'
+   'f-teacher-response','f-teacher-support','f-teacher-sig','f-teacher-email','f-other-strength'
   ].forEach(id => { const el = document.getElementById(id); if(el) el.value=''; });
   document.getElementById('f-date').value = new Date().toISOString().split('T')[0];
   document.getElementById('other-observer-panel').style.display = 'none';
