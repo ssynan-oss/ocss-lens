@@ -482,7 +482,6 @@
 
   .btn-clear:hover { border-color: var(--border-strong); color: var(--text); }
 
-  /* ── Success toast ── */
   #success-toast {
     display: none;
     position: fixed;
@@ -508,18 +507,9 @@
     to   { opacity: 1; transform: translateX(-50%) translateY(0); }
   }
 
-  #success-toast .toast-title {
-    font-size: 16px;
-    font-weight: 700;
-    margin-bottom: 5px;
-  }
+  #success-toast .toast-title { font-size: 16px; font-weight: 700; margin-bottom: 5px; }
+  #success-toast .toast-sub   { font-size: 13px; color: rgba(255,255,255,.8); }
 
-  #success-toast .toast-sub {
-    font-size: 13px;
-    color: rgba(255,255,255,.8);
-  }
-
-  /* ── Saving spinner overlay ── */
   #saving-overlay {
     display: none;
     position: fixed;
@@ -565,17 +555,8 @@
     border-bottom: 4px solid var(--red);
   }
 
-  .summary-eyebrow {
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: .13em;
-    text-transform: uppercase;
-    color: rgba(255,255,255,.5);
-    margin-bottom: 7px;
-  }
-
+  .summary-eyebrow { font-size: 11px; font-weight: 600; letter-spacing: .13em; text-transform: uppercase; color: rgba(255,255,255,.5); margin-bottom: 7px; }
   .summary-title { font-family: 'DM Serif Display', serif; font-size: 24px; color: white; }
-
   .summary-meta-row { display: flex; flex-wrap: wrap; gap: 20px; margin-top: 16px; }
   .summary-meta-item { font-size: 13px; color: rgba(255,255,255,.55); }
   .summary-meta-item strong { color: white; font-weight: 500; display: block; }
@@ -589,18 +570,7 @@
   }
 
   .summary-section { margin-bottom: 26px; }
-
-  .summary-section-title {
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: .1em;
-    text-transform: uppercase;
-    color: var(--text-muted);
-    margin-bottom: 12px;
-    padding-bottom: 8px;
-    border-bottom: 1px solid var(--border);
-  }
-
+  .summary-section-title { font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
   .ratings-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
 
   .rating-row {
@@ -615,13 +585,7 @@
 
   .rating-cat { color: var(--text-mid); }
 
-  .rating-badge {
-    font-size: 11px;
-    font-weight: 600;
-    padding: 3px 10px;
-    border-radius: 20px;
-    letter-spacing: .03em;
-  }
+  .rating-badge { font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 20px; letter-spacing: .03em; }
 
   .rb-strong    { background: var(--bg-green); color: var(--strong-green); }
   .rb-developing{ background: var(--bg-amber); color: var(--strong-amber); }
@@ -630,113 +594,92 @@
   .rb-none      { background: var(--cream);     color: var(--text-muted);   }
 
   .strength-tags-display { display: flex; flex-wrap: wrap; gap: 8px; }
-
-  .strength-tag-display {
-    font-size: 12px;
-    font-weight: 600;
-    padding: 5px 13px;
-    border-radius: 20px;
-    background: var(--navy);
-    color: white;
-  }
+  .strength-tag-display { font-size: 12px; font-weight: 600; padding: 5px 13px; border-radius: 20px; background: var(--navy); color: white; }
 
   .notes-display { font-size: 14px; color: var(--text); line-height: 1.7; }
   .notes-label   { font-size: 12px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: .07em; margin-bottom: 5px; }
 
-  .summary-actions {
-    display: flex; gap: 10px;
-    margin-top: 26px; padding-top: 22px;
-    border-top: 1px solid var(--border);
-  }
+  .summary-actions { display: flex; gap: 10px; margin-top: 26px; padding-top: 22px; border-top: 1px solid var(--border); }
 
-  .btn-primary {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 14px; font-weight: 600;
-    padding: 11px 26px;
-    background: var(--navy); color: white;
-    border: none; border-radius: var(--radius);
-    cursor: pointer; transition: background .18s;
-  }
-
+  .btn-primary { font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 600; padding: 11px 26px; background: var(--navy); color: white; border: none; border-radius: var(--radius); cursor: pointer; transition: background .18s; }
   .btn-primary:hover { background: var(--navy-light); }
 
-  .btn-secondary {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 14px; font-weight: 500;
-    padding: 11px 22px;
-    background: transparent; color: var(--text-mid);
-    border: 1.5px solid var(--border);
-    border-radius: var(--radius);
-    cursor: pointer; transition: all .15s;
-  }
-
+  .btn-secondary { font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500; padding: 11px 22px; background: transparent; color: var(--text-mid); border: 1.5px solid var(--border); border-radius: var(--radius); cursor: pointer; transition: all .15s; }
   .btn-secondary:hover { border-color: var(--border-strong); color: var(--text); }
 
   #log-screen { display: none; }
 
   .log-filters { display: flex; gap: 8px; margin-bottom: 18px; }
 
-  .filter-btn {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 13px; font-weight: 500;
-    padding: 7px 18px;
-    border-radius: 20px;
-    border: 1.5px solid var(--border);
-    background: white; color: var(--text-mid);
-    cursor: pointer; transition: all .15s;
-  }
-
+  .filter-btn { font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; padding: 7px 18px; border-radius: 20px; border: 1.5px solid var(--border); background: white; color: var(--text-mid); cursor: pointer; transition: all .15s; }
   .filter-btn:hover { border-color: var(--navy); color: var(--navy); }
   .filter-btn.active { background: var(--navy); color: white; border-color: var(--navy); }
 
-  .log-card {
-    background: white;
-    border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
-    padding: 18px 22px;
-    margin-bottom: 10px;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    transition: border-color .15s, box-shadow .15s;
-  }
-
+  .log-card { background: white; border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 18px 22px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: flex-start; transition: border-color .15s, box-shadow .15s; }
   .log-card:hover { border-color: var(--navy-light); box-shadow: 0 2px 10px rgba(27,42,90,.08); }
   .log-card-left h3 { font-size: 15px; font-weight: 600; color: var(--navy); margin-bottom: 4px; }
   .log-card-left p  { font-size: 13px; color: var(--text-muted); }
 
-  .log-school-badge {
-    display: inline-block;
-    font-size: 11px; font-weight: 600;
-    padding: 2px 10px;
-    border-radius: 20px;
-    background: rgba(27,42,90,.08);
-    color: var(--navy);
-    margin-bottom: 5px;
-    letter-spacing: .03em;
-  }
+  .log-school-badge { display: inline-block; font-size: 11px; font-weight: 600; padding: 2px 10px; border-radius: 20px; background: rgba(27,42,90,.08); color: var(--navy); margin-bottom: 5px; letter-spacing: .03em; }
 
   .log-card-actions { display: flex; gap: 8px; flex-shrink: 0; margin-left: 16px; }
 
   .empty-log { text-align: center; padding: 60px 24px; color: var(--text-muted); }
   .empty-log p { font-size: 15px; margin-top: 12px; }
 
-  /* Airtable sync badge */
-  .sync-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    font-size: 11px;
-    font-weight: 600;
-    padding: 3px 10px;
-    border-radius: 20px;
-    margin-left: 8px;
-    vertical-align: middle;
-  }
-
+  .sync-badge { display: inline-flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 20px; margin-left: 8px; vertical-align: middle; }
   .sync-badge.synced   { background: var(--bg-green); color: var(--strong-green); }
   .sync-badge.unsynced { background: var(--bg-amber);  color: var(--strong-amber); }
   .sync-badge.error    { background: var(--bg-red);    color: var(--strong-red);   }
+
+  .status-badge { display: inline-flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 20px; margin-bottom: 5px; }
+  .status-draft    { background: #eef0f8; color: var(--navy); }
+  .status-sent     { background: var(--bg-amber); color: var(--strong-amber); }
+  .status-received { background: var(--bg-green); color: var(--strong-green); }
+
+  .btn-send { font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 600; padding: 8px 16px; background: var(--navy); color: white; border: none; border-radius: var(--radius); cursor: pointer; transition: background .18s; white-space: nowrap; }
+  .btn-send:hover { background: var(--navy-light); }
+  .btn-send.sent  { background: var(--strong-amber); }
+  .btn-send:disabled { background: var(--border-strong); cursor: not-allowed; }
+
+  /* ══ MY WALKTHROUGHS ══ */
+  #mine-screen { display: none; }
+  .mine-login-wrap { max-width:420px; margin:48px auto 0; background:var(--white); border:1px solid var(--border); border-radius:var(--radius-lg); overflow:hidden; }
+  .mine-login-head { background:var(--navy); padding:22px 28px 18px; border-bottom:4px solid var(--red); }
+  .mine-login-title { font-family:'DM Serif Display',serif; font-size:20px; color:white; margin-bottom:4px; }
+  .mine-login-sub { font-size:12px; color:rgba(255,255,255,.5); }
+  .mine-login-body { padding:26px 28px; }
+  .mine-login-body .field { margin-bottom:14px; }
+  .mine-error { font-size:12px; color:var(--strong-red); margin-top:6px; display:none; }
+  .mine-card { background:var(--white); border:1px solid var(--border); border-radius:var(--radius-lg); margin-bottom:12px; overflow:hidden; transition:border-color .15s, box-shadow .15s; }
+  .mine-card:hover { border-color:var(--navy-light); box-shadow:0 2px 10px rgba(27,42,90,.08); }
+  .mine-card-head { background:var(--navy); padding:13px 20px; display:flex; align-items:center; justify-content:space-between; }
+  .mine-card-teacher { font-family:'DM Serif Display',serif; font-size:16px; color:white; }
+  .mine-card-date { font-size:12px; color:rgba(255,255,255,.55); flex-shrink:0; margin-left:12px; }
+  .mine-card-body { padding:16px 20px; }
+  .mine-meta-row { display:flex; gap:18px; flex-wrap:wrap; margin-bottom:10px; }
+  .mine-meta-item { font-size:12px; color:var(--text-muted); }
+  .mine-meta-item strong { color:var(--text-mid); display:block; font-size:13px; }
+  .mine-ratings-mini { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:10px; }
+  .mine-rating-chip { font-size:11px; font-weight:500; padding:3px 9px; border-radius:20px; background:var(--cream); color:var(--text-muted); border:1px solid var(--border); }
+  .mine-rating-chip.ev  { background:var(--bg-green); color:var(--strong-green); border-color:#86efac; }
+  .mine-rating-chip.dev { background:var(--bg-amber); color:var(--strong-amber); border-color:#fcd34d; }
+  .mine-rating-chip.emg { background:var(--bg-red);   color:var(--strong-red);   border-color:#fca5a5; }
+  .mine-actions { display:flex; gap:8px; align-items:center; border-top:1px solid var(--border); padding-top:12px; margin-top:4px; flex-wrap:wrap; }
+  .mine-action-btn { font-family:'DM Sans',sans-serif; font-size:12px; font-weight:600; padding:7px 14px; border-radius:7px; cursor:pointer; transition:all .15s; border:1.5px solid var(--border); background:transparent; color:var(--text-mid); }
+  .mine-action-btn:hover { border-color:var(--navy); color:var(--navy); }
+  .mine-action-btn.send-btn { background:var(--navy); color:white; border-color:var(--navy); }
+  .mine-action-btn.send-btn:hover { background:var(--navy-light); }
+  .mine-action-btn.send-btn.sent { background:var(--strong-amber); border-color:var(--strong-amber); }
+  .mine-action-btn:disabled { opacity:.45; cursor:not-allowed; }
+  .mine-empty { text-align:center; padding:60px 24px; color:var(--text-muted); font-size:14px; line-height:1.7; }
+  .mine-header-bar { background:var(--navy-mid); padding:20px 40px; display:flex; align-items:center; justify-content:space-between; }
+  .mine-header-name { font-family:'DM Serif Display',serif; font-size:22px; color:white; }
+  .mine-header-sub { font-size:12px; color:rgba(255,255,255,.5); margin-top:3px; }
+  .mine-signout { font-family:'DM Sans',sans-serif; font-size:12px; font-weight:500; padding:7px 16px; border-radius:7px; border:1px solid rgba(255,255,255,.25); background:transparent; color:rgba(255,255,255,.7); cursor:pointer; transition:all .15s; }
+  .mine-signout:hover { background:rgba(255,255,255,.1); color:white; }
+  .mine-loading { text-align:center; padding:48px; color:var(--text-muted); font-size:13px; }
+  .mine-spinner { width:28px; height:28px; border:3px solid var(--border); border-top-color:var(--navy); border-radius:50%; animation:spin .8s linear infinite; margin:0 auto 12px; }
 
   @media print {
     .site-header, .hero-bar, .hero-rule,
@@ -759,26 +702,10 @@
     .radio-opt   { padding: 8px 8px; }
     .radio-text  { font-size: 12.5px; }
     .section-body { padding: 16px; }
-    .header-nav .nav-btn { padding: 7px 12px; font-size: 12px; }
+    .header-nav .nav-btn { padding: 7px 10px; font-size: 11px; }
     .other-strength-input { width: 100%; }
+    .mine-header-bar { padding: 16px; }
   }
-.status-badge {
-    display: inline-flex; align-items: center; gap: 5px;
-    font-size: 11px; font-weight: 600; padding: 3px 10px;
-    border-radius: 20px; margin-bottom: 5px;
-  }
-  .status-draft    { background: #eef0f8; color: var(--navy); }
-  .status-sent     { background: var(--bg-amber); color: var(--strong-amber); }
-  .status-received { background: var(--bg-green); color: var(--strong-green); }
-  .btn-send {
-    font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 600;
-    padding: 8px 16px; background: var(--navy); color: white;
-    border: none; border-radius: var(--radius); cursor: pointer;
-    transition: background .18s; white-space: nowrap;
-  }
-  .btn-send:hover { background: var(--navy-light); }
-  .btn-send.sent  { background: var(--strong-amber); }
-  .btn-send:disabled { background: var(--border-strong); cursor: not-allowed; }
 </style>
 </head>
 <body>
@@ -814,6 +741,7 @@
   <nav class="header-nav">
     <button class="nav-btn active" id="nav-form" onclick="showScreen('form')">New walkthrough</button>
     <button class="nav-btn"        id="nav-log"  onclick="showScreen('log')">Visit log</button>
+    <button class="nav-btn"        id="nav-mine" onclick="showScreen('mine')">My walkthroughs</button>
     <button class="nav-btn" id="nav-clear" onclick="clearForm();showScreen('form');" title="Clear all fields and start fresh"
       style="border-color:rgba(178,34,52,.5); color:rgba(255,180,180,.85);">&#10005; Clear form</button>
   </nav>
@@ -828,7 +756,6 @@
   </div>
   <div class="hero-rule"></div>
 
-  <!-- About This Tool collapsible -->
   <div style="max-width:920px; margin:0 auto; padding:12px 20px 0;">
     <button onclick="toggleAbout()" id="about-btn"
       style="font-family:'DM Sans',sans-serif; font-size:12.5px; font-weight:500;
@@ -854,33 +781,29 @@
         <p style="font-size:13px; color:rgba(255,255,255,.90); line-height:1.7; margin-bottom:16px;">
           LENS is designed as a <strong style="color:white;">coaching and growth tool</strong>, not an evaluative instrument.
           Walkthroughs are brief, supportive observations intended to open dialogue between teachers and instructional coaches —
-          never to judge or rank. The language throughout this tool is intentionally observational and developmental.
+          never to judge or rank.
         </p>
         <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px;">
           <div style="background:rgba(255,255,255,.07); border-radius:var(--radius); padding:14px 16px;">
-            <p style="font-size:11px; font-weight:600; letter-spacing:.08em; text-transform:uppercase;
-                      color:rgba(255,255,255,.45); margin-bottom:8px;">Observation descriptors grounded in</p>
+            <p style="font-size:11px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:rgba(255,255,255,.45); margin-bottom:8px;">Observation descriptors grounded in</p>
             <ul style="font-size:12.5px; color:rgba(255,255,255,.92); line-height:1.8; padding-left:16px;">
-              <li>Hattie, J. — <em>Visible Learning</em> (2009): teacher clarity (instructional focus &amp; purpose) &amp; student relationships</li>
-              <li>Schlechty, P. — <em>Engaging Students</em> (2011): levels of engagement</li>
-              <li>Tomlinson, C.A. — <em>The Differentiated Classroom</em> (2014): differentiation &amp; access</li>
-              <li>Fisher &amp; Frey — text-dependent questioning &amp; accountable talk</li>
-              <li>Graham &amp; Perin — <em>Writing Next</em> (2007): writing as a learning tool</li>
-              <li>Marzano, R. — <em>The Highly Engaged Classroom</em> (2011): environment &amp; engagement</li>
-              <li>Bryk &amp; Schneider — <em>Trust in Schools</em> (2002): relational trust</li>
-              <li>Rowe, M.B. — <em>Wait Time</em> (1972, updated)</li>
-              <li>Georgia ELA Standards (2024) — multimodal text as a primary text type</li>
+              <li>Hattie, J. — <em>Visible Learning</em> (2009)</li>
+              <li>Schlechty, P. — <em>Engaging Students</em> (2011)</li>
+              <li>Tomlinson, C.A. — <em>The Differentiated Classroom</em> (2014)</li>
+              <li>Fisher &amp; Frey — text-dependent questioning</li>
+              <li>Graham &amp; Perin — <em>Writing Next</em> (2007)</li>
+              <li>Marzano, R. — <em>The Highly Engaged Classroom</em> (2011)</li>
+              <li>Georgia ELA Standards (2024)</li>
             </ul>
           </div>
           <div style="background:rgba(255,255,255,.07); border-radius:var(--radius); padding:14px 16px;">
-            <p style="font-size:11px; font-weight:600; letter-spacing:.08em; text-transform:uppercase;
-                      color:rgba(255,255,255,.45); margin-bottom:8px;">Coaching language grounded in</p>
+            <p style="font-size:11px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:rgba(255,255,255,.45); margin-bottom:8px;">Coaching language grounded in</p>
             <ul style="font-size:12.5px; color:rgba(255,255,255,.92); line-height:1.8; padding-left:16px;">
               <li>Knight, J. — <em>Instructional Coaching</em> (2007)</li>
-              <li>Georgia TKES framework — developmental growth language</li>
+              <li>Georgia TKES framework</li>
               <li>Bloom's Taxonomy (Anderson &amp; Krathwohl, 2001)</li>
-              <li>University of Pittsburgh — <em>Accountable Talk</em> framework</li>
-              <li>Webb, N.L. — <em>Depth of Knowledge (DOK)</em> framework</li>
+              <li>University of Pittsburgh — <em>Accountable Talk</em></li>
+              <li>Webb, N.L. — <em>Depth of Knowledge</em></li>
             </ul>
           </div>
         </div>
@@ -913,24 +836,24 @@
             <select id="f-observer" onchange="handleObserverChange(this.value)">
               <option value="">Select observer...</option>
               <optgroup label="Central Office Support">
-               <option value="Dr. Kanya Cornish">Dr. Kanya Cornish</option>
-<option value="Dr. Sharon Synan">Dr. Sharon Synan</option>
-</optgroup>
-<optgroup label="Instructional Coaches">
-<option value="Michelle Krolikowski">Michelle Krolikowski</option>
-<option value="Jennifer Yauck">Jennifer Yauck</option>
-</optgroup>
-<optgroup label="Administration">
-<option value="Mack Baldwin">Mack Baldwin</option>
-<option value="Alecia Casper">Alecia Casper</option>
-<option value="Bill Sampson">Bill Sampson</option>
-<option value="Lauren Carlson">Lauren Carlson</option>
+                <option value="Dr. Kanya Cornish">Dr. Kanya Cornish</option>
+                <option value="Dr. Sharon Synan">Dr. Sharon Synan</option>
+              </optgroup>
+              <optgroup label="Instructional Coaches">
+                <option value="Michelle Krolikowski">Michelle Krolikowski</option>
+                <option value="Jennifer Yauck">Jennifer Yauck</option>
+              </optgroup>
+              <optgroup label="Administration">
+                <option value="Mack Baldwin">Mack Baldwin</option>
+                <option value="Alecia Casper">Alecia Casper</option>
+                <option value="Bill Sampson">Bill Sampson</option>
+                <option value="Lauren Carlson">Lauren Carlson</option>
+              </optgroup>
               <optgroup label="Other">
                 <option value="__other__">Other (enter name + code)</option>
               </optgroup>
             </select>
           </div>
-          <!-- Other observer panel -->
           <div id="other-observer-panel" style="display:none; grid-column: 1 / -1; background:#eef0f8; border:1.5px solid var(--border); border-radius:var(--radius); padding:14px 16px; margin-top:-6px;">
             <div class="field-grid-2" style="margin-bottom:10px">
               <div class="field">
@@ -949,7 +872,7 @@
             <select id="f-school" onchange="handleSchoolChange()">
               <option value="">Select school...</option>
               <option value="Oglethorpe County Middle School">Oglethorpe County Middle School</option>
-<option value="Oglethorpe County High School">Oglethorpe County High School</option>
+              <option value="Oglethorpe County High School">Oglethorpe County High School</option>
             </select>
           </div>
           <div class="field">
@@ -960,12 +883,11 @@
         <div class="field-grid-2">
           <div class="field">
             <label>Teacher</label>
-            <!-- Teacher field: text input with datalist for auto-complete from Airtable Teachers table -->
             <input type="text" id="f-teacher" placeholder="Start typing a name…" list="teachers-datalist" autocomplete="off" oninput="handleTeacherInput(this.value)">
             <datalist id="teachers-datalist"></datalist>
             <div id="teacher-email-display" style="font-size:11.5px; color:var(--text-muted); margin-top:4px; display:block;">
               📧 <span id="teacher-email-text"></span>
-           </div>
+            </div>
           </div>
           <div class="field">
             <label>Teacher Email</label>
@@ -975,13 +897,8 @@
             <label><span id="grade-label-text">Grade</span></label>
             <select id="f-grade" onchange="updateStandardsDatalist()">
               <option value="">Select grade...</option>
-              <option>6th</option>
-              <option>7th</option>
-              <option>8th</option>
-              <option>9th</option>
-              <option>10th</option>
-              <option>11th</option>
-              <option>12th</option>
+              <option>6th</option><option>7th</option><option>8th</option>
+              <option>9th</option><option>10th</option><option>11th</option><option>12th</option>
               <option>Multi-grade</option>
             </select>
           </div>
@@ -1031,7 +948,7 @@
               <input type="text" id="f-format-other" placeholder="Describe primary format..." style="font-family:'DM Sans',sans-serif; font-size:14px; color:var(--text); background:var(--cream); border:1.5px solid var(--border); border-radius:var(--radius); padding:10px 13px; width:100%;">
             </div>
             <div style="margin-top:10px;">
-              <label style="font-size:11.5px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--text-muted);">Transition to or from secondary instructional format <span style="font-weight:400;text-transform:none;font-size:11px;">(if observed)</span></label>
+              <label style="font-size:11.5px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--text-muted);">Transition to or from secondary format <span style="font-weight:400;text-transform:none;font-size:11px;">(if observed)</span></label>
               <select id="f-format-secondary" onchange="handleFormatSecondaryChange(this.value)" style="margin-top:5px;">
                 <option value="">No transition observed</option>
                 <option>Whole group instruction</option>
@@ -1087,7 +1004,7 @@
               </div>
             </div>
             <div class="field">
-              <label>Literary / skill focus <span style="font-weight:400;text-transform:none;font-size:11px;">(secondary ELA — select all that apply)</span></label>
+              <label>Literary / skill focus <span style="font-weight:400;text-transform:none;font-size:11px;">(select all that apply)</span></label>
               <div class="checkbox-group" id="literary-checkboxes">
                 <label class="cb-opt"><input type="checkbox" name="f-literary" value="Character development"><span>Character development</span></label>
                 <label class="cb-opt"><input type="checkbox" name="f-literary" value="Theme / central idea"><span>Theme / central idea</span></label>
@@ -1222,7 +1139,7 @@
       </div>
       <div class="section-body" style="background:#f0f4fc;">
         <p style="font-size:13px; color:var(--text-muted); margin-bottom:14px; font-style:italic;">
-          This section is for the teacher to complete after reviewing the walkthrough. It stays with the record and can be printed together.
+          This section is for the teacher to complete after reviewing the walkthrough.
         </p>
         <div class="field" style="margin-bottom:14px">
           <label>Teacher reflection / response</label>
@@ -1283,7 +1200,6 @@
           <span style="font-size:13px; color:var(--text-muted); font-style:italic;">No teacher response recorded yet.</span>
         </div>
       </div>
-      <!-- Airtable sync status -->
       <div id="sum-airtable-status" style="margin-top:16px; padding:12px 16px; border-radius:var(--radius); background:var(--cream); font-size:13px; color:var(--text-muted); display:none;"></div>
       <div class="summary-actions">
         <button class="btn-primary"   onclick="window.print()">Print summary</button>
@@ -1300,14 +1216,14 @@
   <div class="hero-bar">
     <div class="hero-eyebrow">OCSS LENS</div>
     <div class="hero-title">Visit log</div>
-    <div class="hero-sub">All recorded walkthroughs</div>
+    <div class="hero-sub">Walkthroughs saved on this device</div>
   </div>
   <div class="hero-rule"></div>
   <div class="layout">
     <div class="log-filters">
       <button class="filter-btn active" onclick="filterLog('all',this)">All schools</button>
       <button class="filter-btn"        onclick="filterLog('Oglethorpe County Elementary',this)">Elementary</button>
-      <button class="filter-btn"        onclick="filterLog('Oglethorpe County Middle',this)">Middle</button>
+      <button class="filter-btn"        onclick="filterLog('Oglethorpe County Middle School',this)">Middle</button>
       <button class="filter-btn"        onclick="filterLog('Oglethorpe County High School',this)">High School</button>
     </div>
     <div id="log-list"></div>
@@ -1322,54 +1238,302 @@
   </div>
 </div>
 
+<!-- ══════════════════ MY WALKTHROUGHS SCREEN ══════════════════ -->
+<div id="mine-screen">
+
+  <!-- Login panel -->
+  <div class="layout" id="mine-login-panel">
+    <div class="mine-login-wrap">
+      <div class="mine-login-head">
+        <div class="mine-login-title">My Walkthroughs</div>
+        <div class="mine-login-sub">Select your name and enter your username PIN to view your full observation history from Airtable</div>
+      </div>
+      <div class="mine-login-body">
+        <div class="field">
+          <label>Observer</label>
+          <select id="mine-observer-sel">
+            <option value="">Select your name...</option>
+            <option value="Dr. Kanya Cornish">Dr. Kanya Cornish</option>
+            <option value="Dr. Sharon Synan">Dr. Sharon Synan</option>
+            <option value="Michelle Krolikowski">Michelle Krolikowski</option>
+            <option value="Jennifer Yauck">Jennifer Yauck</option>
+            <option value="Mack Baldwin">Mack Baldwin</option>
+            <option value="Alecia Casper">Alecia Casper</option>
+            <option value="Bill Sampson">Bill Sampson</option>
+            <option value="Lauren Carlson">Lauren Carlson</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>PIN <span style="font-weight:400;text-transform:none;font-size:11px;">— the part of your email before the @</span></label>
+          <input type="password" id="mine-pin-input" placeholder="e.g. ssynan"
+            autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
+            onkeydown="if(event.key==='Enter') mineLogin()">
+          <div class="mine-error" id="mine-error">Incorrect PIN. Enter the username portion of your district email (before the @).</div>
+        </div>
+        <button class="btn-submit" onclick="mineLogin()" style="margin-top:6px; width:100%; justify-content:center;">
+          <svg viewBox="0 0 18 18" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l5 5 7-8"/></svg>
+          View my walkthroughs
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Authenticated view -->
+  <div id="mine-auth-panel" style="display:none;">
+    <div class="mine-header-bar">
+      <div>
+        <div class="mine-header-name" id="mine-header-name">—</div>
+        <div class="mine-header-sub" id="mine-header-sub">Loading your walkthroughs…</div>
+      </div>
+      <button class="mine-signout" onclick="mineSignOut()">Sign out</button>
+    </div>
+    <div class="hero-rule"></div>
+    <div class="layout">
+      <div id="mine-loading" class="mine-loading">
+        <div class="mine-spinner"></div>
+        Fetching your walkthroughs from Airtable…
+      </div>
+      <div id="mine-list" style="display:none;"></div>
+    </div>
+  </div>
+
+</div>
+
 <script>
 // ══════════════════════════════════════════════════════════════
 // AIRTABLE CONFIGURATION
-// Replace YOUR_TOKEN_HERE with your personal access token
-// Base ID and table names are already set correctly
 // ══════════════════════════════════════════════════════════════
-const AIRTABLE_TOKEN = 'patG72MNWRN17dn10.13c975ee5688ffad05f574ff3ead34bb534dda46e830f50192c69d90ad4d1754';
+const AIRTABLE_TOKEN   = 'patG72MNWRN17dn10.13c975ee5688ffad05f574ff3ead34bb534dda46e830f50192c69d90ad4d1754';
 const AIRTABLE_BASE_ID = 'appGLedN9wIfxL9Ay';
 const WALKTHROUGHS_TABLE = 'tbl2vp05HS6Qvqpzs';
 const TEACHERS_TABLE     = 'Teachers';
 
-// ── Observer PIN ──
 const GENERIC_CODE = '1234';
 
-// ── Teacher roster cache ──
-let teacherRoster = []; // [{name, email}]
+// ══════════════════════════════════════════════
+// MY WALKTHROUGHS — Observer PINs
+// ══════════════════════════════════════════════
+const OBSERVER_PINS = {
+  'Dr. Kanya Cornish':    'kcornish',
+  'Dr. Sharon Synan':     'ssynan',
+  'Michelle Krolikowski': 'jkrolikowski',
+  'Jennifer Yauck':       'jyauck',
+  'Mack Baldwin':         'mbaldwin',
+  'Alecia Casper':        'acasper',
+  'Bill Sampson':         'bsampson',
+  'Lauren Carlson':       'lcarlson',
+};
 
-// ── Load teacher roster from Airtable on page load ──
-async function loadTeacherRoster() {
-  if (!AIRTABLE_TOKEN || AIRTABLE_TOKEN === '') return;
+let mineCurrentObserver = null;
+let mineRecords = [];
+
+function mineLogin() {
+  const name   = document.getElementById('mine-observer-sel').value;
+  const pin    = document.getElementById('mine-pin-input').value.trim().toLowerCase();
+  const errEl  = document.getElementById('mine-error');
+
+  if (!name) { alert('Please select your name.'); return; }
+
+  const correctPin = OBSERVER_PINS[name];
+  if (!correctPin || pin !== correctPin) {
+    errEl.style.display = 'block';
+    document.getElementById('mine-pin-input').value = '';
+    return;
+  }
+
+  errEl.style.display = 'none';
+  mineCurrentObserver = name;
+  document.getElementById('mine-login-panel').style.display  = 'none';
+  document.getElementById('mine-auth-panel').style.display   = 'block';
+  document.getElementById('mine-header-name').textContent    = name;
+  document.getElementById('mine-header-sub').textContent     = 'Loading your walkthroughs…';
+  document.getElementById('mine-loading').style.display      = 'block';
+  document.getElementById('mine-list').style.display         = 'none';
+  fetchMineRecords(name);
+}
+
+async function fetchMineRecords(observerName) {
   try {
-    const url = `https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${encodeURIComponent(TEACHERS_TABLE)}?fields[]=Teacher+Name&fields[]=Email`
-    const res = await fetch(url, {
-      headers: { Authorization: `Bearer ${AIRTABLE_TOKEN}` }
-    });
-    if (!res.ok) return;
-    const data = await res.json();
-    teacherRoster = (data.records || [])
-      .map(r => ({
-        name:  r.fields['Teacher Name']  || '',
-        email: r.fields['Email'] || '',
-      }))
-      .filter(t => t.name);
+    const formula = encodeURIComponent(`{Observer}="${observerName}"`);
+    let records = [];
+    let offset  = null;
 
-    // Populate datalist
-    const dl = document.getElementById('teachers-datalist');
-    dl.innerHTML = '';
-    teacherRoster.forEach(t => {
-      const opt = document.createElement('option');
-      opt.value = t.name;
-      dl.appendChild(opt);
-    });
+    do {
+      let url = `https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${encodeURIComponent(WALKTHROUGHS_TABLE)}?filterByFormula=${formula}&pageSize=100`;
+      if (offset) url += `&offset=${offset}`;
+      const res = await fetch(url, { headers: { Authorization: `Bearer ${AIRTABLE_TOKEN}` } });
+      if (!res.ok) throw new Error('Could not load walkthroughs — check your connection and try again.');
+      const data = await res.json();
+      records = records.concat(data.records || []);
+      offset  = data.offset || null;
+    } while (offset);
+
+    mineRecords = records
+      .map(r => ({ _id: r.id, ...r.fields }))
+      .sort((a,b) => (b['Date']||'').localeCompare(a['Date']||''));
+
+    document.getElementById('mine-loading').style.display = 'none';
+    document.getElementById('mine-list').style.display    = 'block';
+    document.getElementById('mine-header-sub').textContent =
+      `${mineRecords.length} walkthrough${mineRecords.length !== 1 ? 's' : ''} on record`;
+    renderMineList();
   } catch(e) {
-    console.warn('Could not load teacher roster:', e);
+    document.getElementById('mine-loading').innerHTML =
+      `<div style="color:var(--strong-red);font-size:13px;text-align:center;">⚠ ${e.message}</div>`;
   }
 }
 
-// Auto-fill teacher email when a matching name is selected
+const MINE_OBS_CATS = [
+  { label:'Clarity',        field:'Instruction Clarity' },
+  { label:'Engagement',     field:'Student Engagement' },
+  { label:'Questioning',    field:'Questioning Techniques' },
+  { label:'Wait Time',      field:'Wait Time & Student Response' },
+  { label:'Differentiation',field:'Differentiation & Access' },
+  { label:'Evidence',       field:'Evidence & Student Talk' },
+  { label:'Writing',        field:'Writing & Response' },
+  { label:'Environment',    field:'Learning Environment' },
+  { label:'Relationship',   field:'Teacher-Student Relationship' },
+  { label:'Technology',     field:'Technology & Multimodal Engagement' },
+];
+
+function mineRatingClass(v) {
+  if (['Evident','Purposeful'].includes(v)) return 'ev';
+  if (v === 'Developing') return 'dev';
+  if (v === 'Emerging')   return 'emg';
+  return '';
+}
+
+function renderMineList() {
+  const el = document.getElementById('mine-list');
+  if (!mineRecords.length) {
+    el.innerHTML = `<div class="mine-empty">
+      No walkthroughs found for ${mineCurrentObserver}.<br>
+      <span style="font-size:13px;">Completed walkthroughs will appear here once saved to Airtable.</span>
+    </div>`;
+    return;
+  }
+
+  el.innerHTML = mineRecords.map(r => {
+    const isSent      = (r['Status']||'').toLowerCase() === 'sent';
+    const hasResponse = !!r['Teacher Responded'];
+    const statusLabel = hasResponse
+      ? `<span style="background:var(--bg-green);color:var(--strong-green);font-size:11px;font-weight:600;padding:2px 9px;border-radius:10px;">✓ Response received</span>`
+      : isSent
+      ? `<span style="background:var(--bg-amber);color:var(--strong-amber);font-size:11px;font-weight:600;padding:2px 9px;border-radius:10px;">📨 Awaiting response</span>`
+      : `<span style="background:#eef0f8;color:var(--text-muted);font-size:11px;font-weight:600;padding:2px 9px;border-radius:10px;">● Not yet sent</span>`;
+
+    const chips = MINE_OBS_CATS.map(c => {
+      const v = r[c.field]||'';
+      if (!v || ['N/A','Not applicable','Not observed'].includes(v)) return '';
+      return `<span class="mine-rating-chip ${mineRatingClass(v)}" title="${c.label}: ${v}">${c.label}: ${v}</span>`;
+    }).filter(Boolean).join('');
+
+    const strengths = [r['Strengths Observed'], r['Other Strength']].filter(Boolean).join(', ');
+    const canSend   = !!r['Teacher Email'];
+    const sendLabel = hasResponse ? '✓ Response received' : isSent ? '↩ Resend to teacher' : '📨 Send to teacher';
+
+    return `
+    <div class="mine-card">
+      <div class="mine-card-head">
+        <div class="mine-card-teacher">${r['Teacher Name']||'—'}${r['Grade / Course']?' — '+r['Grade / Course']+' ELA':''}</div>
+        <div class="mine-card-date">${r['Date']?fmtDate(r['Date']):'—'}${r['Time of Visit']?' · '+r['Time of Visit']:''}</div>
+      </div>
+      <div class="mine-card-body">
+        <div style="margin-bottom:10px;">${statusLabel}</div>
+        <div class="mine-meta-row">
+          ${r['Primary Format']?`<div class="mine-meta-item"><strong>${r['Primary Format']}</strong>Format</div>`:''}
+          ${r['School']?`<div class="mine-meta-item"><strong>${shortMineSchool(r['School'])}</strong>School</div>`:''}
+          ${r['Reading & Writing Focus']?`<div class="mine-meta-item"><strong style="max-width:240px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;" title="${r['Reading & Writing Focus']}">${r['Reading & Writing Focus']}</strong>R&amp;W Focus</div>`:''}
+        </div>
+        ${chips ? `<div class="mine-ratings-mini">${chips}</div>` : ''}
+        ${r['Highlights from Observation'] ? `<div style="font-size:13px;color:var(--text-mid);margin-bottom:8px;line-height:1.6;"><strong style="font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--text-muted);display:block;margin-bottom:3px;">Highlights</strong>${r['Highlights from Observation']}</div>` : ''}
+        ${strengths ? `<div style="font-size:12.5px;color:var(--text-muted);margin-bottom:8px;"><strong>Strengths:</strong> ${strengths}</div>` : ''}
+        ${r['Teacher Reflection'] ? `<div style="background:#f0f4fc;border-radius:8px;padding:10px 13px;margin-bottom:10px;font-size:13px;color:var(--text-mid);line-height:1.6;border:1px solid #b0c4e8;"><strong style="font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;color:#2e4494;display:block;margin-bottom:4px;">Teacher response</strong>${r['Teacher Reflection']}</div>` : ''}
+        <div class="mine-actions">
+          <button class="mine-action-btn send-btn ${isSent||hasResponse?'sent':''}"
+            onclick="mineSendToTeacher('${r._id}', this)"
+            ${!canSend||hasResponse?'disabled title="'+(hasResponse?'Response already received':'No teacher email on record')+'"':''}>
+            ${sendLabel}
+          </button>
+          ${r['Teacher Email']?`<span style="font-size:11.5px;color:var(--text-muted);">${r['Teacher Email']}</span>`:''}
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function shortMineSchool(s) {
+  if (!s) return '—';
+  if (s.includes('Elementary')) return 'Elementary';
+  if (s.includes('Middle'))     return 'Middle School';
+  if (s.includes('High'))       return 'High School';
+  return s;
+}
+
+async function mineSendToTeacher(airtableId, btn) {
+  const r = mineRecords.find(x => x._id === airtableId);
+  if (!r) return;
+  if (!r['Teacher Email']) { alert('No teacher email on record for this walkthrough.'); return; }
+
+  btn.disabled = true;
+  btn.textContent = 'Sending…';
+
+  try {
+    const res = await fetch(
+      `https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${encodeURIComponent(WALKTHROUGHS_TABLE)}/${airtableId}`,
+      {
+        method: 'PATCH',
+        headers: { Authorization: `Bearer ${AIRTABLE_TOKEN}`, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ fields: { 'Status': 'Sent' } })
+      }
+    );
+    if (!res.ok) throw new Error('Airtable update failed');
+
+    const idx = mineRecords.findIndex(x => x._id === airtableId);
+    if (idx !== -1) mineRecords[idx]['Status'] = 'Sent';
+
+    showToast('📨 Sent to teacher!', `Email triggered for ${r['Teacher Email']}`);
+    btn.textContent = '↩ Resend to teacher';
+    btn.classList.add('sent');
+    btn.disabled = false;
+  } catch(e) {
+    alert('Could not send: ' + e.message);
+    btn.disabled = false;
+    btn.textContent = '📨 Send to teacher';
+  }
+}
+
+function mineSignOut() {
+  mineCurrentObserver = null;
+  mineRecords         = [];
+  document.getElementById('mine-pin-input').value       = '';
+  document.getElementById('mine-observer-sel').value    = '';
+  document.getElementById('mine-error').style.display   = 'none';
+  document.getElementById('mine-login-panel').style.display = 'block';
+  document.getElementById('mine-auth-panel').style.display  = 'none';
+}
+
+// ══════════════════════════════════════════════
+// TEACHER ROSTER
+// ══════════════════════════════════════════════
+let teacherRoster = [];
+
+async function loadTeacherRoster() {
+  if (!AIRTABLE_TOKEN) return;
+  try {
+    const url = `https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${encodeURIComponent(TEACHERS_TABLE)}?fields[]=Teacher+Name&fields[]=Email`;
+    const res = await fetch(url, { headers: { Authorization: `Bearer ${AIRTABLE_TOKEN}` } });
+    if (!res.ok) return;
+    const data = await res.json();
+    teacherRoster = (data.records || [])
+      .map(r => ({ name: r.fields['Teacher Name']||'', email: r.fields['Email']||'' }))
+      .filter(t => t.name);
+    const dl = document.getElementById('teachers-datalist');
+    dl.innerHTML = '';
+    teacherRoster.forEach(t => { const opt = document.createElement('option'); opt.value = t.name; dl.appendChild(opt); });
+  } catch(e) { console.warn('Could not load teacher roster:', e); }
+}
+
 function handleTeacherInput(val) {
   const match = teacherRoster.find(t => t.name.toLowerCase() === val.toLowerCase());
   const emailDisplay = document.getElementById('teacher-email-display');
@@ -1382,83 +1546,71 @@ function handleTeacherInput(val) {
   }
 }
 
-// Get teacher email for current teacher field value
 function getTeacherEmail() {
-  const name = document.getElementById('f-teacher').value.trim();
+  const name  = document.getElementById('f-teacher').value.trim();
   const match = teacherRoster.find(t => t.name.toLowerCase() === name.toLowerCase());
   return match ? match.email : '';
 }
 
-// ── Send walkthrough record to Airtable ──
+// ══════════════════════════════════════════════
+// AIRTABLE WRITE
+// ══════════════════════════════════════════════
 async function sendToAirtable(visit) {
-  if (!AIRTABLE_TOKEN || AIRTABLE_TOKEN === 'YOUR_TOKEN_HERE') {
-    return { success: false, error: 'Token not configured' };
-  }
+  if (!AIRTABLE_TOKEN) return { success: false, error: 'Token not configured' };
 
   const teacherEmail = getTeacherEmail() || visit.teacherEmailDirect || '';
-
-  // Map reading/literary arrays to comma-separated strings for long text fields
-  const readingStr  = Array.isArray(visit.reading)  ? visit.reading.join(', ')  : visit.reading  || '';
-  const literaryStr = Array.isArray(visit.literary) ? visit.literary.join(', ') : visit.literary || '';
-  const standardStr = Array.isArray(visit.standard) ? visit.standard.join(', ') : visit.standard || '';
+  const readingStr   = Array.isArray(visit.reading)   ? visit.reading.join(', ')   : visit.reading   || '';
+  const literaryStr  = Array.isArray(visit.literary)  ? visit.literary.join(', ')  : visit.literary  || '';
+  const standardStr  = Array.isArray(visit.standard)  ? visit.standard.join(', ')  : visit.standard  || '';
   const strengthsStr = Array.isArray(visit.strengths) ? visit.strengths.join(', ') : '';
 
   const fields = {
-    'Observer':                        visit.observer                   || '',
-    'School':                          visit.school                     || '',
-    'Date':                            visit.date                       || '',
-    'Teacher Name':                    visit.teacher                    || '',
-    'Teacher Email':                   teacherEmail,
-    'Grade / Course':                  visit.grade                      || '',
-    'Subject':                         visit.subject                    || 'ELA',
-    'Time of Visit':                   visit.time                       || '',
-    'Primary Format':                  visit.format                     || '',
-    'Secondary Format':                visit.formatSecondary            || '',
-    'Class Configuration':             visit.config                     || '',
-    'Co-Teacher':                      visit.coteacher                  || '',
-    'Reading & Writing Focus':         readingStr,
-    'Literary / Skill Focus':          literaryStr,
-    'Standard / Learning Target':      standardStr,
-    'Instruction Clarity':           visit.ratings['grouping']        || '',
-    'Student Engagement':              visit.ratings['engagement']      || '',
-    'Questioning Techniques':          visit.ratings['questioning']     || '',
-    'Wait Time & Student Response':    visit.ratings['waittime']        || '',
-    'Differentiation & Access':        visit.ratings['text']            || '',
-    'Evidence & Student Talk':         visit.ratings['evidence']        || '',
-    'Writing & Response':              visit.ratings['writing']         || '',
-    'Learning Environment':            visit.ratings['environment']     || '',
-    'Teacher-Student Relationship':    visit.ratings['relationship']    || '',
+    'Observer':                           visit.observer                || '',
+    'School':                             visit.school                  || '',
+    'Date':                               visit.date                    || '',
+    'Teacher Name':                       visit.teacher                 || '',
+    'Teacher Email':                      teacherEmail,
+    'Grade / Course':                     visit.grade                   || '',
+    'Subject':                            visit.subject                 || 'ELA',
+    'Time of Visit':                      visit.time                    || '',
+    'Primary Format':                     visit.format                  || '',
+    'Secondary Format':                   visit.formatSecondary         || '',
+    'Class Configuration':                visit.config                  || '',
+    'Co-Teacher':                         visit.coteacher               || '',
+    'Reading & Writing Focus':            readingStr,
+    'Literary / Skill Focus':             literaryStr,
+    'Standard / Learning Target':         standardStr,
+    'Instruction Clarity':                visit.ratings['grouping']     || '',
+    'Student Engagement':                 visit.ratings['engagement']   || '',
+    'Questioning Techniques':             visit.ratings['questioning']  || '',
+    'Wait Time & Student Response':       visit.ratings['waittime']     || '',
+    'Differentiation & Access':           visit.ratings['text']         || '',
+    'Evidence & Student Talk':            visit.ratings['evidence']     || '',
+    'Writing & Response':                 visit.ratings['writing']      || '',
+    'Learning Environment':               visit.ratings['environment']  || '',
+    'Teacher-Student Relationship':       visit.ratings['relationship'] || '',
     'Technology & Multimodal Engagement': visit.ratings['technology']   || '',
-    'Strengths Observed':              strengthsStr,
-    'Other Strength':                  visit.otherStrength              || '',
-    'Highlights from Observation':     visit.observed                   || '',
-    'What Does the Teacher Need':      visit.needs                      || '',
-    'Opportunities for Students':      visit.opportunities              || '',
-    'General Comments':                visit.comments                   || '',
-    'Teacher Reflection':              visit.teacherResponse            || '',
-    'Support Requested':               visit.teacherSupport             || '',
-    'Teacher Signature':               visit.teacherSig                 || '',
-    'Status':                          'New',
+    'Strengths Observed':                 strengthsStr,
+    'Other Strength':                     visit.otherStrength           || '',
+    'Highlights from Observation':        visit.observed                || '',
+    'What Does the Teacher Need':         visit.needs                   || '',
+    'Opportunities for Students':         visit.opportunities           || '',
+    'General Comments':                   visit.comments                || '',
+    'Teacher Reflection':                 visit.teacherResponse         || '',
+    'Support Requested':                  visit.teacherSupport          || '',
+    'Teacher Signature':                  visit.teacherSig              || '',
+    'Status':                             'New',
   };
 
-  // Only include Teacher Signature Date if populated (Airtable date fields can't be empty string)
   if (visit.teacherSigDate) fields['Teacher Signature Date'] = visit.teacherSigDate;
 
   try {
     const res = await fetch(`https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${encodeURIComponent(WALKTHROUGHS_TABLE)}`, {
       method: 'POST',
-      headers: {
-        Authorization: `Bearer ${AIRTABLE_TOKEN}`,
-        'Content-Type': 'application/json'
-      },
+      headers: { Authorization: `Bearer ${AIRTABLE_TOKEN}`, 'Content-Type': 'application/json' },
       body: JSON.stringify({ fields })
     });
-
-    if (!res.ok) {
-      const err = await res.json();
-      return { success: false, error: err.error?.message || 'Airtable error' };
-    }
-
+    if (!res.ok) { const err = await res.json(); return { success: false, error: err.error?.message || 'Airtable error' }; }
     const created = await res.json();
     return { success: true, recordId: created.id };
   } catch(e) {
@@ -1466,13 +1618,6 @@ async function sendToAirtable(visit) {
   }
 }
 
-// ── Send confirmation email via Airtable automation ──
-// Airtable will handle the actual email via its built-in automation.
-// We just need to ensure the Observer field and Status are set correctly
-// so the automation triggers. No separate email API call needed here.
-// If you want to send email from here directly, add SendGrid or similar later.
-
-// ── Show success toast ──
 function showToast(title, sub, duration = 5000) {
   const toast = document.getElementById('success-toast');
   document.getElementById('toast-title').textContent = title;
@@ -1481,10 +1626,8 @@ function showToast(title, sub, duration = 5000) {
   setTimeout(() => { toast.style.display = 'none'; }, duration);
 }
 
-// ── Observer helpers ──
 function handleObserverChange(val) {
-  const panel = document.getElementById('other-observer-panel');
-  panel.style.display = val === '__other__' ? 'block' : 'none';
+  document.getElementById('other-observer-panel').style.display = val === '__other__' ? 'block' : 'none';
   document.getElementById('code-msg').style.display = 'none';
 }
 
@@ -1503,10 +1646,7 @@ function resolveObserver() {
   const code = document.getElementById('f-other-code').value.trim();
   const msg  = document.getElementById('code-msg');
   if (!name) { alert('Please enter your name.'); return null; }
-  if (code !== GENERIC_CODE) {
-    msg.style.display = 'block';
-    return null;
-  }
+  if (code !== GENERIC_CODE) { msg.style.display = 'block'; return null; }
   msg.style.display = 'none';
   return name + ' (Guest)';
 }
@@ -1516,7 +1656,9 @@ document.getElementById('f-config').addEventListener('change', function() {
   document.getElementById('co-teacher-wrap').style.display = needs.includes(this.value) ? 'block' : 'none';
 });
 
-// ── Observation descriptor categories ──
+// ══════════════════════════════════════════════
+// OBSERVATION DESCRIPTORS
+// ══════════════════════════════════════════════
 const OBS_CATS = [
   { id:'grouping',     label:'Instructional clarity',          opts:['Instructional focus is clear and purposeful','Focus of instruction is present; purpose emerging','Instructional focus not yet observable','Not applicable'] },
   { id:'engagement',   label:'Student engagement',             opts:['Most/all students actively engaged','Partial engagement observed','Engagement opportunities to grow','Not observed'] },
@@ -1526,16 +1668,15 @@ const OBS_CATS = [
   { id:'evidence',     label:'Evidence &amp; student talk',    opts:['Students cite evidence; build on peers','Some evidence use or discussion','Discussion developing; teacher-led observed','Not observed'] },
   { id:'writing',      label:'Writing &amp; response',         opts:['Writing anchored to text / argument','Some writing present, connection emerging','Writing not observed during visit','Not applicable'] },
   { id:'environment',  label:'Learning environment',           opts:['Welcoming, organized, print-rich','Functional, still developing','Environment still developing','Not applicable'] },
-  { id:'relationship', label:'Teacher–student relationship', opts:['Warm, respectful rapport evident','Cordial, still building','Relationship still developing','Not observed'] },
+  { id:'relationship', label:'Teacher–student relationship',   opts:['Warm, respectful rapport evident','Cordial, still building','Relationship still developing','Not observed'] },
   { id:'technology',   label:'Technology &amp; Multimodal Engagement', opts:['Technology used purposefully for creation, collaboration, or multimodal text response','Technology used purposefully','Technology present; moving toward purposeful use','Technology use not observed or passive use only','Not applicable'] },
 ];
 
-const RATING_MAP = ['Evident','Developing','Emerging','N/A'];
-const SEL_CLASS  = ['sel-strong','sel-developing','sel-notyet','sel-na'];
+const RATING_MAP     = ['Evident','Developing','Emerging','N/A'];
+const SEL_CLASS      = ['sel-strong','sel-developing','sel-notyet','sel-na'];
 const SEL_CLASS_EXT  = ['sel-strong','sel-strong','sel-developing','sel-notyet','sel-na'];
 const RATING_MAP_EXT = ['Evident','Purposeful','Developing','Emerging','N/A'];
 
-// Build obs grid
 const grid = document.getElementById('obs-grid');
 OBS_CATS.forEach(cat => {
   const card = document.createElement('div');
@@ -1563,14 +1704,12 @@ function selectRadio(el, cat, idx, selClass) {
   el.querySelector('input').checked = true;
 }
 
-// ── Tags ──
 function toggleTag(el) { el.classList.toggle('on'); }
 
 function getSelectedTags() {
   return [...document.querySelectorAll('#strength-tags .tag.on')].map(b => b.textContent.trim());
 }
 
-// ── Standards ──
 let standards = [];
 
 function renderStandards() {
@@ -1602,10 +1741,7 @@ function addStandard() {
   inp.focus();
 }
 
-function removeStandard(i) {
-  standards.splice(i, 1);
-  renderStandards();
-}
+function removeStandard(i) { standards.splice(i, 1); renderStandards(); }
 
 document.addEventListener('DOMContentLoaded', function() {
   document.getElementById('f-standard-input').addEventListener('keydown', function(e) {
@@ -1614,10 +1750,12 @@ document.addEventListener('DOMContentLoaded', function() {
   loadTeacherRoster();
 });
 
-// ── Standards data ──
+// ══════════════════════════════════════════════
+// STANDARDS DATA
+// ══════════════════════════════════════════════
 const STANDARDS_DATA = {"06": [{"code": "6.P.EICC.1", "label": "Reader & Writer Identity"}, {"code": "6.P.EICC.2", "label": "Engagement & Intention"}, {"code": "6.P.EICC.3", "label": "Comprehension Strategies"}, {"code": "6.P.EICC.4", "label": "Writing Processes"}, {"code": "6.P.ST.1", "label": "Context"}, {"code": "6.P.ST.2", "label": "Author, Audience, & Purpose"}, {"code": "6.P.AC.1", "label": "Reading like a Writer"}, {"code": "6.P.AC.2", "label": "Writing like a Reader"}, {"code": "6.P.AC.3", "label": "Text Design"}, {"code": "6.P.CP.1", "label": "Collaboration"}, {"code": "6.P.CP.2", "label": "Presentation"}, {"code": "6.L.GC.1", "label": "Grammar, Usage, & Mechanics"}, {"code": "6.L.GC.2", "label": "Syntax"}, {"code": "6.L.V.1", "label": "General, Academic, & Specialized Vocabulary"}, {"code": "6.L.V.2", "label": "Word Analysis"}, {"code": "6.L.V.3", "label": "Meaning & Purpose"}, {"code": "6.T.C.1", "label": "Purpose & Audience"}, {"code": "6.T.C.2", "label": "Authors & Speakers"}, {"code": "6.T.SS.1", "label": "Organization"}, {"code": "6.T.SS.2", "label": "Craft"}, {"code": "6.T.T.1", "label": "Narrative Techniques"}, {"code": "6.T.T.2", "label": "Expository Techniques"}, {"code": "6.T.T.3", "label": "Argumentative Techniques"}, {"code": "6.T.T.4", "label": "Poetic Techniques"}, {"code": "6.T.RA.1", "label": "Research & Inquiry"}, {"code": "6.T.RA.2", "label": "Curating Sources & Evidence"}, {"code": "6.T.PM.1", "label": "Periods & Movements"}], "07": [{"code": "7.P.EICC.1", "label": "Reader & Writer Identity"}, {"code": "7.P.EICC.2", "label": "Engagement & Intention"}, {"code": "7.P.EICC.3", "label": "Comprehension Strategies"}, {"code": "7.P.EICC.4", "label": "Writing Processes"}, {"code": "7.P.ST.1", "label": "Context"}, {"code": "7.P.ST.2", "label": "Author, Audience, & Purpose"}, {"code": "7.P.AC.1", "label": "Reading like a Writer"}, {"code": "7.P.AC.2", "label": "Writing like a Reader"}, {"code": "7.P.AC.3", "label": "Text Design"}, {"code": "7.P.CP.1", "label": "Collaboration"}, {"code": "7.P.CP.2", "label": "Presentation"}, {"code": "7.L.GC.1", "label": "Grammar, Usage, & Mechanics"}, {"code": "7.L.GC.2", "label": "Syntax"}, {"code": "7.L.V.1", "label": "General, Academic, & Specialized Vocabulary"}, {"code": "7.L.V.2", "label": "Word Analysis"}, {"code": "7.L.V.3", "label": "Meaning & Purpose"}, {"code": "7.T.C.1", "label": "Purpose & Audience"}, {"code": "7.T.C.2", "label": "Authors & Speakers"}, {"code": "7.T.SS.1", "label": "Organization"}, {"code": "7.T.SS.2", "label": "Craft"}, {"code": "7.T.T.1", "label": "Narrative Techniques"}, {"code": "7.T.T.2", "label": "Expository Techniques"}, {"code": "7.T.T.3", "label": "Argumentative Techniques"}, {"code": "7.T.T.4", "label": "Poetic Techniques"}, {"code": "7.T.RA.1", "label": "Research & Inquiry"}, {"code": "7.T.RA.2", "label": "Curating Sources & Evidence"}, {"code": "7.T.PM.1", "label": "Periods & Movements"}], "08": [{"code": "8.P.EICC.1", "label": "Reader & Writer Identity"}, {"code": "8.P.EICC.2", "label": "Engagement & Intention"}, {"code": "8.P.EICC.3", "label": "Comprehension Strategies"}, {"code": "8.P.EICC.4", "label": "Writing Processes"}, {"code": "8.P.ST.1", "label": "Context"}, {"code": "8.P.ST.2", "label": "Author, Audience, & Purpose"}, {"code": "8.P.AC.1", "label": "Reading like a Writer"}, {"code": "8.P.AC.2", "label": "Writing like a Reader"}, {"code": "8.P.AC.3", "label": "Text Design"}, {"code": "8.P.CP.1", "label": "Collaboration"}, {"code": "8.P.CP.2", "label": "Presentation"}, {"code": "8.L.GC.1", "label": "Grammar, Usage, & Mechanics"}, {"code": "8.L.GC.2", "label": "Syntax"}, {"code": "8.L.V.1", "label": "General, Academic, & Specialized Vocabulary"}, {"code": "8.L.V.2", "label": "Word Analysis"}, {"code": "8.L.V.3", "label": "Meaning & Purpose"}, {"code": "8.T.C.1", "label": "Purpose & Audience"}, {"code": "8.T.C.2", "label": "Authors & Speakers"}, {"code": "8.T.SS.1", "label": "Organization"}, {"code": "8.T.SS.2", "label": "Craft"}, {"code": "8.T.T.1", "label": "Narrative Techniques"}, {"code": "8.T.T.2", "label": "Expository Techniques"}, {"code": "8.T.T.3", "label": "Argumentative Techniques"}, {"code": "8.T.T.4", "label": "Poetic Techniques"}, {"code": "8.T.RA.1", "label": "Research & Inquiry"}, {"code": "8.T.RA.2", "label": "Curating Sources & Evidence"}, {"code": "8.T.PM.1", "label": "Periods & Movements"}]};
 
-const HS_STANDARDS_DATA = {"Literature & Composition I": [{"code":"9.P.EICC.1","label":"Reader & Writer Identity"},{"code":"9.P.EICC.2","label":"Engagement & Intention"},{"code":"9.P.EICC.3","label":"Comprehension Strategies"},{"code":"9.P.EICC.4","label":"Writing Processes"},{"code":"9.P.ST.1","label":"Context"},{"code":"9.P.ST.2","label":"Author, Audience, & Purpose"},{"code":"9.P.AC.1","label":"Reading like a Writer"},{"code":"9.P.AC.2","label":"Writing like a Reader"},{"code":"9.P.AC.3","label":"Text Design"},{"code":"9.P.CP.1","label":"Collaboration"},{"code":"9.P.CP.2","label":"Presentation"},{"code":"9.L.GC.1","label":"Grammar, Usage, & Mechanics"},{"code":"9.L.GC.2","label":"Syntax"},{"code":"9.L.V.1","label":"General, Academic, & Specialized Vocabulary"},{"code":"9.L.V.2","label":"Word Analysis"},{"code":"9.L.V.3","label":"Meaning & Purpose"},{"code":"9.T.C.1","label":"Purposes & Audiences"},{"code":"9.T.C.2","label":"Authors & Speakers"},{"code":"9.T.SS.1","label":"Organization"},{"code":"9.T.SS.2","label":"Craft"},{"code":"9.T.T.1","label":"Narrative Techniques"},{"code":"9.T.T.2","label":"Expository Techniques"},{"code":"9.T.T.3","label":"Argumentative Techniques"},{"code":"9.T.T.4","label":"Poetic Techniques"},{"code":"9.T.RA.1","label":"Research & Inquiry"},{"code":"9.T.RA.2","label":"Curating Sources & Evidence"},{"code":"9.T.PM.1","label":"Periods & Movements"}],"Literature & Composition II": [{"code":"10.P.EICC.1","label":"Reader & Writer Identity"},{"code":"10.P.EICC.2","label":"Engagement & Intention"},{"code":"10.P.EICC.3","label":"Comprehension Strategies"},{"code":"10.P.EICC.4","label":"Writing Processes"},{"code":"10.T.T.1","label":"Narrative Techniques"},{"code":"10.T.T.2","label":"Expository Techniques"},{"code":"10.T.T.3","label":"Argumentative Techniques"},{"code":"10.T.T.4","label":"Poetic Techniques"},{"code":"10.T.RA.1","label":"Research & Inquiry"},{"code":"10.T.RA.2","label":"Curating Sources & Evidence"}],"Literature & Composition III": [{"code":"11.P.EICC.1","label":"Reader & Writer Identity"},{"code":"11.T.T.1","label":"Narrative Techniques"},{"code":"11.T.T.2","label":"Expository Techniques"},{"code":"11.T.T.3","label":"Argumentative Techniques"},{"code":"11.T.T.4","label":"Poetic Techniques"},{"code":"11.T.RA.1","label":"Research & Inquiry"},{"code":"11.T.RA.2","label":"Curating Sources & Evidence"}],"Literature & Composition IV": [{"code":"12.P.EICC.1","label":"Reader & Writer Identity"},{"code":"12.T.T.1","label":"Narrative Techniques"},{"code":"12.T.T.2","label":"Expository Techniques"},{"code":"12.T.T.3","label":"Argumentative Techniques"},{"code":"12.T.T.4","label":"Poetic Techniques"},{"code":"12.T.RA.1","label":"Research & Inquiry"},{"code":"12.T.RA.2","label":"Curating Sources & Evidence"}],"Enhanced Literature & Composition I": [{"code":"8.P.EICC.1","label":"Reader & Writer Identity (Gr 8)"},{"code":"9.P.EICC.1","label":"Reader & Writer Identity (Gr 9)"},{"code":"8.T.T.1","label":"Narrative Techniques (Gr 8)"},{"code":"9.T.T.1","label":"Narrative Techniques (Gr 9)"}]};
+const HS_STANDARDS_DATA = {"Literature & Composition I": [{"code":"9.P.EICC.1","label":"Reader & Writer Identity"},{"code":"9.P.EICC.2","label":"Engagement & Intention"},{"code":"9.P.EICC.3","label":"Comprehension Strategies"},{"code":"9.P.EICC.4","label":"Writing Processes"},{"code":"9.P.ST.1","label":"Context"},{"code":"9.P.ST.2","label":"Author, Audience, & Purpose"},{"code":"9.P.AC.1","label":"Reading like a Writer"},{"code":"9.P.AC.2","label":"Writing like a Reader"},{"code":"9.P.AC.3","label":"Text Design"},{"code":"9.P.CP.1","label":"Collaboration"},{"code":"9.P.CP.2","label":"Presentation"},{"code":"9.L.GC.1","label":"Grammar, Usage, & Mechanics"},{"code":"9.L.GC.2","label":"Syntax"},{"code":"9.L.V.1","label":"General, Academic, & Specialized Vocabulary"},{"code":"9.L.V.2","label":"Word Analysis"},{"code":"9.L.V.3","label":"Meaning & Purpose"},{"code":"9.T.C.1","label":"Purposes & Audiences"},{"code":"9.T.C.2","label":"Authors & Speakers"},{"code":"9.T.SS.1","label":"Organization"},{"code":"9.T.SS.2","label":"Craft"},{"code":"9.T.T.1","label":"Narrative Techniques"},{"code":"9.T.T.2","label":"Expository Techniques"},{"code":"9.T.T.3","label":"Argumentative Techniques"},{"code":"9.T.T.4","label":"Poetic Techniques"},{"code":"9.T.RA.1","label":"Research & Inquiry"},{"code":"9.T.RA.2","label":"Curating Sources & Evidence"},{"code":"9.T.PM.1","label":"Periods & Movements"}],"Literature & Composition II": [{"code":"10.P.EICC.1","label":"Reader & Writer Identity"},{"code":"10.P.EICC.2","label":"Engagement & Intention"},{"code":"10.P.EICC.3","label":"Comprehension Strategies"},{"code":"10.P.EICC.4","label":"Writing Processes"},{"code":"10.T.T.1","label":"Narrative Techniques"},{"code":"10.T.T.2","label":"Expository Techniques"},{"code":"10.T.T.3","label":"Argumentative Techniques"},{"code":"10.T.T.4","label":"Poetic Techniques"},{"code":"10.T.RA.1","label":"Research & Inquiry"},{"code":"10.T.RA.2","label":"Curating Sources & Evidence"}],"Literature & Composition III": [{"code":"11.P.EICC.1","label":"Reader & Writer Identity"},{"code":"11.T.T.1","label":"Narrative Techniques"},{"code":"11.T.T.2","label":"Expository Techniques"},{"code":"11.T.T.3","label":"Argumentative Techniques"},{"code":"11.T.T.4","label":"Poetic Techniques"},{"code":"11.T.RA.1","label":"Research & Inquiry"},{"code":"11.T.RA.2","label":"Curating Sources & Evidence"}],"Literature & Composition IV": [{"code":"12.P.EICC.1","label":"Reader & Writer Identity"},{"code":"12.T.T.1","label":"Narrative Techniques"},{"code":"12.T.T.2","label":"Expository Techniques"},{"code":"12.T.T.3","label":"Argumentative Techniques"},{"code":"12.T.T.4","label":"Poetic Techniques"},{"code":"12.T.RA.1","label":"Research & Inquiry"},{"code":"12.T.RA.2","label":"Curating Sources & Evidence"}]};
 
 const HS_COURSES = ['Literature & Composition I','Literature & Composition II','Literature & Composition III','Literature & Composition IV','Enhanced Literature & Composition I','AP Language & Composition','AP Literature & Composition'];
 const GRADE_TO_KEY = {'6th':'06','7th':'07','8th':'08','9th':'09','10th':'10','11th':'11','12th':'12'};
@@ -1654,24 +1792,26 @@ function updateStandardsDatalist() {
   });
 }
 
-// ── Local storage ──
+// ══════════════════════════════════════════════
+// LOCAL STORAGE
+// ══════════════════════════════════════════════
 let visits = [];
 try { visits = JSON.parse(localStorage.getItem('ocsd-lens-v2')||'[]'); } catch(e){}
 function save() { localStorage.setItem('ocsd-lens-v2', JSON.stringify(visits)); }
 
-// Default date
 document.getElementById('f-date').value = new Date().toISOString().split('T')[0];
 
-// ── Submit ──
+let currentVisitId = null;
+
+// ══════════════════════════════════════════════
+// SUBMIT
+// ══════════════════════════════════════════════
 async function submitForm() {
   const observer = resolveObserver();
   if (!observer) return;
   const school  = document.getElementById('f-school').value;
   const teacher = document.getElementById('f-teacher').value.trim();
-  if (!school || !teacher) {
-    alert('Please select a school and enter the teacher name.');
-    return;
-  }
+  if (!school || !teacher) { alert('Please select a school and enter the teacher name.'); return; }
 
   const ratings = {};
   OBS_CATS.forEach(c => {
@@ -1694,12 +1834,10 @@ async function submitForm() {
     formatSecondary: document.getElementById('f-format-secondary').value === '__other_format_secondary__' ? document.getElementById('f-format-secondary-other').value.trim() || 'Other' : document.getElementById('f-format-secondary').value,
     config:  document.getElementById('f-config').value,
     coteacher: document.getElementById('f-coteacher').value.trim(),
-    reading: [...document.querySelectorAll('input[name="f-reading"]:checked')].map(c => c.id === 'reading-other-cb' ? document.getElementById('f-reading-other').value.trim() || 'Other' : c.value),
+    reading:  [...document.querySelectorAll('input[name="f-reading"]:checked')].map(c => c.id === 'reading-other-cb' ? document.getElementById('f-reading-other').value.trim() || 'Other' : c.value),
     literary: [...document.querySelectorAll('input[name="f-literary"]:checked')].map(c => c.id === 'literary-other-cb' ? document.getElementById('f-literary-other').value.trim() || 'Other' : c.value),
     standard: [...standards],
-    ratings,
-    strengths: allStrengths,
-    otherStrength: otherStrengthVal,
+    ratings, strengths: allStrengths, otherStrength: otherStrengthVal,
     observed:      document.getElementById('f-observed').value.trim(),
     needs:         document.getElementById('f-needs').value.trim(),
     opportunities: document.getElementById('f-opportunities').value.trim(),
@@ -1708,73 +1846,58 @@ async function submitForm() {
     teacherSupport:  document.getElementById('f-teacher-support').value.trim(),
     teacherSig:      document.getElementById('f-teacher-sig').value.trim(),
     teacherSigDate:  document.getElementById('f-teacher-sig-date').value,
-    actionSteps: [],
-    airtableId: null,
-    syncStatus: 'pending',
-    emailStatus: 'draft',
+    actionSteps: [], airtableId: null, syncStatus: 'pending', emailStatus: 'draft',
   };
 
-  // Save locally first
   currentVisitId = visit.id;
   visits.unshift(visit);
   save();
 
-  // Show saving overlay
   document.getElementById('saving-overlay').classList.add('active');
   const btn = document.getElementById('btn-save');
   btn.disabled = true;
 
-  // Send to Airtable
   const result = await sendToAirtable(visit);
 
-  // Hide overlay
   document.getElementById('saving-overlay').classList.remove('active');
   btn.disabled = false;
 
   if (result.success) {
-    // Update local record with Airtable record ID
-    visits[0].airtableId  = result.recordId;
+    visits[0].airtableId = result.recordId;
     visits[0].syncStatus  = 'synced';
     save();
-
-    showToast(
-      '✓ Walkthrough saved to Airtable!',
-      `Record ID: ${result.recordId} · Observer: ${observer}`
-    );
+    showToast('✓ Walkthrough saved to Airtable!', `Record ID: ${result.recordId} · Observer: ${observer}`);
   } else {
     visits[0].syncStatus = 'error';
     save();
-    showToast(
-      '⚠ Saved locally — Airtable sync failed',
-      `Error: ${result.error}. The record is saved in your browser and can be retried.`,
-      8000
-    );
+    showToast('⚠ Saved locally — Airtable sync failed', `Error: ${result.error}`, 8000);
   }
 
   showScreen('log');
 }
 
-// ── Summary ──
+// ══════════════════════════════════════════════
+// SUMMARY
+// ══════════════════════════════════════════════
 function fmtDate(d) {
   return d ? new Date(d+'T12:00:00').toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'}) : '—';
 }
 
 function renderSummary(v) {
   document.getElementById('sum-title').textContent = `${v.teacher}${v.grade?' — '+v.grade:''}`;
-
   const configLabel = v.config ? v.config + (v.coteacher ? ` (${v.coteacher})` : '') : '—';
   document.getElementById('sum-meta').innerHTML = [
     ['Observer',v.observer],['School',v.school],['Date',fmtDate(v.date)],
     ['Time',v.time||'—'],['Grade / Course',v.grade||'—'],['Subject',v.subject||'ELA'],
     ['Primary format',v.format||'—'],
-    v.formatSecondary && ['Secondary format (transition)',v.formatSecondary],
+    v.formatSecondary && ['Secondary format',v.formatSecondary],
     v.reading && v.reading.length && ['Reading &amp; Writing focus', Array.isArray(v.reading)?v.reading.join(', '):v.reading],
     ['Configuration', configLabel],
     v.literary && v.literary.length && ['Literary / skill focus', Array.isArray(v.literary)?v.literary.join(', '):v.literary],
     v.standard && v.standard.length && ['Standard / target', Array.isArray(v.standard)?v.standard.join(', '):v.standard],
   ].filter(Boolean).map(([l,val])=>`<div class="summary-meta-item"><span>${l}</span><strong>${val}</strong></div>`).join('');
 
-  const rbClass = r => r==='Evident'?'rb-strong':r==='Purposeful'?'rb-strong':r==='Developing'?'rb-developing':r==='Emerging'?'rb-notyet':r==='N/A'?'rb-na':'rb-none';
+  const rbClass = r => r==='Evident'||r==='Purposeful'?'rb-strong':r==='Developing'?'rb-developing':r==='Emerging'?'rb-notyet':r==='N/A'?'rb-na':'rb-none';
   document.getElementById('sum-ratings').innerHTML = OBS_CATS.map(c=>`
     <div class="rating-row">
       <span class="rating-cat">${c.label}</span>
@@ -1795,36 +1918,25 @@ function renderSummary(v) {
 
   const trWrap = document.getElementById('sum-teacher-response');
   const hasResponse = v.teacherResponse || v.teacherSupport || v.teacherSig;
-  if (hasResponse) {
-    trWrap.innerHTML = [
-      v.teacherResponse && `<div style="margin-bottom:14px"><div class="notes-label">Teacher reflection</div><div class="notes-display">${v.teacherResponse}</div></div>`,
-      v.teacherSupport  && `<div style="margin-bottom:14px"><div class="notes-label">Support requested</div><div class="notes-display">${v.teacherSupport}</div></div>`,
-      v.teacherSig && `<div style="font-size:13px; color:var(--text-mid); margin-top:4px; padding-top:12px; border-top:1px solid var(--border);">
-        <strong>${v.teacherSig}</strong>${v.teacherSigDate?' &nbsp;·&nbsp; '+fmtDate(v.teacherSigDate):''}
-      </div>`,
-    ].filter(Boolean).join('');
-  } else {
-    trWrap.innerHTML = '<span style="font-size:13px;color:var(--text-muted);font-style:italic">No teacher response recorded yet.</span>';
-  }
+  trWrap.innerHTML = hasResponse ? [
+    v.teacherResponse && `<div style="margin-bottom:14px"><div class="notes-label">Teacher reflection</div><div class="notes-display">${v.teacherResponse}</div></div>`,
+    v.teacherSupport  && `<div style="margin-bottom:14px"><div class="notes-label">Support requested</div><div class="notes-display">${v.teacherSupport}</div></div>`,
+    v.teacherSig && `<div style="font-size:13px;color:var(--text-mid);margin-top:4px;padding-top:12px;border-top:1px solid var(--border);"><strong>${v.teacherSig}</strong>${v.teacherSigDate?' · '+fmtDate(v.teacherSigDate):''}</div>`,
+  ].filter(Boolean).join('') : '<span style="font-size:13px;color:var(--text-muted);font-style:italic">No teacher response recorded yet.</span>';
 
-  // Airtable sync status
   const statusEl = document.getElementById('sum-airtable-status');
   if (v.syncStatus === 'synced') {
-    statusEl.style.display = 'block';
-    statusEl.style.background = 'var(--bg-green)';
-    statusEl.style.color = 'var(--strong-green)';
+    statusEl.style.display = 'block'; statusEl.style.background = 'var(--bg-green)'; statusEl.style.color = 'var(--strong-green)';
     statusEl.innerHTML = `✓ Saved to Airtable · Record ID: <code style="font-size:12px;">${v.airtableId}</code>`;
   } else if (v.syncStatus === 'error') {
-    statusEl.style.display = 'block';
-    statusEl.style.background = 'var(--bg-amber)';
-    statusEl.style.color = 'var(--strong-amber)';
-    statusEl.innerHTML = '⚠ Saved locally only — Airtable sync failed. Check your token or network connection.';
-  } else {
-    statusEl.style.display = 'none';
-  }
+    statusEl.style.display = 'block'; statusEl.style.background = 'var(--bg-amber)'; statusEl.style.color = 'var(--strong-amber)';
+    statusEl.innerHTML = '⚠ Saved locally only — Airtable sync failed.';
+  } else { statusEl.style.display = 'none'; }
 }
 
-// ── Log ──
+// ══════════════════════════════════════════════
+// LOG
+// ══════════════════════════════════════════════
 let currentFilter = 'all';
 
 function filterLog(f, el) {
@@ -1839,10 +1951,8 @@ function renderLog() {
   const el = document.getElementById('log-list');
   if (!filtered.length) {
     el.innerHTML = `<div class="empty-log">
-      <svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="var(--border-strong)" stroke-width="1.5" stroke-linecap="round">
-        <circle cx="18" cy="18" r="10"/><line x1="25" y1="25" x2="34" y2="34"/>
-      </svg>
-      <p>No walkthroughs recorded yet for this filter.</p>
+      <svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="var(--border-strong)" stroke-width="1.5" stroke-linecap="round"><circle cx="18" cy="18" r="10"/><line x1="25" y1="25" x2="34" y2="34"/></svg>
+      <p>No walkthroughs recorded on this device yet.</p>
     </div>`;
     return;
   }
@@ -1850,10 +1960,8 @@ function renderLog() {
     const es = v.emailStatus || 'draft';
     const statusBadge = es === 'received'
       ? '<span class="status-badge status-received">✓ Response received</span>'
-      : es === 'sent'
-      ? '<span class="status-badge status-sent">📨 Awaiting response</span>'
+      : es === 'sent' ? '<span class="status-badge status-sent">📨 Awaiting response</span>'
       : '<span class="status-badge status-draft">● Draft</span>';
-    const sendBtnLabel = es === 'sent' ? '↩ Resend' : '📨 Send to Teacher';
     const canSend = !!(v.airtableId && getTeacherEmailFromVisit(v));
     return `
     <div class="log-card">
@@ -1869,7 +1977,7 @@ function renderLog() {
         <button class="btn-send ${es==='sent'?'sent':''}" id="send-btn-${v.id}"
           onclick="sendToTeacher(${v.id})"
           ${!canSend?'disabled title="Save to Airtable first and ensure teacher email is set"':''}>
-          ${sendBtnLabel}
+          ${es==='sent'?'↩ Resend':'📨 Send to Teacher'}
         </button>
         <button class="btn-secondary" style="font-size:13px;padding:8px 16px" onclick="viewVisit(${v.id})">View</button>
         <button class="btn-secondary" style="font-size:13px;padding:8px 14px;color:var(--navy-light);border-color:#b0c4e8" onclick="editVisit(${v.id})">&#9998; Edit</button>
@@ -1888,7 +1996,7 @@ function getTeacherEmailFromVisit(v) {
 async function sendToTeacher(id) {
   const v = visits.find(x => x.id === id);
   if (!v) return;
-  if (!v.airtableId) { alert('This walkthrough has not synced to Airtable yet. Please wait and try again.'); return; }
+  if (!v.airtableId) { alert('This walkthrough has not synced to Airtable yet.'); return; }
   const email = getTeacherEmailFromVisit(v);
   if (!email) { alert('No teacher email found. Please edit the record and add the teacher email.'); return; }
 
@@ -1898,14 +2006,9 @@ async function sendToTeacher(id) {
   try {
     const res = await fetch(
       `https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${encodeURIComponent(WALKTHROUGHS_TABLE)}/${v.airtableId}`,
-      {
-        method: 'PATCH',
-        headers: { Authorization: `Bearer ${AIRTABLE_TOKEN}`, 'Content-Type': 'application/json' },
-        body: JSON.stringify({ fields: { 'Status': 'Sent' } })
-      }
+      { method: 'PATCH', headers: { Authorization: `Bearer ${AIRTABLE_TOKEN}`, 'Content-Type': 'application/json' }, body: JSON.stringify({ fields: { 'Status': 'Sent' } }) }
     );
     if (!res.ok) throw new Error('Airtable update failed');
-
     const idx = visits.findIndex(x => x.id === id);
     visits[idx].emailStatus = 'sent';
     save();
@@ -1942,12 +2045,11 @@ function editVisit(id) {
   document.getElementById('f-teacher').value  = v.teacher|| '';
   document.getElementById('f-grade').value    = v.grade  || '';
   document.getElementById('f-time').value     = v.time   || '';
-
-  document.getElementById('f-format').value  = v.format  || '';
+  document.getElementById('f-format').value   = v.format  || '';
   handleFormatChange(v.format || '');
   document.getElementById('f-format-secondary').value = v.formatSecondary || '';
   handleFormatSecondaryChange(v.formatSecondary || '');
-  document.getElementById('f-config').value  = v.config  || '';
+  document.getElementById('f-config').value   = v.config  || '';
   document.getElementById('f-coteacher').value = v.coteacher || '';
   const needsCo = ['Co-taught — two teachers of record','Push-in support','Student teacher / intern present'];
   document.getElementById('co-teacher-wrap').style.display = needsCo.includes(v.config) ? 'block' : 'none';
@@ -1961,11 +2063,7 @@ function editVisit(id) {
     v.reading.forEach(val => {
       const cb = document.querySelector(`input[name="f-reading"][value="${val}"]`);
       if (cb) cb.checked = true;
-      else {
-        document.getElementById('reading-other-cb').checked = true;
-        document.getElementById('f-reading-other').value = val;
-        document.getElementById('other-reading-wrap').style.display = 'block';
-      }
+      else { document.getElementById('reading-other-cb').checked = true; document.getElementById('f-reading-other').value = val; document.getElementById('other-reading-wrap').style.display = 'block'; }
     });
   }
 
@@ -1975,11 +2073,7 @@ function editVisit(id) {
     v.literary.forEach(val => {
       const cb = document.querySelector(`input[name="f-literary"][value="${val}"]`);
       if (cb) cb.checked = true;
-      else {
-        document.getElementById('literary-other-cb').checked = true;
-        document.getElementById('f-literary-other').value = val;
-        document.getElementById('other-literary-wrap').style.display = 'block';
-      }
+      else { document.getElementById('literary-other-cb').checked = true; document.getElementById('f-literary-other').value = val; document.getElementById('other-literary-wrap').style.display = 'block'; }
     });
   }
 
@@ -2003,16 +2097,15 @@ function editVisit(id) {
   document.querySelectorAll('.tag').forEach(t => {
     t.classList.toggle('on', v.strengths && v.strengths.includes(t.textContent.trim()));
   });
-  document.getElementById('f-other-strength').value = v.otherStrength || '';
-
-  document.getElementById('f-observed').value      = v.observed      || '';
-  document.getElementById('f-needs').value          = v.needs         || '';
-  document.getElementById('f-opportunities').value  = v.opportunities || '';
-  document.getElementById('f-comments').value       = v.comments      || '';
-  document.getElementById('f-teacher-response').value  = v.teacherResponse || '';
-  document.getElementById('f-teacher-support').value   = v.teacherSupport  || '';
-  document.getElementById('f-teacher-sig').value       = v.teacherSig      || '';
-  document.getElementById('f-teacher-sig-date').value  = v.teacherSigDate  || '';
+  document.getElementById('f-other-strength').value       = v.otherStrength   || '';
+  document.getElementById('f-observed').value             = v.observed        || '';
+  document.getElementById('f-needs').value                = v.needs           || '';
+  document.getElementById('f-opportunities').value        = v.opportunities   || '';
+  document.getElementById('f-comments').value             = v.comments        || '';
+  document.getElementById('f-teacher-response').value     = v.teacherResponse || '';
+  document.getElementById('f-teacher-support').value      = v.teacherSupport  || '';
+  document.getElementById('f-teacher-sig').value          = v.teacherSig      || '';
+  document.getElementById('f-teacher-sig-date').value     = v.teacherSigDate  || '';
 
   const btn = document.getElementById('btn-save');
   btn.innerHTML = `<svg viewBox="0 0 18 18" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l5 5 7-8"/></svg> Update walkthrough`;
@@ -2030,10 +2123,7 @@ async function updateVisit() {
   if (!school || !teacher) { alert('Please select a school and enter the teacher name.'); return; }
 
   const ratings = {};
-  OBS_CATS.forEach(c => {
-    const el = document.querySelector(`input[name="${c.id}"]:checked`);
-    ratings[c.id] = el ? el.value : '';
-  });
+  OBS_CATS.forEach(c => { const el = document.querySelector(`input[name="${c.id}"]:checked`); ratings[c.id] = el ? el.value : ''; });
 
   const idx = visits.findIndex(x => x.id === currentVisitId);
   if (idx === -1) return;
@@ -2043,37 +2133,33 @@ async function updateVisit() {
   if (otherStrengthVal) allStrengths.push(otherStrengthVal);
 
   visits[idx] = {
-    ...visits[idx],
-    observer, school,
-    date:     document.getElementById('f-date').value,
-    teacher, grade: document.getElementById('f-grade').value,
-    subject:  document.getElementById('f-subject').value,
-    time:     document.getElementById('f-time').value,
-    format:   document.getElementById('f-format').value === '__other_format__' ? document.getElementById('f-format-other').value.trim() || 'Other' : document.getElementById('f-format').value,
-    formatSecondary: document.getElementById('f-format-secondary').value === '__other_format_secondary__' ? document.getElementById('f-format-secondary-other').value.trim() || 'Other' : document.getElementById('f-format-secondary').value,
-    config:   document.getElementById('f-config').value,
+    ...visits[idx], observer, school,
+    date: document.getElementById('f-date').value, teacher,
+    grade: document.getElementById('f-grade').value,
+    subject: document.getElementById('f-subject').value,
+    time: document.getElementById('f-time').value,
+    format: document.getElementById('f-format').value === '__other_format__' ? document.getElementById('f-format-other').value.trim()||'Other' : document.getElementById('f-format').value,
+    formatSecondary: document.getElementById('f-format-secondary').value === '__other_format_secondary__' ? document.getElementById('f-format-secondary-other').value.trim()||'Other' : document.getElementById('f-format-secondary').value,
+    config: document.getElementById('f-config').value,
     coteacher: document.getElementById('f-coteacher').value.trim(),
     reading:  [...document.querySelectorAll('input[name="f-reading"]:checked')].map(c=>c.id==='reading-other-cb'?document.getElementById('f-reading-other').value.trim()||'Other':c.value),
     literary: [...document.querySelectorAll('input[name="f-literary"]:checked')].map(c=>c.id==='literary-other-cb'?document.getElementById('f-literary-other').value.trim()||'Other':c.value),
-    standard: [...standards],
-    ratings, strengths: allStrengths, otherStrength: otherStrengthVal,
-    observed:      document.getElementById('f-observed').value.trim(),
-    needs:         document.getElementById('f-needs').value.trim(),
+    standard: [...standards], ratings, strengths: allStrengths, otherStrength: otherStrengthVal,
+    observed: document.getElementById('f-observed').value.trim(),
+    needs: document.getElementById('f-needs').value.trim(),
     opportunities: document.getElementById('f-opportunities').value.trim(),
-    comments:      document.getElementById('f-comments').value.trim(),
+    comments: document.getElementById('f-comments').value.trim(),
     teacherResponse: document.getElementById('f-teacher-response').value.trim(),
-    teacherSupport:  document.getElementById('f-teacher-support').value.trim(),
-    teacherSig:      document.getElementById('f-teacher-sig').value.trim(),
-    teacherSigDate:  document.getElementById('f-teacher-sig-date').value,
+    teacherSupport: document.getElementById('f-teacher-support').value.trim(),
+    teacherSig: document.getElementById('f-teacher-sig').value.trim(),
+    teacherSigDate: document.getElementById('f-teacher-sig-date').value,
     actionSteps: [],
   };
-
   save();
 
   const btn = document.getElementById('btn-save');
   btn.innerHTML = `<svg viewBox="0 0 18 18" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l5 5 7-8"/></svg> Save walkthrough`;
   btn.onclick = submitForm;
-
   currentVisitId = null;
   renderSummary(visits[idx]);
   showScreen('summary');
@@ -2093,13 +2179,18 @@ function toggleAbout() {
   chevron.style.transform = isOpen ? '' : 'rotate(180deg)';
 }
 
+// ══════════════════════════════════════════════
+// SCREEN ROUTING
+// ══════════════════════════════════════════════
 function showScreen(s) {
   document.getElementById('form-screen').style.display    = s==='form'    ? 'block' : 'none';
   document.getElementById('summary-screen').style.display = s==='summary' ? 'block' : 'none';
   document.getElementById('log-screen').style.display     = s==='log'     ? 'block' : 'none';
+  document.getElementById('mine-screen').style.display    = s==='mine'    ? 'block' : 'none';
   document.getElementById('nav-form').classList.toggle('active', s==='form');
   document.getElementById('nav-log').classList.toggle('active',  s==='log');
-  if (s==='log') renderLog();
+  document.getElementById('nav-mine').classList.toggle('active', s==='mine');
+  if (s==='log')  renderLog();
   window.scrollTo(0,0);
 }
 
@@ -2107,8 +2198,8 @@ function newWalkthrough() { clearForm(); showScreen('form'); }
 
 function clearForm() {
   ['f-observer','f-school','f-grade','f-format','f-format-secondary','f-config'].forEach(id=>document.getElementById(id).selectedIndex=0);
-  ['f-teacher','f-time','f-coteacher','f-other-name','f-other-code','f-format-other','f-format-secondary-other','f-reading-other','f-literary-other','f-standard-input',
-   'f-observed','f-needs','f-opportunities','f-comments',
+  ['f-teacher','f-time','f-coteacher','f-other-name','f-other-code','f-format-other','f-format-secondary-other',
+   'f-reading-other','f-literary-other','f-standard-input','f-observed','f-needs','f-opportunities','f-comments',
    'f-teacher-response','f-teacher-support','f-teacher-sig','f-teacher-email','f-other-strength'
   ].forEach(id => { const el = document.getElementById(id); if(el) el.value=''; });
   document.getElementById('f-date').value = new Date().toISOString().split('T')[0];
