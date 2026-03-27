@@ -1,0 +1,1290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OCSS LENS — Administrative Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy:        #1B2A5A;
+    --navy-mid:    #243672;
+    --navy-light:  #2e4494;
+    --red:         #B22234;
+    --red-dark:    #8c1a28;
+    --white:       #ffffff;
+    --cream:       #f4f5fa;
+    --border:      #d8daea;
+    --border-strong: #a8aec8;
+    --text:        #111827;
+    --text-mid:    #374151;
+    --text-muted:  #6b7280;
+    --strong-green: #166534;
+    --strong-amber: #92400e;
+    --strong-red:   #991b1b;
+    --bg-green:    #dcfce7;
+    --bg-amber:    #fef3c7;
+    --bg-red:      #fee2e2;
+    --radius:      10px;
+    --radius-lg:   16px;
+    --sidebar-w:   240px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    min-height: 100vh;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  /* ── Topbar ── */
+  .topbar {
+    background: var(--navy);
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 28px;
+    border-bottom: 4px solid var(--red);
+    position: sticky; top: 0; z-index: 200;
+  }
+  .logo { display:flex; align-items:center; gap:13px; }
+  .logo-seal img { width:44px; height:44px; border-radius:50%; object-fit:cover; }
+  .logo-name { font-family:'DM Serif Display',serif; font-size:20px; color:#fff; }
+  .logo-sub  { font-size:10px; color:rgba(255,255,255,.45); letter-spacing:.1em; text-transform:uppercase; margin-top:1px; }
+  .topbar-right { display:flex; align-items:center; gap:14px; }
+  .badge-dash {
+    font-size:11px; font-weight:700; letter-spacing:.12em; text-transform:uppercase;
+    background: var(--red); color:#fff; padding:5px 14px; border-radius:20px;
+  }
+  .topbar-meta { font-size:12px; color:rgba(255,255,255,.45); }
+
+  /* ── Layout shell ── */
+  .shell { display:flex; min-height: calc(100vh - 64px); }
+
+  /* ── Sidebar ── */
+  .sidebar {
+    width: var(--sidebar-w);
+    background: var(--navy-mid);
+    flex-shrink: 0;
+    display:flex; flex-direction:column;
+    padding: 24px 16px;
+    gap: 4px;
+    position: sticky; top: 64px; height: calc(100vh - 64px);
+    overflow-y: auto;
+  }
+  .sidebar-label {
+    font-size:10px; font-weight:700; letter-spacing:.12em;
+    text-transform:uppercase; color:rgba(255,255,255,.35);
+    padding: 14px 10px 6px; margin-top:8px;
+  }
+  .sidebar-label:first-child { margin-top:0; }
+  .nav-item {
+    display:flex; align-items:center; gap:10px;
+    padding: 9px 12px; border-radius:8px;
+    font-size:13px; font-weight:500; color:rgba(255,255,255,.7);
+    cursor:pointer; transition:all .15s; border:none; background:none;
+    width:100%; text-align:left;
+  }
+  .nav-item:hover { background:rgba(255,255,255,.08); color:#fff; }
+  .nav-item.active { background:var(--red); color:#fff; }
+  .nav-item svg { width:16px; height:16px; flex-shrink:0; opacity:.8; }
+  .nav-item.active svg { opacity:1; }
+
+  /* ── Main content ── */
+  .main { flex:1; padding: 28px; overflow-x:hidden; }
+
+  /* ── Page sections ── */
+  .page { display:none; }
+  .page.active { display:block; }
+
+  /* ── Filters bar ── */
+  .filters-bar {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 16px 20px;
+    display:flex; align-items:flex-end; gap:14px; flex-wrap:wrap;
+    margin-bottom: 22px;
+  }
+  .filter-group { display:flex; flex-direction:column; gap:5px; }
+  .filter-group label {
+    font-size:10.5px; font-weight:700; letter-spacing:.09em;
+    text-transform:uppercase; color:var(--text-muted);
+  }
+  .filter-group select,
+  .filter-group input {
+    font-family:'DM Sans',sans-serif; font-size:13px;
+    color:var(--text); background:var(--cream);
+    border:1.5px solid var(--border); border-radius:8px;
+    padding:8px 12px; min-width:160px;
+  }
+  .filter-group select:focus,
+  .filter-group input:focus {
+    outline:none; border-color:var(--navy-light);
+    box-shadow:0 0 0 3px rgba(27,42,90,.10);
+  }
+  .btn-filter {
+    font-family:'DM Sans',sans-serif; font-size:13px; font-weight:600;
+    padding:9px 22px; background:var(--navy); color:#fff;
+    border:none; border-radius:8px; cursor:pointer; transition:background .15s;
+    align-self:flex-end;
+  }
+  .btn-filter:hover { background:var(--navy-light); }
+  .btn-export {
+    font-family:'DM Sans',sans-serif; font-size:13px; font-weight:500;
+    padding:9px 18px; background:transparent; color:var(--text-mid);
+    border:1.5px solid var(--border); border-radius:8px;
+    cursor:pointer; transition:all .15s; align-self:flex-end;
+  }
+  .btn-export:hover { border-color:var(--border-strong); color:var(--text); }
+
+  /* ── Section title ── */
+  .section-eyebrow {
+    font-size:11px; font-weight:700; letter-spacing:.12em;
+    text-transform:uppercase; color:var(--red); margin-bottom:5px;
+  }
+  .section-title-h {
+    font-family:'DM Serif Display',serif; font-size:22px;
+    color:var(--navy); margin-bottom:18px;
+  }
+
+  /* ── KPI cards ── */
+  .kpi-grid {
+    display:grid; grid-template-columns:repeat(4,1fr); gap:14px;
+    margin-bottom:22px;
+  }
+  .kpi-card {
+    background:var(--white); border:1px solid var(--border);
+    border-radius:var(--radius-lg); padding:18px 20px;
+    position:relative; overflow:hidden;
+  }
+  .kpi-card::before {
+    content:''; position:absolute; top:0; left:0; right:0; height:4px;
+    background: linear-gradient(90deg, var(--navy), var(--navy-light));
+  }
+  .kpi-card.red::before { background:linear-gradient(90deg,var(--red),#d44); }
+  .kpi-card.green::before { background:linear-gradient(90deg,#166534,#22c55e); }
+  .kpi-card.amber::before { background:linear-gradient(90deg,#92400e,#f59e0b); }
+  .kpi-label { font-size:11px; font-weight:700; letter-spacing:.09em; text-transform:uppercase; color:var(--text-muted); margin-bottom:8px; }
+  .kpi-value { font-family:'DM Serif Display',serif; font-size:36px; color:var(--navy); line-height:1; }
+  .kpi-sub   { font-size:12px; color:var(--text-muted); margin-top:5px; }
+
+  /* ── Chart cards ── */
+  .chart-row { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:18px; }
+  .chart-row.three { grid-template-columns:1fr 1fr 1fr; }
+  .chart-card {
+    background:var(--white); border:1px solid var(--border);
+    border-radius:var(--radius-lg); padding:20px 22px;
+  }
+  .chart-card.full { grid-column: 1 / -1; }
+  .chart-card-title {
+    font-size:12px; font-weight:700; letter-spacing:.08em;
+    text-transform:uppercase; color:var(--text-muted); margin-bottom:14px;
+  }
+
+  /* ── Rating breakdown bars ── */
+  .rating-bar-row {
+    display:flex; align-items:center; gap:10px; margin-bottom:9px;
+  }
+  .rating-bar-label { font-size:12.5px; color:var(--text-mid); width:200px; flex-shrink:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .rating-bar-track { flex:1; height:10px; background:var(--cream); border-radius:5px; overflow:hidden; }
+  .rating-bar-fill  { height:100%; border-radius:5px; transition:width .4s ease; }
+  .rb-fill-strong    { background:linear-gradient(90deg,#22c55e,#166534); }
+  .rb-fill-developing{ background:linear-gradient(90deg,#f59e0b,#92400e); }
+  .rb-fill-emerging  { background:linear-gradient(90deg,#f87171,#991b1b); }
+  .rating-bar-pct { font-size:12px; font-weight:600; color:var(--text-muted); width:36px; text-align:right; }
+
+  /* ── Stacked bar for observation cats ── */
+  .stacked-row { margin-bottom:11px; }
+  .stacked-label { font-size:12px; color:var(--text-mid); margin-bottom:4px; }
+  .stacked-bar { display:flex; height:14px; border-radius:7px; overflow:hidden; gap:2px; }
+  .stacked-seg { height:100%; transition:width .4s ease; }
+  .stacked-legend { display:flex; gap:14px; margin-top:10px; flex-wrap:wrap; }
+  .stacked-legend-item { display:flex; align-items:center; gap:5px; font-size:11px; color:var(--text-muted); }
+  .stacked-legend-dot { width:10px; height:10px; border-radius:3px; flex-shrink:0; }
+
+  /* ── Donut chart ── */
+  .donut-wrap { display:flex; align-items:center; gap:20px; }
+  .donut-svg  { flex-shrink:0; }
+  .donut-legend { display:flex; flex-direction:column; gap:8px; }
+  .donut-legend-row { display:flex; align-items:center; gap:8px; font-size:12.5px; color:var(--text-mid); }
+  .donut-legend-color { width:12px; height:12px; border-radius:3px; flex-shrink:0; }
+  .donut-legend-val { font-weight:700; color:var(--text); margin-left:auto; }
+
+  /* ── Tag cloud ── */
+  .tag-cloud { display:flex; flex-wrap:wrap; gap:8px; }
+  .strength-cloud-tag {
+    font-size:12px; font-weight:500; padding:5px 12px;
+    border-radius:20px; border:1.5px solid var(--border);
+    color:var(--navy); background:white;
+    display:inline-flex; align-items:center; gap:5px;
+  }
+  .strength-cloud-tag .count {
+    background:var(--navy); color:white;
+    font-size:10px; font-weight:700; padding:1px 6px;
+    border-radius:10px;
+  }
+
+  /* ── Records table ── */
+  .table-wrap {
+    background:var(--white); border:1px solid var(--border);
+    border-radius:var(--radius-lg); overflow:hidden;
+    margin-bottom:18px;
+  }
+  .table-scroll { overflow-x:auto; }
+  table { width:100%; border-collapse:collapse; }
+  thead th {
+    background:var(--navy); color:rgba(255,255,255,.8);
+    font-size:10.5px; font-weight:700; letter-spacing:.09em;
+    text-transform:uppercase; padding:11px 14px; text-align:left;
+    white-space:nowrap;
+  }
+  thead th:first-child { border-radius:0; }
+  tbody tr { border-bottom:1px solid var(--border); transition:background .12s; }
+  tbody tr:last-child { border-bottom:none; }
+  tbody tr:hover { background:#f8f9fd; }
+  tbody td { padding:11px 14px; font-size:13px; color:var(--text-mid); vertical-align:middle; }
+  tbody td strong { color:var(--navy); }
+  .table-badge {
+    display:inline-block; font-size:10.5px; font-weight:600;
+    padding:2px 9px; border-radius:10px;
+  }
+  .tb-strong     { background:var(--bg-green); color:var(--strong-green); }
+  .tb-developing { background:var(--bg-amber); color:var(--strong-amber); }
+  .tb-emerging   { background:var(--bg-red);   color:var(--strong-red);   }
+  .tb-na         { background:#eef0f8;          color:var(--text-muted);   }
+
+  .response-dot {
+    display:inline-block; width:8px; height:8px; border-radius:50%; margin-right:5px;
+  }
+  .dot-received { background:#22c55e; }
+  .dot-sent     { background:#f59e0b; }
+  .dot-draft    { background:#d1d5db; }
+
+  /* ── Loading / error ── */
+  .state-box {
+    background:var(--white); border:1px solid var(--border);
+    border-radius:var(--radius-lg); padding:60px 40px;
+    text-align:center;
+  }
+  .state-box svg { margin:0 auto 14px; display:block; }
+  .state-box h3 { font-family:'DM Serif Display',serif; font-size:20px; color:var(--navy); margin-bottom:8px; }
+  .state-box p  { font-size:13px; color:var(--text-muted); max-width:380px; margin:0 auto; line-height:1.7; }
+
+  /* ── Spinner ── */
+  .spinner {
+    width:36px; height:36px; border:3px solid var(--border);
+    border-top-color:var(--navy); border-radius:50%;
+    animation:spin .8s linear infinite; margin:0 auto 14px;
+  }
+  @keyframes spin { to { transform:rotate(360deg); } }
+
+  /* ── Record detail drawer ── */
+  .drawer-overlay {
+    display:none; position:fixed; inset:0; background:rgba(0,0,0,.35); z-index:500;
+  }
+  .drawer-overlay.open { display:block; }
+  .drawer {
+    position:fixed; top:0; right:0; bottom:0; width:520px; max-width:95vw;
+    background:var(--white); box-shadow:-8px 0 40px rgba(0,0,0,.15);
+    z-index:501; overflow-y:auto;
+    transform:translateX(100%); transition:transform .3s ease;
+  }
+  .drawer.open { transform:translateX(0); }
+  .drawer-head {
+    background:var(--navy); padding:22px 24px;
+    border-bottom:4px solid var(--red); position:sticky; top:0; z-index:1;
+  }
+  .drawer-head-top { display:flex; justify-content:space-between; align-items:flex-start; }
+  .drawer-teacher { font-family:'DM Serif Display',serif; font-size:20px; color:#fff; }
+  .drawer-meta    { font-size:12px; color:rgba(255,255,255,.55); margin-top:5px; }
+  .drawer-close {
+    background:none; border:none; cursor:pointer;
+    color:rgba(255,255,255,.6); font-size:22px; line-height:1; padding:0;
+    transition:color .15s;
+  }
+  .drawer-close:hover { color:#fff; }
+  .drawer-body { padding:22px 24px; }
+  .drawer-section { margin-bottom:22px; }
+  .drawer-section-title {
+    font-size:10.5px; font-weight:700; letter-spacing:.1em; text-transform:uppercase;
+    color:var(--text-muted); margin-bottom:10px; padding-bottom:7px;
+    border-bottom:1px solid var(--border);
+  }
+  .drawer-field { margin-bottom:10px; }
+  .drawer-field-label { font-size:11px; font-weight:600; color:var(--text-muted); text-transform:uppercase; letter-spacing:.07em; margin-bottom:3px; }
+  .drawer-field-val   { font-size:13px; color:var(--text); line-height:1.6; }
+  .drawer-ratings-grid { display:grid; grid-template-columns:1fr 1fr; gap:6px; }
+  .drawer-rating-row {
+    display:flex; justify-content:space-between; align-items:center;
+    padding:6px 10px; border-radius:7px; background:var(--cream);
+  }
+  .drawer-rating-cat { font-size:12px; color:var(--text-mid); }
+  .response-section {
+    background:#f0f4fc; border:1.5px solid #b0c4e8;
+    border-radius:var(--radius); padding:14px 16px; margin-top:14px;
+  }
+  .response-section-title { font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:#2e4494; margin-bottom:8px; }
+
+  /* ── Pagination ── */
+  .pagination { display:flex; gap:6px; align-items:center; justify-content:flex-end; margin-top:14px; }
+  .page-btn {
+    font-family:'DM Sans',sans-serif; font-size:12px; font-weight:500;
+    padding:6px 12px; border:1.5px solid var(--border); border-radius:7px;
+    background:white; color:var(--text-mid); cursor:pointer; transition:all .15s;
+  }
+  .page-btn:hover { border-color:var(--navy); color:var(--navy); }
+  .page-btn.active { background:var(--navy); color:#fff; border-color:var(--navy); }
+  .page-btn:disabled { opacity:.35; cursor:not-allowed; }
+  .pagination-info { font-size:12px; color:var(--text-muted); margin-right:8px; }
+
+  /* ── Trend sparkline ── */
+  .sparkline-wrap { display:flex; gap:4px; align-items:flex-end; height:40px; }
+  .spark-bar { background:var(--navy); border-radius:3px 3px 0 0; min-width:12px; flex:1; opacity:.7; transition:opacity .15s; }
+  .spark-bar:hover { opacity:1; }
+
+  /* ── Response rate ring ── */
+  .ring-wrap { display:flex; align-items:center; gap:16px; }
+
+  /* ── Top strengths horizontal bars ── */
+  .strength-bar-row { display:flex; align-items:center; gap:10px; margin-bottom:8px; }
+  .strength-bar-name { font-size:12px; color:var(--text-mid); width:190px; flex-shrink:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .strength-bar-track { flex:1; height:8px; background:var(--cream); border-radius:4px; overflow:hidden; }
+  .strength-bar-fill { height:100%; background:linear-gradient(90deg,var(--navy),var(--navy-light)); border-radius:4px; }
+  .strength-bar-n { font-size:11px; font-weight:600; color:var(--text-muted); width:24px; text-align:right; }
+
+  @media (max-width:900px) {
+    .sidebar { display:none; }
+    .kpi-grid { grid-template-columns:1fr 1fr; }
+    .chart-row { grid-template-columns:1fr; }
+  }
+
+  /* ── Password gate ── */
+  #pw-gate {
+    position: fixed; inset: 0; z-index: 9999;
+    background: var(--navy);
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column;
+  }
+  .pw-card {
+    background: white; border-radius: 20px;
+    padding: 40px 44px; text-align: center;
+    box-shadow: 0 24px 60px rgba(0,0,0,.35);
+    width: 100%; max-width: 380px;
+    animation: fadeUp .4s ease;
+  }
+  @keyframes fadeUp {
+    from { opacity:0; transform:translateY(16px); }
+    to   { opacity:1; transform:translateY(0); }
+  }
+  .pw-title { font-family:'DM Serif Display',serif; font-size:22px; color:var(--navy); margin-bottom:4px; }
+  .pw-sub   { font-size:13px; color:var(--text-muted); margin-bottom:22px; }
+  .pw-input {
+    font-family:'DM Sans',sans-serif; font-size:15px;
+    width:100%; padding:11px 16px; border-radius:10px;
+    border:2px solid var(--border); background:var(--cream);
+    color:var(--text); text-align:center; letter-spacing:.06em;
+    transition:border-color .15s, box-shadow .15s; margin-bottom:12px;
+  }
+  .pw-input:focus { outline:none; border-color:var(--navy-light); box-shadow:0 0 0 3px rgba(27,42,90,.12); background:white; }
+  .pw-btn {
+    font-family:'DM Sans',sans-serif; font-size:14px; font-weight:600;
+    width:100%; padding:12px; border:none; border-radius:10px;
+    background:var(--red); color:white; cursor:pointer; transition:background .15s;
+  }
+  .pw-btn:hover { background:#c8263c; }
+  .pw-error { font-size:12px; color:var(--strong-red); margin-top:8px; display:none; }
+  .pw-footer { font-size:11px; color:rgba(255,255,255,.3); margin-top:18px; }
+</style>
+</head>
+<body>
+
+<!-- ══ PASSWORD GATE ══ -->
+<div id="pw-gate">
+  <div class="pw-card">
+    <img src="https://cmsv2-assets.apptegy.net/uploads/20314/logo/23196/Oglethorpe_County_GA_Logo.png"
+         alt="OCSS" style="width:56px;height:56px;border-radius:50%;object-fit:cover;margin:0 auto 14px;display:block;"
+         onerror="this.style.display='none'">
+    <div class="pw-title">OCSS LENS</div>
+    <div class="pw-sub">Administrative Dashboard — authorized access only</div>
+    <input class="pw-input" type="password" id="pw-input"
+           placeholder="Enter password"
+           onkeydown="if(event.key==='Enter') checkPassword()">
+    <button class="pw-btn" onclick="checkPassword()">Access dashboard</button>
+    <div class="pw-error" id="pw-error">Incorrect password. Please try again.</div>
+  </div>
+  <div class="pw-footer">Oglethorpe County School System · LENS Administrative View</div>
+</div>
+
+
+<!-- ══ TOP BAR ══ -->
+<header class="topbar">
+  <div class="logo">
+    <div>
+      <img src="https://cmsv2-assets.apptegy.net/uploads/20314/logo/23196/Oglethorpe_County_GA_Logo.png"
+           alt="OCSS" style="width:44px;height:44px;border-radius:50%;object-fit:cover;"
+           onerror="this.style.display='none'">
+    </div>
+    <div>
+      <div class="logo-name">OCSS LENS</div>
+      <div class="logo-sub">Administrative Dashboard</div>
+    </div>
+  </div>
+  <div class="topbar-right">
+    <span class="badge-dash">Admin View</span>
+    <span class="topbar-meta" id="last-updated">Loading data…</span>
+  </div>
+</header>
+
+<!-- ══ SHELL ══ -->
+<div class="shell">
+
+  <!-- Sidebar -->
+  <nav class="sidebar">
+    <div class="sidebar-label">Overview</div>
+    <button class="nav-item active" onclick="showPage('overview',this)">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><rect x="1" y="1" width="6" height="6" rx="1.5"/><rect x="9" y="1" width="6" height="6" rx="1.5"/><rect x="1" y="9" width="6" height="6" rx="1.5"/><rect x="9" y="9" width="6" height="6" rx="1.5"/></svg>
+      Summary
+    </button>
+    <button class="nav-item" onclick="showPage('observations',this)">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="8" cy="8" r="3"/><path d="M1 8C1 8 4 3 8 3s7 5 7 5-3 5-7 5S1 8 1 8z"/></svg>
+      Observations
+    </button>
+    <button class="nav-item" onclick="showPage('strengths',this)">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><polygon points="8,1 10,5.5 15,6 11.5,9.5 12.5,14.5 8,12 3.5,14.5 4.5,9.5 1,6 6,5.5"/></svg>
+      Strengths
+    </button>
+    <button class="nav-item" onclick="showPage('records',this)">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><rect x="2" y="1" width="12" height="14" rx="2"/><line x1="5" y1="5" x2="11" y2="5"/><line x1="5" y1="8" x2="11" y2="8"/><line x1="5" y1="11" x2="8" y2="11"/></svg>
+      All Records
+    </button>
+
+    <div class="sidebar-label">Filter by School</div>
+    <button class="nav-item" id="sb-all" onclick="setSchoolFilter('all',this)">All schools</button>
+    <button class="nav-item" id="sb-elem" onclick="setSchoolFilter('Oglethorpe County Elementary',this)">Elementary</button>
+    <button class="nav-item" id="sb-mid"  onclick="setSchoolFilter('Oglethorpe County Middle School',this)">Middle School</button>
+    <button class="nav-item" id="sb-hs"   onclick="setSchoolFilter('Oglethorpe County High School',this)">High School</button>
+
+    <div class="sidebar-label" style="margin-top:auto; padding-top:30px;">Connection</div>
+    <div style="padding:10px 12px; background:rgba(255,255,255,.06); border-radius:8px; font-size:12px; color:rgba(255,255,255,.6); line-height:1.6;">
+      <div id="conn-status" style="display:flex;align-items:center;gap:6px;margin-bottom:4px;">
+        <span style="width:8px;height:8px;border-radius:50%;background:#f59e0b;display:inline-block;"></span>
+        Connecting…
+      </div>
+      <div id="conn-count" style="color:rgba(255,255,255,.35);">—</div>
+    </div>
+  </nav>
+
+  <!-- Main -->
+  <main class="main">
+
+    <!-- ══ PAGE: OVERVIEW ══ -->
+    <div class="page active" id="page-overview">
+      <div class="section-eyebrow">OCSS LENS</div>
+      <div class="section-title-h" id="overview-title">Instructional Walkthrough Summary</div>
+
+      <!-- KPIs -->
+      <div class="kpi-grid" id="kpi-grid">
+        <div class="kpi-card"><div class="kpi-label">Total Walkthroughs</div><div class="kpi-value" id="kpi-total">—</div><div class="kpi-sub" id="kpi-date-range">Loading…</div></div>
+        <div class="kpi-card green"><div class="kpi-label">Teacher Responses</div><div class="kpi-value" id="kpi-responses">—</div><div class="kpi-sub" id="kpi-response-rate">—</div></div>
+        <div class="kpi-card red"><div class="kpi-label">Awaiting Response</div><div class="kpi-value" id="kpi-pending">—</div><div class="kpi-sub">Sent, not yet returned</div></div>
+        <div class="kpi-card amber"><div class="kpi-label">Teachers Observed</div><div class="kpi-value" id="kpi-teachers">—</div><div class="kpi-sub" id="kpi-school-count">across schools</div></div>
+      </div>
+
+      <!-- Charts row 1 -->
+      <div class="chart-row">
+        <div class="chart-card">
+          <div class="chart-card-title">Walkthroughs by school</div>
+          <div id="school-bars"></div>
+        </div>
+        <div class="chart-card">
+          <div class="chart-card-title">Walkthroughs by observer</div>
+          <div id="observer-bars"></div>
+        </div>
+      </div>
+
+      <!-- Charts row 2 -->
+      <div class="chart-row">
+        <div class="chart-card">
+          <div class="chart-card-title">Primary instructional format</div>
+          <div id="format-bars"></div>
+        </div>
+        <div class="chart-card">
+          <div class="chart-card-title">Teacher response status</div>
+          <div id="status-donut-wrap">
+            <div class="donut-wrap">
+              <svg class="donut-svg" width="120" height="120" viewBox="0 0 120 120" id="donut-svg">
+                <circle cx="60" cy="60" r="46" fill="none" stroke="#eef0f8" stroke-width="20"/>
+              </svg>
+              <div class="donut-legend" id="donut-legend"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Activity by month -->
+      <div class="chart-card full" style="margin-bottom:18px;">
+        <div class="chart-card-title">Monthly walkthrough activity</div>
+        <div id="monthly-chart" style="display:flex;align-items:flex-end;gap:8px;height:80px;margin-top:8px;"></div>
+        <div id="monthly-labels" style="display:flex;gap:8px;margin-top:6px;"></div>
+      </div>
+    </div>
+
+    <!-- ══ PAGE: OBSERVATIONS ══ -->
+    <div class="page" id="page-observations">
+      <div class="section-eyebrow">Observation Descriptors</div>
+      <div class="section-title-h">Rating Breakdown by Category</div>
+
+      <div class="chart-card full" style="margin-bottom:18px;">
+        <div class="chart-card-title">Rating distribution across all observation categories</div>
+        <div class="stacked-legend" style="margin-bottom:16px;">
+          <div class="stacked-legend-item"><div class="stacked-legend-dot" style="background:#22c55e;"></div>Evident</div>
+          <div class="stacked-legend-item"><div class="stacked-legend-dot" style="background:#f59e0b;"></div>Developing</div>
+          <div class="stacked-legend-item"><div class="stacked-legend-dot" style="background:#f87171;"></div>Emerging</div>
+          <div class="stacked-legend-item"><div class="stacked-legend-dot" style="background:#d1d5db;"></div>N/A or Not Observed</div>
+        </div>
+        <div id="obs-stacked-bars"></div>
+      </div>
+
+      <div class="chart-row">
+        <div class="chart-card">
+          <div class="chart-card-title">Highest-rated categories (% Evident)</div>
+          <div id="top-cats"></div>
+        </div>
+        <div class="chart-card">
+          <div class="chart-card-title">Areas for growth (% Emerging or below)</div>
+          <div id="growth-cats"></div>
+        </div>
+      </div>
+
+      <!-- Reading & Writing Focus -->
+      <div class="chart-card full" style="margin-bottom:18px;">
+        <div class evid="chart-card-title">Reading &amp; Writing Focus areas observed</div>
+        <div id="reading-bars" style="margin-top:10px;"></div>
+      </div>
+    </div>
+
+    <!-- ══ PAGE: STRENGTHS ══ -->
+    <div class="page" id="page-strengths">
+      <div class="section-eyebrow">Instructional Strengths</div>
+      <div class="section-title-h">What Observers Are Celebrating</div>
+
+      <div class="chart-row">
+        <div class="chart-card full">
+          <div class="chart-card-title">Top strengths observed (by frequency)</div>
+          <div id="strengths-bars" style="margin-top:8px;"></div>
+        </div>
+      </div>
+
+      <div class="chart-card full" style="margin-top:18px;">
+        <div class="chart-card-title">All strengths — tag cloud</div>
+        <div class="tag-cloud" id="strength-tags-cloud" style="margin-top:8px;"></div>
+      </div>
+    </div>
+
+    <!-- ══ PAGE: RECORDS ══ -->
+    <div class="page" id="page-records">
+      <div class="section-eyebrow">Visit Log</div>
+      <div class="section-title-h">All Walkthrough Records</div>
+
+      <div class="filters-bar">
+        <div class="filter-group">
+          <label>School</label>
+          <select id="rec-filter-school" onchange="applyRecordFilters()">
+            <option value="">All schools</option>
+            <option value="Oglethorpe County Elementary">Elementary</option>
+            <option value="Oglethorpe County Middle School">Middle School</option>
+            <option value="Oglethorpe County High School">High School</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label>Observer</label>
+          <select id="rec-filter-observer" onchange="applyRecordFilters()">
+            <option value="">All observers</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label>Date from</label>
+          <input type="date" id="rec-filter-from" onchange="applyRecordFilters()">
+        </div>
+        <div class="filter-group">
+          <label>Date to</label>
+          <input type="date" id="rec-filter-to" onchange="applyRecordFilters()">
+        </div>
+        <div class="filter-group">
+          <label>Response status</label>
+          <select id="rec-filter-status" onchange="applyRecordFilters()">
+            <option value="">All statuses</option>
+            <option value="received">Response received</option>
+            <option value="sent">Awaiting response</option>
+            <option value="draft">Not yet sent</option>
+          </select>
+        </div>
+        <button class="btn-export" onclick="exportCSV()">⬇ Export CSV</button>
+      </div>
+
+      <div class="table-wrap">
+        <div class="table-scroll">
+          <table id="records-table">
+            <thead>
+              <tr>
+                <th>Teacher</th>
+                <th>School</th>
+                <th>Observer</th>
+                <th>Date</th>
+                <th>Grade/Course</th>
+                <th>Engagement</th>
+                <th>Questioning</th>
+                <th>Environment</th>
+                <th>Response</th>
+              </tr>
+            </thead>
+            <tbody id="records-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+      <div class="pagination" id="pagination"></div>
+    </div>
+
+  </main>
+</div>
+
+<!-- ══ DRAWER ══ -->
+<div class="drawer-overlay" id="drawer-overlay" onclick="closeDrawer()"></div>
+<div class="drawer" id="drawer">
+  <div class="drawer-head">
+    <div class="drawer-head-top">
+      <div>
+        <div class="drawer-teacher" id="dr-teacher">—</div>
+        <div class="drawer-meta" id="dr-meta">—</div>
+      </div>
+      <button class="drawer-close" onclick="closeDrawer()">×</button>
+    </div>
+  </div>
+  <div class="drawer-body" id="drawer-body"></div>
+</div>
+
+<script>
+const DASHBOARD_PASSWORD = 'patriots';
+
+function checkPassword() {
+  const val = document.getElementById('pw-input').value.trim().toLowerCase();
+  const err = document.getElementById('pw-error');
+  if (val === DASHBOARD_PASSWORD) {
+    document.getElementById('pw-gate').style.display = 'none';
+    err.style.display = 'none';
+    init();
+  } else {
+    err.style.display = 'block';
+    document.getElementById('pw-input').value = '';
+    document.getElementById('pw-input').focus();
+  }
+}
+
+// Focus password field on load
+window.addEventListener('load', () => {
+  document.getElementById('pw-input').focus();
+});
+
+// ══════════════════════════════════════════════
+// CONFIGURATION — update token to match LENS
+// ══════════════════════════════════════════════
+const AT_TOKEN    = 'patG72MNWRN17dn10.13c975ee5688ffad05f574ff3ead34bb534dda46e830f50192c69d90ad4d1754';
+const AT_BASE     = 'appGLedN9wIfxL9Ay';
+const AT_TABLE    = 'tbl2vp05HS6Qvqpzs';
+
+// ── Observation categories (matches LENS exactly) ──
+const OBS_CATS = [
+  { id:'grouping',     field:'Instruction Clarity',               label:'Instructional clarity' },
+  { id:'engagement',   field:'Student Engagement',                 label:'Student engagement' },
+  { id:'questioning',  field:'Questioning Techniques',             label:'Questioning techniques' },
+  { id:'waittime',     field:'Wait Time & Student Response',       label:'Wait time & response' },
+  { id:'text',         field:'Differentiation & Access',           label:'Differentiation & access' },
+  { id:'evidence',     field:'Evidence & Student Talk',            label:'Evidence & student talk' },
+  { id:'writing',      field:'Writing & Response',                 label:'Writing & response' },
+  { id:'environment',  field:'Learning Environment',               label:'Learning environment' },
+  { id:'relationship', field:'Teacher-Student Relationship',       label:'Teacher–student relationship' },
+  { id:'technology',   field:'Technology & Multimodal Engagement', label:'Technology & multimodal' },
+];
+
+const RATING_ORDER = ['Evident','Purposeful','Developing','Emerging','N/A'];
+
+// State
+let allRecords = [];
+let filteredRecords = [];
+let schoolFilter = 'all';
+let currentPage = 1;
+const PAGE_SIZE = 15;
+
+// ── Fetch all records from Airtable ──
+async function fetchRecords() {
+  let records = [];
+  let offset = null;
+  const headers = { Authorization: `Bearer ${AT_TOKEN}` };
+
+  do {
+    let url = `https://api.airtable.com/v0/${AT_BASE}/${AT_TABLE}?pageSize=100`;
+    if (offset) url += `&offset=${offset}`;
+    const res = await fetch(url, { headers });
+    if (!res.ok) throw new Error(`Airtable ${res.status}: ${res.statusText}`);
+    const data = await res.json();
+    records = records.concat(data.records || []);
+    offset = data.offset || null;
+  } while (offset);
+
+  return records;
+}
+
+async function init() {
+  try {
+    const raw = await fetchRecords();
+    allRecords = raw.map(r => ({ _id: r.id, id: r.id, ...r.fields }))
+      .sort((a,b) => (b['Date']||'').localeCompare(a['Date']||''));
+    filteredRecords = [...allRecords];
+
+    updateConnectionStatus(true, allRecords.length);
+    updateLastUpdated();
+    buildObserverFilter();
+    renderAll();
+  } catch(e) {
+    updateConnectionStatus(false, 0);
+    document.getElementById('last-updated').textContent = 'Connection failed — check token';
+    showErrorState(e.message);
+  }
+}
+
+function updateConnectionStatus(ok, count) {
+  const el = document.getElementById('conn-status');
+  const cnt = document.getElementById('conn-count');
+  el.innerHTML = `<span style="width:8px;height:8px;border-radius:50%;background:${ok?'#22c55e':'#f87171'};display:inline-block;"></span> ${ok?'Connected':'Error'}`;
+  cnt.textContent = ok ? `${count} records loaded` : 'Could not connect';
+}
+
+function updateLastUpdated() {
+  document.getElementById('last-updated').textContent =
+    `Last refreshed: ${new Date().toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'})}`;
+}
+
+function buildObserverFilter() {
+  const obs = [...new Set(allRecords.map(r => r['Observer']).filter(Boolean))].sort();
+  const sel = document.getElementById('rec-filter-observer');
+  obs.forEach(o => { const opt = document.createElement('option'); opt.value = o; opt.textContent = o; sel.appendChild(opt); });
+}
+
+// ── Global school filter (sidebar) ──
+function setSchoolFilter(school, el) {
+  schoolFilter = school;
+  document.querySelectorAll('[id^="sb-"]').forEach(b => b.classList.remove('active'));
+  if (el) el.classList.add('active');
+  applyFilters();
+}
+
+function applyFilters() {
+  filteredRecords = allRecords.filter(r => {
+    if (schoolFilter !== 'all' && r['School'] !== schoolFilter) return false;
+    return true;
+  });
+  currentPage = 1;
+  renderAll();
+
+  // Update title
+  const t = schoolFilter === 'all' ? 'All Schools' :
+            schoolFilter.includes('Elementary') ? 'Elementary' :
+            schoolFilter.includes('Middle') ? 'Middle School' : 'High School';
+  document.getElementById('overview-title').textContent = `${t} — Walkthrough Summary`;
+}
+
+function applyRecordFilters() {
+  const school   = document.getElementById('rec-filter-school').value;
+  const observer = document.getElementById('rec-filter-observer').value;
+  const from     = document.getElementById('rec-filter-from').value;
+  const to       = document.getElementById('rec-filter-to').value;
+  const status   = document.getElementById('rec-filter-status').value;
+
+  filteredRecords = allRecords.filter(r => {
+    if (schoolFilter !== 'all' && r['School'] !== schoolFilter) return false;
+    if (school && r['School'] !== school) return false;
+    if (observer && r['Observer'] !== observer) return false;
+    if (from && r['Date'] && r['Date'] < from) return false;
+    if (to   && r['Date'] && r['Date'] > to)   return false;
+    if (status) {
+      const s = (r['Status'] || '').toLowerCase();
+      if (status === 'received' && !r['Teacher Responded']) return false;
+      if (status === 'sent' && (r['Teacher Responded'] || s !== 'sent')) return false;
+      if (status === 'draft' && s === 'sent') return false;
+    }
+    return true;
+  });
+  currentPage = 1;
+  renderRecords();
+}
+
+function renderAll() {
+  renderKPIs();
+  renderSchoolBars();
+  renderObserverBars();
+  renderFormatBars();
+  renderStatusDonut();
+  renderMonthlyChart();
+  renderObsStackedBars();
+  renderTopCats();
+  renderGrowthCats();
+  renderReadingBars();
+  renderStrengthsBars();
+  renderStrengthCloud();
+  renderRecords();
+}
+
+// ── KPIs ──
+function renderKPIs() {
+  const recs = filteredRecords;
+  const total = recs.length;
+  const responded = recs.filter(r => r['Teacher Responded']).length;
+  const pending   = recs.filter(r => (r['Status']||'').toLowerCase() === 'sent' && !r['Teacher Responded']).length;
+  const teachers  = new Set(recs.map(r => r['Teacher Name']).filter(Boolean)).size;
+  const rate = total ? Math.round(responded/total*100) : 0;
+
+  document.getElementById('kpi-total').textContent     = total;
+  document.getElementById('kpi-responses').textContent = responded;
+  document.getElementById('kpi-pending').textContent   = pending;
+  document.getElementById('kpi-teachers').textContent  = teachers;
+  document.getElementById('kpi-response-rate').textContent = `${rate}% response rate`;
+
+  const dates = recs.map(r=>r['Date']).filter(Boolean).sort();
+  document.getElementById('kpi-date-range').textContent = dates.length
+    ? `${fmtDate(dates[0])} – ${fmtDate(dates[dates.length-1])}`
+    : 'No dates recorded';
+}
+
+// ── Generic horizontal bar chart ──
+function makeBarChart(containerId, data, colorFn) {
+  const el = document.getElementById(containerId);
+  if (!el) return;
+  const max = Math.max(...data.map(d=>d.count), 1);
+  el.innerHTML = data.map(d => `
+    <div class="rating-bar-row">
+      <div class="rating-bar-label" title="${d.label}">${d.label}</div>
+      <div class="rating-bar-track">
+        <div class="rating-bar-fill ${colorFn||'rb-fill-strong'}" style="width:${Math.round(d.count/max*100)}%"></div>
+      </div>
+      <div class="rating-bar-pct">${d.count}</div>
+    </div>`).join('');
+}
+
+function renderSchoolBars() {
+  const counts = groupBy(filteredRecords, 'School');
+  const data = Object.entries(counts).sort((a,b)=>b[1]-a[1]).map(([k,v])=>({label:shortSchool(k),count:v}));
+  makeBarChart('school-bars', data);
+}
+
+function renderObserverBars() {
+  const counts = groupBy(filteredRecords, 'Observer');
+  const data = Object.entries(counts).sort((a,b)=>b[1]-a[1]).slice(0,8).map(([k,v])=>({label:k||'Unknown',count:v}));
+  makeBarChart('observer-bars', data, 'rb-fill-developing');
+}
+
+function renderFormatBars() {
+  const counts = groupBy(filteredRecords, 'Primary Format');
+  const data = Object.entries(counts).sort((a,b)=>b[1]-a[1]).map(([k,v])=>({label:k||'Not recorded',count:v}));
+  makeBarChart('format-bars', data, 'rb-fill-strong');
+}
+
+// ── Donut chart ──
+function renderStatusDonut() {
+  const recs = filteredRecords;
+  const received = recs.filter(r => r['Teacher Responded']).length;
+  const sent     = recs.filter(r => (r['Status']||'').toLowerCase() === 'sent' && !r['Teacher Responded']).length;
+  const draft    = recs.length - received - sent;
+
+  const segments = [
+    { label:'Response received', count:received, color:'#22c55e' },
+    { label:'Awaiting response', count:sent,     color:'#f59e0b' },
+    { label:'Not yet sent',      count:draft,    color:'#d1d5db' },
+  ].filter(s=>s.count>0);
+
+  const total = recs.length || 1;
+  const circumference = 2 * Math.PI * 46;
+  let offset = 0;
+  const svg = document.getElementById('donut-svg');
+  // Remove old segments
+  [...svg.querySelectorAll('.donut-seg')].forEach(e=>e.remove());
+
+  segments.forEach(seg => {
+    const pct = seg.count / total;
+    const dash = pct * circumference;
+    const circle = document.createElementNS('http://www.w3.org/2000/svg','circle');
+    circle.setAttribute('class','donut-seg');
+    circle.setAttribute('cx','60'); circle.setAttribute('cy','60'); circle.setAttribute('r','46');
+    circle.setAttribute('fill','none'); circle.setAttribute('stroke',seg.color);
+    circle.setAttribute('stroke-width','20');
+    circle.setAttribute('stroke-dasharray',`${dash} ${circumference-dash}`);
+    circle.setAttribute('stroke-dashoffset', -offset + circumference * 0.25);
+    circle.setAttribute('transform','rotate(-90 60 60)');
+    svg.appendChild(circle);
+    offset += dash;
+  });
+
+  document.getElementById('donut-legend').innerHTML = segments.map(s=>`
+    <div class="donut-legend-row">
+      <div class="donut-legend-color" style="background:${s.color}"></div>
+      ${s.label}
+      <span class="donut-legend-val">${s.count}</span>
+    </div>`).join('');
+}
+
+// ── Monthly chart ──
+function renderMonthlyChart() {
+  const monthlyCounts = {};
+  filteredRecords.forEach(r => {
+    if (!r['Date']) return;
+    const key = r['Date'].slice(0,7); // YYYY-MM
+    monthlyCounts[key] = (monthlyCounts[key]||0) + 1;
+  });
+  const sorted = Object.keys(monthlyCounts).sort();
+  const max = Math.max(...Object.values(monthlyCounts), 1);
+
+  const chartEl  = document.getElementById('monthly-chart');
+  const labelsEl = document.getElementById('monthly-labels');
+
+  chartEl.innerHTML = sorted.map(k=>`
+    <div title="${k}: ${monthlyCounts[k]} walkthroughs"
+         style="flex:1;background:var(--navy);border-radius:4px 4px 0 0;
+                height:${Math.round(monthlyCounts[k]/max*100)}%;
+                min-height:4px;min-width:18px;opacity:.75;transition:opacity .15s;cursor:default;"
+         onmouseenter="this.style.opacity=1;this.style.background='var(--red)'"
+         onmouseleave="this.style.opacity='.75';this.style.background='var(--navy)'">
+    </div>`).join('');
+
+  labelsEl.innerHTML = sorted.map(k=>`
+    <div style="flex:1;font-size:10px;color:var(--text-muted);text-align:center;min-width:18px;">
+      ${monthLabel(k)}
+    </div>`).join('');
+}
+
+function monthLabel(ym) {
+  const [y,m] = ym.split('-');
+  const names = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  return names[parseInt(m)-1]||ym;
+}
+
+// ── Observation stacked bars ──
+function renderObsStackedBars() {
+  const el = document.getElementById('obs-stacked-bars');
+  if (!el) return;
+  const total = filteredRecords.length || 1;
+
+  el.innerHTML = OBS_CATS.map(cat => {
+    let ev=0, dev=0, emg=0, na=0;
+    filteredRecords.forEach(r => {
+      const v = r[cat.field] || '';
+      if (v === 'Evident' || v === 'Purposeful') ev++;
+      else if (v === 'Developing') dev++;
+      else if (v === 'Emerging') emg++;
+      else na++;
+    });
+    const pEv  = Math.round(ev/total*100);
+    const pDev = Math.round(dev/total*100);
+    const pEmg = Math.round(emg/total*100);
+    const pNa  = Math.max(0,100-pEv-pDev-pEmg);
+    return `
+      <div class="stacked-row">
+        <div class="stacked-label">${cat.label}</div>
+        <div class="stacked-bar">
+          <div class="stacked-seg" style="width:${pEv}%;background:#22c55e;" title="Evident: ${ev}"></div>
+          <div class="stacked-seg" style="width:${pDev}%;background:#f59e0b;" title="Developing: ${dev}"></div>
+          <div class="stacked-seg" style="width:${pEmg}%;background:#f87171;" title="Emerging: ${emg}"></div>
+          <div class="stacked-seg" style="width:${pNa}%;background:#e5e7eb;" title="N/A: ${na}"></div>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+function renderTopCats() {
+  const total = filteredRecords.length || 1;
+  const data = OBS_CATS.map(cat => {
+    const ev = filteredRecords.filter(r => ['Evident','Purposeful'].includes(r[cat.field]||'')).length;
+    return { label: cat.label, count: ev, pct: Math.round(ev/total*100) };
+  }).sort((a,b)=>b.pct-a.pct).slice(0,5);
+
+  document.getElementById('top-cats').innerHTML = data.map(d=>`
+    <div class="rating-bar-row">
+      <div class="rating-bar-label" title="${d.label}">${d.label}</div>
+      <div class="rating-bar-track"><div class="rating-bar-fill rb-fill-strong" style="width:${d.pct}%"></div></div>
+      <div class="rating-bar-pct">${d.pct}%</div>
+    </div>`).join('');
+}
+
+function renderGrowthCats() {
+  const total = filteredRecords.length || 1;
+  const data = OBS_CATS.map(cat => {
+    const emg = filteredRecords.filter(r => (r[cat.field]||'') === 'Emerging').length;
+    return { label: cat.label, count: emg, pct: Math.round(emg/total*100) };
+  }).sort((a,b)=>b.pct-a.pct).slice(0,5);
+
+  document.getElementById('growth-cats').innerHTML = data.map(d=>`
+    <div class="rating-bar-row">
+      <div class="rating-bar-label" title="${d.label}">${d.label}</div>
+      <div class="rating-bar-track"><div class="rating-bar-fill rb-fill-emerging" style="width:${d.pct}%"></div></div>
+      <div class="rating-bar-pct">${d.pct}%</div>
+    </div>`).join('');
+}
+
+function renderReadingBars() {
+  const counts = {};
+  filteredRecords.forEach(r => {
+    const val = r['Reading & Writing Focus'] || '';
+    val.split(',').map(s=>s.trim()).filter(Boolean).forEach(focus => {
+      counts[focus] = (counts[focus]||0) + 1;
+    });
+  });
+  const data = Object.entries(counts).sort((a,b)=>b[1]-a[1]).slice(0,10).map(([k,v])=>({label:k,count:v}));
+  makeBarChart('reading-bars', data);
+}
+
+// ── Strengths ──
+function getStrengthCounts() {
+  const counts = {};
+  filteredRecords.forEach(r => {
+    const val = r['Strengths Observed'] || '';
+    val.split(',').map(s=>s.trim()).filter(Boolean).forEach(s => {
+      counts[s] = (counts[s]||0) + 1;
+    });
+    if (r['Other Strength']) counts[r['Other Strength']] = (counts[r['Other Strength']]||0) + 1;
+  });
+  return counts;
+}
+
+function renderStrengthsBars() {
+  const counts = getStrengthCounts();
+  const data = Object.entries(counts).sort((a,b)=>b[1]-a[1]).slice(0,10);
+  const max = data[0]?.[1] || 1;
+  document.getElementById('strengths-bars').innerHTML = data.map(([k,v])=>`
+    <div class="strength-bar-row">
+      <div class="strength-bar-name" title="${k}">${k}</div>
+      <div class="strength-bar-track"><div class="strength-bar-fill" style="width:${Math.round(v/max*100)}%"></div></div>
+      <div class="strength-bar-n">${v}</div>
+    </div>`).join('');
+}
+
+function renderStrengthCloud() {
+  const counts = getStrengthCounts();
+  const sorted = Object.entries(counts).sort((a,b)=>b[1]-a[1]);
+  document.getElementById('strength-tags-cloud').innerHTML = sorted.map(([k,v])=>`
+    <span class="strength-cloud-tag">${k}<span class="count">${v}</span></span>`).join('');
+}
+
+// ── Records table ──
+function renderRecords() {
+  const tbody = document.getElementById('records-tbody');
+  const start = (currentPage-1)*PAGE_SIZE;
+  const page  = filteredRecords.slice(start, start+PAGE_SIZE);
+
+  const rbClass = r =>
+    ['Evident','Purposeful'].includes(r) ? 'tb-strong' :
+    r === 'Developing' ? 'tb-developing' :
+    r === 'Emerging'   ? 'tb-emerging' : 'tb-na';
+
+  const statusDot = r => {
+    if (r['Teacher Responded']) return '<span class="response-dot dot-received"></span>Received';
+    if ((r['Status']||'').toLowerCase() === 'sent') return '<span class="response-dot dot-sent"></span>Pending';
+    return '<span class="response-dot dot-draft"></span>Draft';
+  };
+
+  tbody.innerHTML = page.map(r=>`
+    <tr onclick="openDrawer('${r._id || ''}')" style="cursor:pointer;">
+      <td><strong>${r['Teacher Name']||'—'}</strong></td>
+      <td>${shortSchool(r['School'])}</td>
+      <td>${r['Observer']||'—'}</td>
+      <td style="white-space:nowrap">${r['Date']?fmtDate(r['Date']):'—'}</td>
+      <td>${r['Grade / Course']||'—'}</td>
+      <td><span class="table-badge ${rbClass(r['Student Engagement'])}">${r['Student Engagement']||'—'}</span></td>
+      <td><span class="table-badge ${rbClass(r['Questioning Techniques'])}">${r['Questioning Techniques']||'—'}</span></td>
+      <td><span class="table-badge ${rbClass(r['Learning Environment'])}">${r['Learning Environment']||'—'}</span></td>
+      <td style="white-space:nowrap">${statusDot(r)}</td>
+    </tr>`).join('');
+
+  renderPagination();
+}
+
+function renderPagination() {
+  const total = filteredRecords.length;
+  const pages = Math.ceil(total/PAGE_SIZE);
+  const el = document.getElementById('pagination');
+  if (pages <= 1) { el.innerHTML=''; return; }
+
+  let html = `<span class="pagination-info">${total} records · Page ${currentPage} of ${pages}</span>`;
+  html += `<button class="page-btn" onclick="goPage(${currentPage-1})" ${currentPage===1?'disabled':''}>‹ Prev</button>`;
+
+  for (let i=1; i<=pages; i++) {
+    if (i===1||i===pages||Math.abs(i-currentPage)<=2) {
+      html += `<button class="page-btn ${i===currentPage?'active':''}" onclick="goPage(${i})">${i}</button>`;
+    } else if (Math.abs(i-currentPage)===3) {
+      html += `<span style="color:var(--text-muted);padding:0 4px;">…</span>`;
+    }
+  }
+  html += `<button class="page-btn" onclick="goPage(${currentPage+1})" ${currentPage===pages?'disabled':''}>Next ›</button>`;
+  el.innerHTML = html;
+}
+
+function goPage(p) {
+  const pages = Math.ceil(filteredRecords.length/PAGE_SIZE);
+  currentPage = Math.max(1,Math.min(p,pages));
+  renderRecords();
+  document.getElementById('page-records').scrollIntoView({behavior:'smooth'});
+}
+
+// ── Drawer ──
+function openDrawer(recordId) {
+  const rec = allRecords.find(x => x._id === recordId || x.id === recordId);
+  if (!rec) return;
+
+  document.getElementById('dr-teacher').textContent = rec['Teacher Name'] || '—';
+  document.getElementById('dr-meta').textContent =
+    [rec['Observer'], shortSchool(rec['School']), rec['Date']?fmtDate(rec['Date']):'', rec['Grade / Course']].filter(Boolean).join(' · ');
+
+  const rbClass = v =>
+    ['Evident','Purposeful'].includes(v) ? 'tb-strong' :
+    v === 'Developing' ? 'tb-developing' :
+    v === 'Emerging'   ? 'tb-emerging' : 'tb-na';
+
+  let html = `
+    <div class="drawer-section">
+      <div class="drawer-section-title">Visit Information</div>
+      ${field('Format', rec['Primary Format'])}
+      ${field('Configuration', rec['Class Configuration'])}
+      ${field('Reading & Writing Focus', rec['Reading & Writing Focus'])}
+      ${field('Literary / Skill Focus', rec['Literary / Skill Focus'])}
+      ${field('Standard / Target', rec['Standard / Learning Target'])}
+      ${field('Time of Visit', rec['Time of Visit'])}
+    </div>
+    <div class="drawer-section">
+      <div class="drawer-section-title">Observation Descriptor Ratings</div>
+      <div class="drawer-ratings-grid">
+        ${OBS_CATS.map(c=>`
+          <div class="drawer-rating-row">
+            <span class="drawer-rating-cat">${c.label}</span>
+            <span class="table-badge ${rbClass(rec[c.field]||'')}">${rec[c.field]||'—'}</span>
+          </div>`).join('')}
+      </div>
+    </div>`;
+
+  const strengths = [rec['Strengths Observed'],rec['Other Strength']].filter(Boolean).join(', ');
+  if (strengths) html += `
+    <div class="drawer-section">
+      <div class="drawer-section-title">Strengths Noted</div>
+      <div class="tag-cloud">
+        ${strengths.split(',').map(s=>`<span class="strength-cloud-tag">${s.trim()}</span>`).join('')}
+      </div>
+    </div>`;
+
+  html += `
+    <div class="drawer-section">
+      <div class="drawer-section-title">Observer Notes</div>
+      ${field('Highlights from observation', rec['Highlights from Observation'])}
+      ${field('What the teacher needs', rec['What Does the Teacher Need'])}
+      ${field('Opportunities for students', rec['Opportunities for Students'])}
+      ${field('General comments', rec['General Comments'])}
+    </div>`;
+
+  const hasResponse = rec['Teacher Reflection'] || rec['Support Requested'] || rec['Teacher Signature'];
+  html += `
+    <div class="response-section">
+      <div class="response-section-title">Teacher Response</div>
+      ${hasResponse
+        ? field('Reflection', rec['Teacher Reflection']) +
+          field('Support requested', rec['Support Requested']) +
+          (rec['Teacher Signature'] ? `<div class="drawer-field"><div class="drawer-field-label">Signed</div><div class="drawer-field-val"><strong>${rec['Teacher Signature']}</strong>${rec['Teacher Signature Date']?' · '+fmtDate(rec['Teacher Signature Date']):''}</div></div>` : '')
+        : '<div style="font-size:13px;color:var(--text-muted);font-style:italic;">No teacher response recorded yet.</div>'}
+    </div>`;
+
+  document.getElementById('drawer-body').innerHTML = html;
+  document.getElementById('drawer-overlay').classList.add('open');
+  document.getElementById('drawer').classList.add('open');
+}
+
+function field(label, val) {
+  if (!val) return '';
+  return `<div class="drawer-field">
+    <div class="drawer-field-label">${label}</div>
+    <div class="drawer-field-val">${val}</div>
+  </div>`;
+}
+
+function closeDrawer() {
+  document.getElementById('drawer-overlay').classList.remove('open');
+  document.getElementById('drawer').classList.remove('open');
+}
+
+// ── CSV Export ──
+function exportCSV() {
+  const fields = [
+    'Teacher Name','Observer','School','Date','Grade / Course','Subject','Time of Visit',
+    'Primary Format','Class Configuration',
+    'Instruction Clarity','Student Engagement','Questioning Techniques','Wait Time & Student Response',
+    'Differentiation & Access','Evidence & Student Talk','Writing & Response',
+    'Learning Environment','Teacher-Student Relationship','Technology & Multimodal Engagement',
+    'Strengths Observed','Other Strength',
+    'Highlights from Observation','What Does the Teacher Need','Opportunities for Students','General Comments',
+    'Teacher Reflection','Support Requested','Teacher Signature','Status'
+  ];
+  const header = fields.map(f => `"${f}"`).join(',');
+  const rows = filteredRecords.map(r =>
+    fields.map(f => `"${(r[f]||'').toString().replace(/"/g,'""')}"`).join(',')
+  );
+  const csv = [header, ...rows].join('\n');
+  const blob = new Blob([csv], { type: 'text/csv' });
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
+  const date = new Date().toISOString().split('T')[0];
+  a.download = `OCSS-LENS-walkthroughs-${date}.csv`;
+  a.click();
+}
+
+// ── Nav ──
+function showPage(id, el) {
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-'+id).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(b=>b.classList.remove('active'));
+  if (el) el.classList.add('active');
+}
+
+// ── Helpers ──
+function groupBy(arr, key) {
+  const counts = {};
+  arr.forEach(r => { const v = r[key]||'Unknown'; counts[v]=(counts[v]||0)+1; });
+  return counts;
+}
+
+function shortSchool(s) {
+  if (!s) return '—';
+  if (s.includes('Elementary')) return 'Elementary';
+  if (s.includes('Middle'))     return 'Middle School';
+  if (s.includes('High'))       return 'High School';
+  return s;
+}
+
+function fmtDate(d) {
+  if (!d) return '—';
+  return new Date(d+'T12:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
+}
+
+function showErrorState(msg) {
+  document.getElementById('kpi-grid').innerHTML = `
+    <div class="state-box" style="grid-column:1/-1">
+      <svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="#f87171" stroke-width="2" stroke-linecap="round">
+        <circle cx="24" cy="24" r="20"/>
+        <line x1="24" y1="16" x2="24" y2="26"/>
+        <circle cx="24" cy="32" r="1.5" fill="#f87171" stroke="none"/>
+      </svg>
+      <h3>Could not load data</h3>
+      <p>Check that the Airtable token and base ID are correct in the dashboard configuration.<br><br><code style="font-size:11px;color:var(--text-muted)">${msg}</code></p>
+    </div>`;
+}
+
+// ── Boot — called after password check ──
+</script>
+</body>
+</html>
