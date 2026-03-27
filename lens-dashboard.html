@@ -469,6 +469,35 @@
     <button class="nav-item" id="sb-mid"  onclick="setSchoolFilter('Oglethorpe County Middle School',this)">Middle School</button>
     <button class="nav-item" id="sb-hs"   onclick="setSchoolFilter('Oglethorpe County High School',this)">High School</button>
 
+    <div class="sidebar-label">Filter by Teacher</div>
+    <select id="sb-teacher" onchange="setTeacherFilter(this.value)"
+      style="font-family:'DM Sans',sans-serif; font-size:12px; color:rgba(255,255,255,.8);
+             background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.15);
+             border-radius:7px; padding:8px 10px; width:100%; cursor:pointer;
+             margin-bottom:4px;">
+      <option value="">All teachers</option>
+    </select>
+
+    <div class="sidebar-label">Filter by Grade</div>
+    <select id="sb-grade" onchange="setGradeFilter(this.value)"
+      style="font-family:'DM Sans',sans-serif; font-size:12px; color:rgba(255,255,255,.8);
+             background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.15);
+             border-radius:7px; padding:8px 10px; width:100%; cursor:pointer;
+             margin-bottom:4px;">
+      <option value="">All grades</option>
+    </select>
+
+    <button onclick="clearAllFilters()"
+      style="font-family:'DM Sans',sans-serif; font-size:12px; font-weight:500;
+             color:rgba(255,255,255,.6); background:transparent;
+             border:1px solid rgba(255,255,255,.15); border-radius:7px;
+             padding:7px 10px; width:100%; cursor:pointer; margin-top:4px;
+             transition:all .15s;"
+      onmouseover="this.style.background='rgba(255,255,255,.08)';this.style.color='white'"
+      onmouseout="this.style.background='transparent';this.style.color='rgba(255,255,255,.6)'">
+      ✕ Clear all filters
+    </button>
+
     <div class="sidebar-label" style="margin-top:auto; padding-top:30px;">Connection</div>
     <div style="padding:10px 12px; background:rgba(255,255,255,.06); border-radius:8px; font-size:12px; color:rgba(255,255,255,.6); line-height:1.6;">
       <div id="conn-status" style="display:flex;align-items:center;gap:6px;margin-bottom:4px;">
@@ -486,6 +515,7 @@
     <div class="page active" id="page-overview">
       <div class="section-eyebrow">OCSS LENS</div>
       <div class="section-title-h" id="overview-title">Instructional Walkthrough Summary</div>
+      <div id="active-filters-bar" style="display:none; margin-bottom:16px; display:flex; gap:8px; flex-wrap:wrap;"></div>
 
       <!-- KPIs -->
       <div class="kpi-grid" id="kpi-grid">
@@ -616,6 +646,18 @@
           <input type="date" id="rec-filter-to" onchange="applyRecordFilters()">
         </div>
         <div class="filter-group">
+          <label>Teacher</label>
+          <select id="rec-filter-teacher" onchange="applyRecordFilters()">
+            <option value="">All teachers</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label>Grade / Course</label>
+          <select id="rec-filter-grade" onchange="applyRecordFilters()">
+            <option value="">All grades</option>
+          </select>
+        </div>
+        <div class="filter-group">
           <label>Response status</label>
           <select id="rec-filter-status" onchange="applyRecordFilters()">
             <option value="">All statuses</option>
@@ -717,6 +759,8 @@ const RATING_ORDER = ['Evident','Purposeful','Developing','Emerging','N/A'];
 let allRecords = [];
 let filteredRecords = [];
 let schoolFilter = 'all';
+let teacherFilter = '';
+let gradeFilter = '';
 let currentPage = 1;
 const PAGE_SIZE = 15;
 
@@ -749,6 +793,8 @@ async function init() {
     updateConnectionStatus(true, allRecords.length);
     updateLastUpdated();
     buildObserverFilter();
+    buildTeacherFilter();
+    buildGradeFilter();
     renderAll();
   } catch(e) {
     updateConnectionStatus(false, 0);
@@ -775,6 +821,61 @@ function buildObserverFilter() {
   obs.forEach(o => { const opt = document.createElement('option'); opt.value = o; opt.textContent = o; sel.appendChild(opt); });
 }
 
+function buildTeacherFilter() {
+  const teachers = [...new Set(allRecords.map(r => r['Teacher Name']).filter(Boolean))].sort();
+  ['sb-teacher','rec-filter-teacher'].forEach(id => {
+    const sb = document.getElementById(id);
+    if (!sb) return;
+    teachers.forEach(t => { const opt = document.createElement('option'); opt.value = t; opt.textContent = t; sb.appendChild(opt); });
+  });
+}
+
+function buildGradeFilter() {
+  const grades = [...new Set(allRecords.map(r => r['Grade / Course']).filter(Boolean))].sort();
+  ['sb-grade','rec-filter-grade'].forEach(id => {
+    const sb = document.getElementById(id);
+    if (!sb) return;
+    grades.forEach(g => { const opt = document.createElement('option'); opt.value = g; opt.textContent = g; sb.appendChild(opt); });
+  });
+}
+
+function setTeacherFilter(val) {
+  teacherFilter = val;
+  applyFilters();
+}
+
+function setGradeFilter(val) {
+  gradeFilter = val;
+  applyFilters();
+}
+
+function clearAllFilters() {
+  schoolFilter = 'all';
+  teacherFilter = '';
+  gradeFilter = '';
+  document.getElementById('sb-teacher').value = '';
+  document.getElementById('sb-grade').value = '';
+  document.getElementById('sb-filter-school').value = 'all';
+  document.querySelectorAll('[id^="sb-all"],[id^="sb-elem"],[id^="sb-mid"],[id^="sb-hs"]').forEach(b => b.classList.remove('active'));
+  document.getElementById('sb-all') && document.getElementById('sb-all').classList.add('active');
+  applyFilters();
+}
+
+function renderActiveFilterBadges() {
+  const bar = document.getElementById('active-filters-bar');
+  const badges = [];
+  if (schoolFilter !== 'all') badges.push(`<span style="background:var(--navy);color:white;font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;">🏫 ${shortSchool(schoolFilter)}</span>`);
+  if (teacherFilter) badges.push(`<span style="background:var(--navy);color:white;font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;">👤 ${teacherFilter}</span>`);
+  if (gradeFilter)   badges.push(`<span style="background:var(--navy);color:white;font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;">📚 ${gradeFilter}</span>`);
+  if (badges.length) {
+    bar.style.display = 'flex';
+    bar.innerHTML = '<span style="font-size:11px;color:var(--text-muted);align-self:center;">Active filters:</span>' + badges.join('');
+  } else {
+    bar.style.display = 'none';
+    bar.innerHTML = '';
+  }
+}
+
 // ── Global school filter (sidebar) ──
 function setSchoolFilter(school, el) {
   schoolFilter = school;
@@ -786,29 +887,40 @@ function setSchoolFilter(school, el) {
 function applyFilters() {
   filteredRecords = allRecords.filter(r => {
     if (schoolFilter !== 'all' && r['School'] !== schoolFilter) return false;
+    if (teacherFilter && r['Teacher Name'] !== teacherFilter) return false;
+    if (gradeFilter   && r['Grade / Course'] !== gradeFilter) return false;
     return true;
   });
   currentPage = 1;
   renderAll();
+  renderActiveFilterBadges();
 
   // Update title
-  const t = schoolFilter === 'all' ? 'All Schools' :
+  const t = teacherFilter ? teacherFilter :
+            gradeFilter   ? gradeFilter + ' ELA' :
+            schoolFilter === 'all' ? 'All Schools' :
             schoolFilter.includes('Elementary') ? 'Elementary' :
             schoolFilter.includes('Middle') ? 'Middle School' : 'High School';
   document.getElementById('overview-title').textContent = `${t} — Walkthrough Summary`;
 }
 
 function applyRecordFilters() {
-  const school   = document.getElementById('rec-filter-school').value;
-  const observer = document.getElementById('rec-filter-observer').value;
+  const school    = document.getElementById('rec-filter-school').value;
+  const observer  = document.getElementById('rec-filter-observer').value;
+  const recTeacher = document.getElementById('rec-filter-teacher').value;
+  const recGrade   = document.getElementById('rec-filter-grade').value;
   const from     = document.getElementById('rec-filter-from').value;
   const to       = document.getElementById('rec-filter-to').value;
   const status   = document.getElementById('rec-filter-status').value;
 
   filteredRecords = allRecords.filter(r => {
     if (schoolFilter !== 'all' && r['School'] !== schoolFilter) return false;
+    if (teacherFilter && r['Teacher Name'] !== teacherFilter) return false;
+    if (gradeFilter   && r['Grade / Course'] !== gradeFilter) return false;
     if (school && r['School'] !== school) return false;
     if (observer && r['Observer'] !== observer) return false;
+    if (recTeacher && r['Teacher Name'] !== recTeacher) return false;
+    if (recGrade   && r['Grade / Course'] !== recGrade) return false;
     if (from && r['Date'] && r['Date'] < from) return false;
     if (to   && r['Date'] && r['Date'] > to)   return false;
     if (status) {
