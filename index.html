@@ -742,6 +742,20 @@
     <button class="nav-btn active" id="nav-form" onclick="showScreen('form')">New walkthrough</button>
     <button class="nav-btn"        id="nav-log"  onclick="showScreen('log')">Visit log</button>
     <button class="nav-btn"        id="nav-mine" onclick="showScreen('mine')">My walkthroughs</button>
+    <a href="lens-dashboard.html" target="_blank"
+      style="font-family:'DM Sans',sans-serif; font-size:13px; font-weight:500;
+             padding:8px 18px; border-radius:7px; border:1px solid rgba(255,255,255,.2);
+             background:transparent; color:rgba(255,255,255,.8); cursor:pointer;
+             transition:all .18s; letter-spacing:.01em; text-decoration:none;
+             display:flex; align-items:center; gap:7px;"
+      onmouseover="this.style.background='rgba(255,255,255,.1)';this.style.color='#fff'"
+      onmouseout="this.style.background='transparent';this.style.color='rgba(255,255,255,.8)'">
+      <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="1" y="1" width="4" height="4" rx="1"/><rect x="8" y="1" width="4" height="4" rx="1"/>
+        <rect x="1" y="8" width="4" height="4" rx="1"/><rect x="8" y="8" width="4" height="4" rx="1"/>
+      </svg>
+      Admin dashboard
+    </a>
     <button class="nav-btn" id="nav-clear" onclick="clearForm();showScreen('form');" title="Clear all fields and start fresh"
       style="border-color:rgba(178,34,52,.5); color:rgba(255,180,180,.85);">&#10005; Clear form</button>
   </nav>
